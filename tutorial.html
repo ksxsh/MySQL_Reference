@@ -491,28 +491,21 @@ Empty set (0.00 sec)
         <code class="literal">species</code>这些字段，因为这些字段值长度都不确定。这些字段长度需要定义成一样，也不需要都定义成 <code class="literal">20</code>。你可以选择<code class="literal">1</code>到<code class="literal">65535</code>之间任一长度，选择一个最合理的值。如果你选择的值不合适，后来需要更长的字段， MySQL提供了 <a class="link" href="sql-syntax.html#alter-table" title="13.1.7. ALTER TABLE Syntax"><code class="literal">ALTER
         TABLE</code></a> 语句来修改字段长度。</p>
 <p>
-        Several types of values can be chosen to represent sex in animal
-        records, such as <code class="literal">'m'</code> and
-        <code class="literal">'f'</code>, or perhaps <code class="literal">'male'</code> and
-        <code class="literal">'female'</code>. It is simplest to use the single
-        characters <code class="literal">'m'</code> and <code class="literal">'f'</code>.
-      </p><p>
-        The use of the <a class="link" href="data-types.html#datetime" title="11.3.1. The DATE, DATETIME, and TIMESTAMP Types"><code class="literal">DATE</code></a> data type for
-        the <code class="literal">birth</code> and <code class="literal">death</code>
-        columns is a fairly obvious choice.
-      </p><p>
-        Once you have created a table, <a class="link" href="sql-syntax.html#show-tables" title="13.7.5.38. SHOW TABLES Syntax"><code class="literal">SHOW
-        TABLES</code></a> should produce some output:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SHOW TABLES;</code></strong>
+        多种类型都可以用作动物性别字段，比如 <code class="literal">'m'</code>和<code class="literal">'f'</code>，也可以使用<code class="literal">'male'</code>和<code class="literal">'female'</code>。使用单字符<code class="literal">'m'</code>和<code class="literal">'f'</code>来表示性别是最简单的.      </p>
+<p><code class="literal">birth</code>和<code class="literal">death</code>字段很明显应该使用<a class="link" href="data-types.html#datetime" title="11.3.1. The DATE, DATETIME, and TIMESTAMP Types"><code class="literal">DATE</code></a>数据类型。</p>
+<p>
+        一旦你创建了表，<a class="link" href="sql-syntax.html#show-tables" title="13.7.5.38. SHOW TABLES Syntax"><code class="literal">SHOW
+        TABLES</code></a> 将会产生一些输出：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SHOW TABLES;</code></strong>
 +---------------------+
 | Tables in menagerie |
 +---------------------+
 | pet                 |
 +---------------------+
-</pre><p>
-        To verify that your table was created the way you expected, use
-        a <a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a> statement:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>DESCRIBE pet;</code></strong>
+</pre>
+<p>
+        验证创建的表是否符合预期，可以使用 <a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a>语句：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>DESCRIBE pet;</code></strong>
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
@@ -523,14 +516,12 @@ Empty set (0.00 sec)
 | birth   | date        | YES  |     | NULL    |       |
 | death   | date        | YES  |     | NULL    |       |
 +---------+-------------+------+-----+---------+-------+
-</pre><p>
-        You can use <a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a> any time,
-        for example, if you forget the names of the columns in your
-        table or what types they have.
-      </p><p>
-        For more information about MySQL data types, see
-        <a class="xref" href="data-types.html" title="Chapter 11. Data Types">Chapter 11, <i>Data Types</i></a>.
-</p>
+</pre>
+<p>
+      你可以随时使用<a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a> 语句，比如你忘记了表的字段名字或者字段数据类型时。</p>
+<p>
+        想要知道更多MySQL数据类型的信息，请参阅
+        <a class="xref" href="data-types.html" title="Chapter 11. Data Types">第 11 章 <i>数据类型</i></a> 。 </p>
 </div>
 <div class="section">
 <div class="titlepage">
@@ -543,92 +534,63 @@ Empty set (0.00 sec)
 </div>
 
 </div>
-<a class="indexterm" name="idp7104176"></a><a class="indexterm" name="idp7105664"></a><a class="indexterm" name="idp7107152"></a><p>
-        After creating your table, you need to populate it. The
+<a class="indexterm" name="idp7104176"></a><a class="indexterm" name="idp7105664"></a><a class="indexterm" name="idp7107152"></a>
+<p>
+        创建表之后,你需要给它填入内容。After creating your table, you need to populate it. The
         <a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a> and
         <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> statements are useful for
         this.
-      </p><p>
-        Suppose that your pet records can be described as shown here.
-        (Observe that MySQL expects dates in
-        <code class="literal">'YYYY-MM-DD'</code> format; this may be different
-        from what you are used to.)
-</p>
+      </p>
+<p>
+        假设你创建的pet表数据如下表所示：
+        (注意到MySQL中默认日期格式是<code class="literal">'YYYY-MM-DD'</code>；它可能和你平常使用的不一致)</p>
 <div class="informaltable">
 <table summary="This table illustrates the example of pet
 records mentioned in the preceding text." border="1"><colgroup><col><col><col><col><col><col></colgroup><thead><tr><th scope="col">name</th><th scope="col">owner</th><th scope="col">species</th><th scope="col">sex</th><th scope="col">birth</th><th scope="col">death</th></tr></thead><tbody><tr><td scope="row">Fluffy</td><td>Harold</td><td>cat</td><td>f</td><td>1993-02-04</td><td> </td></tr><tr><td scope="row">Claws</td><td>Gwen</td><td>cat</td><td>m</td><td>1994-03-17</td><td> </td></tr><tr><td scope="row">Buffy</td><td>Harold</td><td>dog</td><td>f</td><td>1989-05-13</td><td> </td></tr><tr><td scope="row">Fang</td><td>Benny</td><td>dog</td><td>m</td><td>1990-08-27</td><td> </td></tr><tr><td scope="row">Bowser</td><td>Diane</td><td>dog</td><td>m</td><td>1979-08-31</td><td>1995-07-29</td></tr><tr><td scope="row">Chirpy</td><td>Gwen</td><td>bird</td><td>f</td><td>1998-09-11</td><td> </td></tr><tr><td scope="row">Whistler</td><td>Gwen</td><td>bird</td><td> </td><td>1997-12-09</td><td> </td></tr><tr><td scope="row">Slim</td><td>Benny</td><td>snake</td><td>m</td><td>1996-04-29</td><td> </td></tr></tbody></table>
 </div>
 <p>
-        Because you are beginning with an empty table, an easy way to
-        populate it is to create a text file containing a row for each
-        of your animals, then load the contents of the file into the
-        table with a single statement.
-      </p><p>
-        You could create a text file <code class="filename">pet.txt</code>
-        containing one record per line, with values separated by tabs,
-        and given in the order in which the columns were listed in the
-        <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE TABLE</code></a> statement. For
-        missing values (such as unknown sexes or death dates for animals
-        that are still living), you can use <code class="literal">NULL</code>
-        values. To represent these in your text file, use
-        <code class="literal">\N</code> (backslash, capital-N). For example, the
-        record for Whistler the bird would look like this (where the
-        whitespace between values is a single tab character):
-      </p><pre class="programlisting">Whistler        Gwen    bird    \N      1997-12-09      \N</pre><p>
-        To load the text file <code class="filename">pet.txt</code> into the
-        <code class="literal">pet</code> table, use this statement:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet;</code></strong>
-</pre><p>
-        If you created the file on Windows with an editor that uses
-        <code class="literal">\r\n</code> as a line terminator, you should use
-        this statement instead:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet</code></strong>
+        因为你是从一个空表开始的，填充表的一个简单方法是创建一个文本文件，每个动物存成一行文本，然后使用一个语句将文本内容载入到表中。</p>
+<p>
+        你创建了<code class="filename">pet.txt</code>的文本文件，每个记录一行，它使用Tab符来分隔每个值，依照        <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE TABLE</code></a>语句中的字段顺序来给值。对于不存在的值(例如未知的性别和未知的死亡日期因为动物还活着) ，你可以使用<code class="literal">NULL</code>
+        值来保存。 在文本中可以使用<code class="literal">\N</code>来代替(反斜杠+大写字母N)。下面就是一个名叫Whistler的鸟的记录示例(记录中的空白就是一个Tab符)：      </p>
+<pre class="programlisting">Whistler        Gwen    bird    \N      1997-12-09      \N</pre>
+      <p>
+      将文本文件<code class="filename">pet.txt</code>数据载入到<code class="literal">pet</code>表，需要使用以下语句：</p>
+      <pre class="programlisting">mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet;</code></strong>
+</pre>
+      <p>
+        如果文本文件是在Windows平台中的文本编辑器创建的，它会使用<code class="literal">\r\n</code>作为行终止符，你需要使用以下语句来载入数据 ： </p>
+      <pre class="programlisting">mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE '/path/pet.txt' INTO TABLE pet</code></strong>
     -&gt; <strong class="userinput"><code>LINES TERMINATED BY '\r\n';</code></strong>
-</pre><p>
-        (On an Apple machine running OS X, you would likely want to use
-        <code class="literal">LINES TERMINATED BY '\r'</code>.)
-      </p><p>
-        You can specify the column value separator and end of line
-        marker explicitly in the <a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD
-        DATA</code></a> statement if you wish, but the defaults are tab
-        and linefeed. These are sufficient for the statement to read the
-        file <code class="filename">pet.txt</code> properly.
-      </p><p>
-        If the statement fails, it is likely that your MySQL
-        installation does not have local file capability enabled by
-        default. See <a class="xref" href="security.html#load-data-local" title="6.1.6. Security Issues with LOAD DATA LOCAL">Section 6.1.6, “Security Issues with <code class="literal">LOAD
-      DATA LOCAL</code>”</a>, for information
-        on how to change this.
-      </p><p>
-        When you want to add new records one at a time, the
-        <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> statement is useful. In
-        its simplest form, you supply values for each column, in the
-        order in which the columns were listed in the
-        <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE TABLE</code></a> statement. Suppose
-        that Diane gets a new hamster named <span class="quote">“<span class="quote">Puffball.</span>”</span> You
-        could add a new record using an
-        <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> statement like this:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>INSERT INTO pet</code></strong>
+</pre>
+      <p>
+        (在允许OS X的苹果电脑中，你需要使用<code class="literal">LINES TERMINATED BY '\r'</code>语句还替代)
+      </p>
+      <p>
+        你可以<a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD
+        DATA</code></a> 语句中指定分隔符和行终止符，但默认的为Tab和换行符，对本章的<code class="filename">pet.txt</code>来说默认的已经足够使用.。</p>
+      <p>
+        如果语句执行失败，很可能是你安装的MySQL不与使用默认值的本地文件兼容，关于如何修改请参阅<a class="xref" href="security.html#load-data-local" title="6.1.6. Security Issues with LOAD DATA LOCAL">Section 6.1.6, “<code class="literal">LOAD
+      DATA LOCAL的安全问题</code>”</a>。</p>
+      <p>
+        假如你一次只想添加一行记录，这时该使用
+        <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> 语句 。最简单的格式是你按照
+        <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE TABLE</code></a>语句的字段顺序提供每个字段的值. 假如Diane得到一只名叫 <span class="quote">“<span class="quote">Puffball.</span>”</span>的新仓鼠，你使用You
+        could add a new record using 类似下面的<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a>语句来添加一条新纪录：</p>
+      <pre class="programlisting">mysql&gt; <strong class="userinput"><code>INSERT INTO pet</code></strong>
     -&gt; <strong class="userinput"><code>VALUES ('Puffball','Diane','hamster','f','1999-03-30',NULL);</code></strong>
-</pre><p>
-        String and date values are specified as quoted strings here.
-        Also, with <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a>, you can insert
-        <code class="literal">NULL</code> directly to represent a missing value.
-        You do not use <code class="literal">\N</code> like you do with
-        <a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a>.
-      </p><p>
-        From this example, you should be able to see that there would be
-        a lot more typing involved to load your records initially using
-        several <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> statements rather
-        than a single <a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a>
-        statement.
-</p>
+</pre>
+      <p>
+        注意日期和字符值都是由单引号'括起来的。在<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a>语句中你必须直接使用<code class="literal">NULL</code>来代表不存在的值，而不能像<a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a>语句使用<code class="literal">\N</code>。</p>
+      <p>
+        通过这个例子， 你可以看到多次输入<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> 语句和使用单个<a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a>
+        语句来初始化数据是等效的。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="retrieving-data"></a>3.3.4. Retrieving Information from a Table</h3>
+<h3 class="title"><a name="retrieving-data"></a>3.3.4. 从表中检索信息</h3>
 
 </div>
 
@@ -636,39 +598,38 @@ records mentioned in the preceding text." border="1"><colgroup><col><col><col><c
 
 </div>
 <div class="toc">
-<dl><dt><span class="section"><a href="tutorial.html#selecting-all">3.3.4.1. Selecting All Data</a></span></dt><dt><span class="section"><a href="tutorial.html#selecting-rows">3.3.4.2. Selecting Particular Rows</a></span></dt><dt><span class="section"><a href="tutorial.html#selecting-columns">3.3.4.3. Selecting Particular Columns</a></span></dt><dt><span class="section"><a href="tutorial.html#sorting-rows">3.3.4.4. Sorting Rows</a></span></dt><dt><span class="section"><a href="tutorial.html#date-calculations">3.3.4.5. Date Calculations</a></span></dt><dt><span class="section"><a href="tutorial.html#working-with-null">3.3.4.6. Working with <code class="literal">NULL</code> Values</a></span></dt><dt><span class="section"><a href="tutorial.html#pattern-matching">3.3.4.7. Pattern Matching</a></span></dt><dt><span class="section"><a href="tutorial.html#counting-rows">3.3.4.8. Counting Rows</a></span></dt><dt><span class="section"><a href="tutorial.html#multiple-tables">3.3.4.9. Using More Than one Table</a></span></dt></dl>
+<dl>
+  <dt><span class="section"><a href="tutorial.html#selecting-all">3.3.4.1. 检索所有数据</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#selecting-rows">3.3.4.2. 检索指定行</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#selecting-columns">3.3.4.3. 检索指定列</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#sorting-rows">3.3.4.4. 排序</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#date-calculations">3.3.4.5. 日期计算</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#working-with-null">3.3.4.6. 处理<code class="literal">NULL</code>值</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#pattern-matching">3.3.4.7. 模式匹配</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#counting-rows">3.3.4.8. 行计数</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#multiple-tables">3.3.4.9. 使用多个表</a></span></dt>
+</dl>
 </div>
-<a class="indexterm" name="idp7171872"></a><a class="indexterm" name="idp7173360"></a><a class="indexterm" name="idp7174848"></a><a class="indexterm" name="idp7176336"></a><p>
-        The <a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> statement is used to
-        pull information from a table. The general form of the statement
-        is:
-      </p><pre class="programlisting">SELECT <em class="replaceable"><code>what_to_select</code></em>
+<a class="indexterm" name="idp7171872"></a><a class="indexterm" name="idp7173360"></a><a class="indexterm" name="idp7174848"></a><a class="indexterm" name="idp7176336"></a>
+<p><a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> 语句是用来从表中检索信息，语句的一般格式如下：</p>
+<pre class="programlisting">SELECT <em class="replaceable"><code>what_to_select</code></em>
 FROM <em class="replaceable"><code>which_table</code></em>
 WHERE <em class="replaceable"><code>conditions_to_satisfy</code></em>;
-</pre><p>
-        <em class="replaceable"><code>what_to_select</code></em> indicates what you
-        want to see. This can be a list of columns, or
-        <code class="literal">*</code> to indicate <span class="quote">“<span class="quote">all columns.</span>”</span>
-        <em class="replaceable"><code>which_table</code></em> indicates the table from
-        which you want to retrieve data. The <code class="literal">WHERE</code>
-        clause is optional. If it is present,
-        <em class="replaceable"><code>conditions_to_satisfy</code></em> specifies one
-        or more conditions that rows must satisfy to qualify for
-        retrieval.
-</p>
+</pre>
+<p>
+        <em class="replaceable"><code>what_to_select</code></em> 代表你想查看的内容 ，这个可以是一个字段列表，或者是<code class="literal">*</code>(它表示所有字段)。<span class="quote"></span>
+        <em class="replaceable"><code>which_table</code></em> 代表你想检索数据的那个表。 <code class="literal">WHERE</code>子句是可选的，如果选择了该项，<em class="replaceable"><code>conditions_to_satisfy</code></em> 表示检索满足指定行所需的一个或多个条件。</p>
 <div class="section">
 
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="selecting-all"></a>3.3.4.1. Selecting All Data</h4>
+<h4 class="title"><a name="selecting-all"></a>3.3.4.1. 检索所有数据</h4>
 </div>
 </div>
 </div>
-<p>
-          The simplest form of <a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a>
-          retrieves everything from a table:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet;</code></strong>
+<p><a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a>最简单的格式就是检索表中的所有数据：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet;</code></strong>
 +----------+--------+---------+------+------------+------------+
 | name     | owner  | species | sex  | birth      | death      |
 +----------+--------+---------+------+------------+------------+
@@ -682,36 +643,27 @@ WHERE <em class="replaceable"><code>conditions_to_satisfy</code></em>;
 | Slim     | Benny  | snake   | m    | 1996-04-29 | NULL       |
 | Puffball | Diane  | hamster | f    | 1999-03-30 | NULL       |
 +----------+--------+---------+------+------------+------------+
-</pre><p>
-          This form of <a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> is useful
-          if you want to review your entire table, for example, after
-          you've just loaded it with your initial data set. For example,
-          you may happen to think that the birth date for Bowser doesn't
-          seem quite right. Consulting your original pedigree papers,
-          you find that the correct birth year should be 1989, not 1979.
-        </p><p>
-          There are at least two ways to fix this:
+</pre>
+<p>
+          这种<a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a>格式的语句很适用于浏览整个表。例如，在你刚刚装载初始化数据集后；你也可能想到Bowser的生日可能不正确，你查看了原始家谱发现它正确的生日是1989而不是1979。 </p>
+<p>
+          下面有2个方法来修正这个问题：:
 </p>
 <div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-              Edit the file <code class="filename">pet.txt</code> to correct the
-              error, then empty the table and reload it using
-              <a class="link" href="sql-syntax.html#delete" title="13.2.2. DELETE Syntax"><code class="literal">DELETE</code></a> and
-              <a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a>:
-            </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>DELETE FROM pet;</code></strong>
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>将<code class="filename">pet.txt</code> 文件中错误数据更正，然后使用<a class="link" href="sql-syntax.html#delete" title="13.2.2. DELETE Syntax"><code class="literal">DELETE</code></a>和<a class="link" href="sql-syntax.html#load-data" title="13.2.6. LOAD DATA INFILE Syntax"><code class="literal">LOAD DATA</code></a>语句来清空表并载入数据到表中：</p>
+  <pre class="programlisting">mysql&gt; <strong class="userinput"><code>DELETE FROM pet;</code></strong>
 mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO TABLE pet;</code></strong>
-</pre><p>
-              However, if you do this, you must also re-enter the record
-              for Puffball.
-            </p></li><li class="listitem"><p>
-              Fix only the erroneous record with an
-              <a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a> statement:
-            </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>UPDATE pet SET birth = '1989-08-31' WHERE name = 'Bowser';</code></strong>
-</pre><p>
-              The <a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a> changes only the
-              record in question and does not require you to reload the
-              table.
-</p></li></ul>
+</pre>
+  <p>
+              然而如果你按上面的做法，你需要重新输入&quot;Puffball&quot;的记录。(原始pet.txt没有它的信息)            </p>
+</li><li class="listitem">
+            <p>
+              用一个<a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a>语句可以只修正错误记录：</p>
+            <pre class="programlisting">mysql&gt; <strong class="userinput"><code>UPDATE pet SET birth = '1989-08-31' WHERE name = 'Bowser';</code></strong>
+</pre>
+            <p><a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a> 值修改有问题的记录，并需要重新载入数据。</p>
+            </li></ul>
 </div>
 
 </div>
@@ -719,67 +671,53 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="selecting-rows"></a>3.3.4.2. Selecting Particular Rows</h4>
+<h4 class="title"><a name="selecting-rows"></a>3.3.4.2. 检索指定行</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7203568"></a><a class="indexterm" name="idp7205056"></a><p>
-          As shown in the preceding section, it is easy to retrieve an
-          entire table. Just omit the <code class="literal">WHERE</code> clause
-          from the <a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> statement. But
-          typically you don't want to see the entire table, particularly
-          when it becomes large. Instead, you're usually more interested
-          in answering a particular question, in which case you specify
-          some constraints on the information you want. Let's look at
-          some selection queries in terms of questions about your pets
-          that they answer.
-        </p><p>
-          You can select only particular rows from your table. For
-          example, if you want to verify the change that you made to
-          Bowser's birth date, select Bowser's record like this:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name = 'Bowser';</code></strong>
+<a class="indexterm" name="idp7203568"></a><a class="indexterm" name="idp7205056"></a>
+<p>
+          看完上节内容，我们知道检索整个表是很容易的，只需要省略<a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> 语句中的<code class="literal">WHERE</code> 子句。但是通常你不需要查看整个表，特别是整个表变得非常大的时。 相反，你往往更有兴趣来回答一些具体问题，在这种情况下在您想要的信息上做些限制。让我们来看一些他们回答有关宠物问题的查询。</p>
+<p>
+          你可以只检索表中指定行，例如你想验证Bowser的生日所做的更改，可以使用下面语句来检索Bowser的记录：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name = 'Bowser';</code></strong>
 +--------+-------+---------+------+------------+------------+
 | name   | owner | species | sex  | birth      | death      |
 +--------+-------+---------+------+------------+------------+
 | Bowser | Diane | dog     | m    | 1989-08-31 | 1995-07-29 |
 +--------+-------+---------+------+------------+------------+
-</pre><p>
-          The output confirms that the year is correctly recorded as
-          1989, not 1979.
-        </p><p>
-          String comparisons normally are case-insensitive, so you can
-          specify the name as <code class="literal">'bowser'</code>,
-          <code class="literal">'BOWSER'</code>, and so forth. The query result is
-          the same.
-        </p><p>
-          You can specify conditions on any column, not just
-          <code class="literal">name</code>. For example, if you want to know
-          which animals were born during or after 1998, test the
-          <code class="literal">birth</code> column:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE birth &gt;= '1998-1-1';</code></strong>
+</pre>
+<p>
+        输出内容确认了正确的年份是1989而不是1979。</p>
+<p>
+          字符串比较是不区分大小写的，所以你写成 <code class="literal">'bowser'</code>,
+          <code class="literal">'BOWSER'</code>等都是可以的，查询结果是一样的。</p>
+<p>
+          你可以指定任何字段作为条件，而不仅仅是<code class="literal">name</code>字段。例如你想知道哪些动物出生在1998年之后，可以尝试<code class="literal">birth</code>字段:        </p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE birth &gt;= '1998-1-1';</code></strong>
 +----------+-------+---------+------+------------+-------+
 | name     | owner | species | sex  | birth      | death |
 +----------+-------+---------+------+------------+-------+
 | Chirpy   | Gwen  | bird    | f    | 1998-09-11 | NULL  |
 | Puffball | Diane | hamster | f    | 1999-03-30 | NULL  |
 +----------+-------+---------+------+------------+-------+
-</pre><p>
-          You can combine conditions, for example, to locate female
-          dogs:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE species = 'dog' AND sex = 'f';</code></strong>
+</pre>
+        <p>
+        你可以使用复合条件，下面例子是找到雌性狗信息：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE species = 'dog' AND sex = 'f';</code></strong>
 +-------+--------+---------+------+------------+-------+
 | name  | owner  | species | sex  | birth      | death |
 +-------+--------+---------+------+------------+-------+
 | Buffy | Harold | dog     | f    | 1989-05-13 | NULL  |
 +-------+--------+---------+------+------------+-------+
-</pre><p>
-          The preceding query uses the <a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a>
-          logical operator. There is also an
-          <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a> operator:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE species = 'snake' OR species = 'bird';</code></strong>
+</pre>
+        <p>
+          之前查询使用了<a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a>逻辑操作符，下面使用了
+          <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a> 操作符：:        </p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE species = 'snake' OR species = 'bird';</code></strong>
 +----------+-------+---------+------+------------+-------+
 | name     | owner | species | sex  | birth      | death |
 +----------+-------+---------+------+------------+-------+
@@ -787,14 +725,11 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Whistler | Gwen  | bird    | NULL | 1997-12-09 | NULL  |
 | Slim     | Benny | snake   | m    | 1996-04-29 | NULL  |
 +----------+-------+---------+------+------------+-------+
-</pre><p>
-          <a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a> and
-          <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a> may be intermixed, although
-          <a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a> has higher precedence than
-          <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a>. If you use both operators, it
-          is a good idea to use parentheses to indicate explicitly how
-          conditions should be grouped:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE (species = 'cat' AND sex = 'm')</code></strong>
+</pre>
+        <p>
+          <a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a>和<a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a> 可以混合使用，虽然<a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a>的优先级高于n
+          <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a>，但如果你同时使用这两个操作符，建议使用括号来指明条件分组：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE (species = 'cat' AND sex = 'm')</code></strong>
     -&gt; <strong class="userinput"><code>OR (species = 'dog' AND sex = 'f');</code></strong>
 +-------+--------+---------+------+------------+-------+
 | name  | owner  | species | sex  | birth      | death |
@@ -808,20 +743,17 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="selecting-columns"></a>3.3.4.3. Selecting Particular Columns</h4>
+<h4 class="title"><a name="selecting-columns"></a>3.3.4.3. 选择指定列</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7231264"></a><a class="indexterm" name="idp7232752"></a><p>
-          If you do not want to see entire rows from your table, just
-          name the columns in which you are interested, separated by
-          commas. For example, if you want to know when your animals
-          were born, select the <code class="literal">name</code> and
-          <code class="literal">birth</code> columns:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet;</code></strong>
+<a class="indexterm" name="idp7231264"></a><a class="indexterm" name="idp7232752"></a>
+<p>
+          如果你不想查看表中的整行数据，就只写你感兴趣的字段的名字，中间用逗号隔开。例如，你想知道动物们的出生日期，选择 <code class="literal">name</code>和<code class="literal">birth</code>字段：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet;</code></strong>
 +----------+------------+
 | name     | birth      |
 +----------+------------+
@@ -835,9 +767,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Slim     | 1996-04-29 |
 | Puffball | 1999-03-30 |
 +----------+------------+
-</pre><p>
-          To find out who owns pets, use this query:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT owner FROM pet;</code></strong>
+</pre>
+<p>
+        想查明宠物的主人，使用下面查询：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT owner FROM pet;</code></strong>
 +--------+
 | owner  |
 +--------+
@@ -851,13 +784,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Benny  |
 | Diane  |
 +--------+
-</pre><a class="indexterm" name="idp7240064"></a><p>
-          Notice that the query simply retrieves the
-          <code class="literal">owner</code> column from each record, and some of
-          them appear more than once. To minimize the output, retrieve
-          each unique output record just once by adding the keyword
-          <code class="literal">DISTINCT</code>:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT DISTINCT owner FROM pet;</code></strong>
+</pre><a class="indexterm" name="idp7240064"></a>
+<p>
+          注意到上面的查询只是简单的检索每行的<code class="literal">owner</code>字段，有些人名重复了多次。为了使输出最小化，使用关键字<code class="literal">DISTINCT</code> 可以检索出唯一输出记录：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT DISTINCT owner FROM pet;</code></strong>
 +--------+
 | owner  |
 +--------+
@@ -866,11 +796,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Gwen   |
 | Harold |
 +--------+
-</pre><p>
-          You can use a <code class="literal">WHERE</code> clause to combine row
-          selection with column selection. For example, to get birth
-          dates for dogs and cats only, use this query:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, species, birth FROM pet</code></strong>
+</pre>
+<p>
+          可以使用 <code class="literal">WHERE</code>子句来联合行选择和列选择。 例如：只想检索狗和猫的出生日期，可以使用以下查询语句：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, species, birth FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>WHERE species = 'dog' OR species = 'cat';</code></strong>
 +--------+---------+------------+
 | name   | species | birth      |
@@ -887,22 +816,20 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="sorting-rows"></a>3.3.4.4. Sorting Rows</h4>
+<h4 class="title"><a name="sorting-rows"></a>3.3.4.4. 排序</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7249552"></a><a class="indexterm" name="idp7250624"></a><a class="indexterm" name="idp7252112"></a><a class="indexterm" name="idp7253600"></a><a class="indexterm" name="idp7255088"></a><p>
-          You may have noticed in the preceding examples that the result
-          rows are displayed in no particular order. It is often easier
-          to examine query output when the rows are sorted in some
-          meaningful way. To sort a result, use an <code class="literal">ORDER
-          BY</code> clause.
-        </p><p>
-          Here are animal birthdays, sorted by date:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet ORDER BY birth;</code></strong>
+<a class="indexterm" name="idp7249552"></a><a class="indexterm" name="idp7250624"></a><a class="indexterm" name="idp7252112"></a><a class="indexterm" name="idp7253600"></a><a class="indexterm" name="idp7255088"></a>
+<p>
+          你应该注意到上面的哪些查询例子的输出结果行没有特别指定的顺序。然而当行按照某种指定方式排序，通常检查输出会更容易容易检查。使用<code class="literal">ORDER
+          BY</code>子句可以排序结果集：</p>
+<p>
+        下面是动物的出生日期，按照日期来排序：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet ORDER BY birth;</code></strong>
 +----------+------------+
 | name     | birth      |
 +----------+------------+
@@ -916,21 +843,11 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Chirpy   | 1998-09-11 |
 | Puffball | 1999-03-30 |
 +----------+------------+
-</pre><p>
-          On character type columns, sorting—like all other
-          comparison operations—is normally performed in a
-          case-insensitive fashion. This means that the order is
-          undefined for columns that are identical except for their
-          case. You can force a case-sensitive sort for a column by
-          using <a class="link" href="functions.html#operator_binary"><code class="literal">BINARY</code></a> like so:
-          <code class="literal">ORDER BY BINARY
-          <em class="replaceable"><code>col_name</code></em></code>.
-        </p><p>
-          The default sort order is ascending, with smallest values
-          first. To sort in reverse (descending) order, add the
-          <code class="literal">DESC</code> keyword to the name of the column you
-          are sorting by:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet ORDER BY birth DESC;</code></strong>
+</pre>
+<p> 对字符类型字段来说，排序像其他的比较操作一样，都是大小写不敏感的。这意味着，对于等同但大小写不同的列，他们的顺序并没有指定。  你可以使用<a class="link" href="functions.html#operator_binary"><code class="literal">BINARY</code></a>关键字来强制该字段大小写敏感，如: <code class="literal">ORDER BY BINARY <em class="replaceable"><code>col_name</code></em></code> (<a href="example/tutorial/1.0 order by and order by binary.sql">我的例子</a>)</p>
+<p>
+          默认排序是升序,最小值在前面。要想相反方向排序(降序)，在你排序的字段名字后面添加<code class="literal">DESC</code>关键字：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet ORDER BY birth DESC;</code></strong>
 +----------+------------+
 | name     | birth      |
 +----------+------------+
@@ -944,13 +861,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Bowser   | 1989-08-31 |
 | Buffy    | 1989-05-13 |
 +----------+------------+
-</pre><p>
-          You can sort on multiple columns, and you can sort different
-          columns in different directions. For example, to sort by type
-          of animal in ascending order, then by birth date within animal
-          type in descending order (youngest animals first), use the
-          following query:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, species, birth FROM pet</code></strong>
+</pre>
+<p>
+          你可以在多个字段上排序，而且可以在不同的字段上使用不同的排序方向。例如，对动物的种类升序排列，对动物的出生日期降序排序(年龄小的动物排在前面)，使用下面查询：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, species, birth FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>ORDER BY species, birth DESC;</code></strong>
 +----------+---------+------------+
 | name     | species | birth      |
@@ -965,38 +879,27 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Puffball | hamster | 1999-03-30 |
 | Slim     | snake   | 1996-04-29 |
 +----------+---------+------------+
-</pre><p>
-          The <code class="literal">DESC</code> keyword applies only to the column
-          name immediately preceding it (<code class="literal">birth</code>); it
-          does not affect the <code class="literal">species</code> column sort
-          order.
-</p>
+</pre>
+<p>
+          从上面例子可以看出，<code class="literal">DESC</code> 关键字只对它前面的字段生效(<code class="literal">birth</code>)，而不对<code class="literal">species</code> 字段生效。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="date-calculations"></a>3.3.4.5. Date Calculations</h4>
+<h4 class="title"><a name="date-calculations"></a>3.3.4.5. 日期计算</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7273312"></a><a class="indexterm" name="idp7274384"></a><a class="indexterm" name="idp7275872"></a><a class="indexterm" name="idp7277360"></a><p>
-          MySQL provides several functions that you can use to perform
-          calculations on dates, for example, to calculate ages or
-          extract parts of dates.
-        </p><p>
-          To determine how many years old each of your pets is, use the
-          <a class="link" href="functions.html#function_timestampdiff"><code class="literal">TIMESTAMPDIFF()</code></a> function. Its
-          arguments are the unit in which you want the result expressed,
-          and the two date for which to take the difference. The
-          following query shows, for each pet, the birth date, the
-          current date, and the age in years. An
-          <span class="emphasis"><em>alias</em></span> (<code class="literal">age</code>) is used to
-          make the final output column label more meaningful.
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, CURDATE(),</code></strong>
+<a class="indexterm" name="idp7273312"></a><a class="indexterm" name="idp7274384"></a><a class="indexterm" name="idp7275872"></a><a class="indexterm" name="idp7277360"></a>
+<p>
+        MySQL提供了一些用于执行日期计算的函数，可以用来计算年龄或者日期的一部分。 </p>
+<p>
+          使用<a class="link" href="functions.html#function_timestampdiff"><code class="literal">TIMESTAMPDIFF()</code></a>可以确定每只宠物的年龄。这个函数有三个参数，时差单位、两个日期，然后输出它们的差额。下面的查询显示了每只宠物的出生日期，当前日期，它们的年龄。使用别名(<code class="literal">age</code>)可以使最终输出列标注更容易理解。</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, CURDATE(),</code></strong>
     -&gt; <strong class="userinput"><code>TIMESTAMPDIFF(YEAR,birth,CURDATE()) AS age</code></strong>
     -&gt; <strong class="userinput"><code>FROM pet;</code></strong>
 +----------+------------+------------+------+
@@ -1012,12 +915,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Slim     | 1996-04-29 | 2003-08-19 |    7 |
 | Puffball | 1999-03-30 | 2003-08-19 |    4 |
 +----------+------------+------------+------+
-</pre><p>
-          The query works, but the result could be scanned more easily
-          if the rows were presented in some order. This can be done by
-          adding an <code class="literal">ORDER BY name</code> clause to sort the
-          output by name:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, CURDATE(),</code></strong>
+</pre>
+<p>
+          这个语句可以执行，但以某个顺序来排列，结果更容易浏览。使用 <code class="literal">ORDER BY name</code>子句可以使输出结果按照姓名排序。</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, CURDATE(),</code></strong>
     -&gt; <strong class="userinput"><code>TIMESTAMPDIFF(YEAR,birth,CURDATE()) AS age</code></strong>
     -&gt; <strong class="userinput"><code>FROM pet ORDER BY name;</code></strong>
 +----------+------------+------------+------+
@@ -1033,11 +934,11 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Slim     | 1996-04-29 | 2003-08-19 |    7 |
 | Whistler | 1997-12-09 | 2003-08-19 |    5 |
 +----------+------------+------------+------+
-</pre><p>
-          To sort the output by <code class="literal">age</code> rather than
-          <code class="literal">name</code>, just use a different <code class="literal">ORDER
-          BY</code> clause:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, CURDATE(),</code></strong>
+</pre>
+<p>
+          想对输出结果中的<code class="literal">age</code>字段排序而不是对<code class="literal">name</code>字段排序，只需要使用另外一个<code class="literal">ORDER
+          BY</code>子句：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, CURDATE(),</code></strong>
     -&gt; <strong class="userinput"><code>TIMESTAMPDIFF(YEAR,birth,CURDATE()) AS age</code></strong>
     -&gt; <strong class="userinput"><code>FROM pet ORDER BY age;</code></strong>
 +----------+------------+------------+------+
@@ -1053,15 +954,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Bowser   | 1989-08-31 | 2003-08-19 |   13 |
 | Buffy    | 1989-05-13 | 2003-08-19 |   14 |
 +----------+------------+------------+------+
-</pre><p>
-          A similar query can be used to determine age at death for
-          animals that have died. You determine which animals these are
-          by checking whether the <code class="literal">death</code> value is
-          <code class="literal">NULL</code>. Then, for those with
-          non-<code class="literal">NULL</code> values, compute the difference
-          between the <code class="literal">death</code> and
-          <code class="literal">birth</code> values:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, death,</code></strong>
+</pre>
+<p>
+          类似的查询可以被用来确定宠物已经去世了多少年。你先检查确认下宠物的<code class="literal">death</code>值是否为<code class="literal">NULL</code>，然后对那些非<code class="literal">NULL</code>值，计算 <code class="literal">death</code>和<code class="literal">birth</code>值的差额：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, death,</code></strong>
     -&gt; <strong class="userinput"><code>TIMESTAMPDIFF(YEAR,birth,death) AS age</code></strong>
     -&gt; <strong class="userinput"><code>FROM pet WHERE death IS NOT NULL ORDER BY age;</code></strong>
 +--------+------------+------------+------+
@@ -1069,26 +965,12 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 +--------+------------+------------+------+
 | Bowser | 1989-08-31 | 1995-07-29 |    5 |
 +--------+------------+------------+------+
-</pre><p>
-          The query uses <code class="literal">death IS NOT NULL</code> rather
-          than <code class="literal">death &lt;&gt; NULL</code> because
-          <code class="literal">NULL</code> is a special value that cannot be
-          compared using the usual comparison operators. This is
-          discussed later. See <a class="xref" href="tutorial.html#working-with-null" title="3.3.4.6. Working with NULL Values">Section 3.3.4.6, “Working with <code class="literal">NULL</code> Values”</a>.
-        </p><p>
-          What if you want to know which animals have birthdays next
-          month? For this type of calculation, year and day are
-          irrelevant; you simply want to extract the month part of the
-          <code class="literal">birth</code> column. MySQL provides several
-          functions for extracting parts of dates, such as
-          <a class="link" href="functions.html#function_year"><code class="literal">YEAR()</code></a>,
-          <a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a>, and
-          <a class="link" href="functions.html#function_dayofmonth"><code class="literal">DAYOFMONTH()</code></a>.
-          <a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a> is the appropriate
-          function here. To see how it works, run a simple query that
-          displays the value of both <code class="literal">birth</code> and
-          <a class="link" href="functions.html#function_month"><code class="literal">MONTH(birth)</code></a>:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, MONTH(birth) FROM pet;</code></strong>
+</pre>
+<p>上面的查询使用了<code class="literal">death IS NOT NULL</code>，而没有使用<code class="literal">death &lt;&gt; NULL</code>是因为<code class="literal">NULL</code>是个特殊值，它不能使用比较操作符来进行比较。具体的后面会讲到，请参阅<a class="xref" href="tutorial.html#working-with-null" title="3.3.4.6. Working with NULL Values">章节3.3.4.6, “处理<code class="literal">NULL</code>值”</a>。</p>
+<p>
+          假使你想知道宠物的出生日期的下个月份是什么？ 对这种类型的计算，年和月就是不相关的；你只想简单的提取<code class="literal">birth</code>字段中的月份部分。MySQL提供了一些用来提取日期的部分的函数，比如
+          <a class="link" href="functions.html#function_year"><code class="literal">YEAR()</code></a>，<a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a>和<a class="link" href="functions.html#function_dayofmonth"><code class="literal">DAYOFMONTH()</code></a>。<a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a>在这里是个适用的函数。来看看它是如何工作的，执行一个简单查询来显示<code class="literal">birth</code>和<a class="link" href="functions.html#function_month"><code class="literal">MONTH(birth)</code></a>：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth, MONTH(birth) FROM pet;</code></strong>
 +----------+------------+--------------+
 | name     | birth      | MONTH(birth) |
 +----------+------------+--------------+
@@ -1102,25 +984,19 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Slim     | 1996-04-29 |            4 |
 | Puffball | 1999-03-30 |            3 |
 +----------+------------+--------------+
-</pre><p>
-          Finding animals with birthdays in the upcoming month is also
-          simple. Suppose that the current month is April. Then the
-          month value is <code class="literal">4</code> and you can look for
-          animals born in May (month <code class="literal">5</code>) like this:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet WHERE MONTH(birth) = 5;</code></strong>
+</pre>
+<p>
+          找到出生日期的下个月份的宠物也很容易，假如当前月份是四月，这个月份值就为4，你可以使用下面语句找到出生在五月(月份值=5)的动物：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet WHERE MONTH(birth) = 5;</code></strong>
 +-------+------------+
 | name  | birth      |
 +-------+------------+
 | Buffy | 1989-05-13 |
 +-------+------------+
-</pre><p>
-          There is a small complication if the current month is
-          December. You cannot merely add one to the month number
-          (<code class="literal">12</code>) and look for animals born in month
-          <code class="literal">13</code>, because there is no such month.
-          Instead, you look for animals born in January (month
-          <code class="literal">1</code>).
-        </p><p>
+</pre>
+<p>
+          假如当前月为十二月时会有点小麻烦，你不能简单的在月份值12上加1，这样你查找的宠物出生月份值就变为13了，因为我们没有这样的月份，事实上我们使用出生月份为一月来解决这个问题。</p>
+<p>
           You can write the query so that it works no matter what the
           current month is, so that you do not have to use the number
           for a particular month.
@@ -1131,112 +1007,81 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
           result produces the month in which to look for birthdays:
         </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>WHERE MONTH(birth) = MONTH(DATE_ADD(CURDATE(),INTERVAL 1 MONTH));</code></strong>
-</pre><p>
-          A different way to accomplish the same task is to add
-          <code class="literal">1</code> to get the next month after the current
-          one after using the modulo function (<code class="literal">MOD</code>)
-          to wrap the month value to <code class="literal">0</code> if it is
-          currently <code class="literal">12</code>:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet</code></strong>
+</pre>
+        <p>
+          还有一个方法来实现同样的任务：对当前月加1来取得下个月份值，在使用取模函数(<code class="literal">MOD</code>) 后，如果当前月份值为12，它会截断成0。</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>WHERE MONTH(birth) = MOD(MONTH(CURDATE()), 12) + 1;</code></strong>
-</pre><p>
-          <a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a> returns a number
-          between <code class="literal">1</code> and <code class="literal">12</code>. And
-          <a class="link" href="functions.html#function_mod"><code class="literal">MOD(something,12)</code></a> returns a
-          number between <code class="literal">0</code> and <code class="literal">11</code>.
-          So the addition has to be after the
-          <a class="link" href="functions.html#function_mod"><code class="literal">MOD()</code></a>, otherwise we would go
-          from November (<code class="literal">11</code>) to January
-          (<code class="literal">1</code>).
-</p>
+</pre>
+        <p>
+          <a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a> 返回1-12之间的数字，
+          <a class="link" href="functions.html#function_mod"><code class="literal">MOD(something,12)</code></a> 返回0-11之间的数字。所以加法操作要在
+          <a class="link" href="functions.html#function_mod"><code class="literal">MOD()</code></a>之后，不然你就会从十一月直接跳到一月。 </p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="working-with-null"></a>3.3.4.6. Working with <code class="literal">NULL</code> Values</h4>
+<h4 class="title"><a name="working-with-null"></a>3.3.4.6. 处理<code class="literal">NULL</code>值</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7341824"></a><a class="indexterm" name="idp7342896"></a><p>
-          The <code class="literal">NULL</code> value can be surprising until you
-          get used to it. Conceptually, <code class="literal">NULL</code> means
-          <span class="quote">“<span class="quote">a missing unknown value</span>”</span> and it is treated
-          somewhat differently from other values.
-        </p><p>
-          To test for <code class="literal">NULL</code>, use the
-          <a class="link" href="functions.html#operator_is-null"><code class="literal">IS NULL</code></a> and <a class="link" href="functions.html#operator_is-not-null"><code class="literal">IS
-          NOT NULL</code></a> operators, as shown here:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT 1 IS NULL, 1 IS NOT NULL;</code></strong>
+<a class="indexterm" name="idp7341824"></a><a class="indexterm" name="idp7342896"></a>
+<p>
+          当你开始使用<code class="literal">NULL</code> 值时，你会觉得很奇怪。从概念上来说， <code class="literal">NULL</code> 表示未知值，并且它处理方式和其它值不一样。</p>
+<p>想要测试<code class="literal">NULL</code>值，得使用<a class="link" href="functions.html#operator_is-null"><code class="literal">IS NULL</code></a>和<a class="link" href="functions.html#operator_is-not-null"><code class="literal">IS
+          NOT NULL</code></a> 操作符，举例如下：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT 1 IS NULL, 1 IS NOT NULL;</code></strong>
 +-----------+---------------+
 | 1 IS NULL | 1 IS NOT NULL |
 +-----------+---------------+
 |         0 |             1 |
 +-----------+---------------+
-</pre><p>
-          You cannot use arithmetic comparison operators such as
-          <a class="link" href="functions.html#operator_equal"><code class="literal">=</code></a>,
-          <a class="link" href="functions.html#operator_less-than"><code class="literal">&lt;</code></a>, or
-          <a class="link" href="functions.html#operator_not-equal"><code class="literal">&lt;&gt;</code></a> to
-          test for <code class="literal">NULL</code>. To demonstrate this for
-          yourself, try the following query:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT 1 = NULL, 1 &lt;&gt; NULL, 1 &lt; NULL, 1 &gt; NULL;</code></strong>
+</pre>
+<p>
+          你不能使用算术运算符(比如<a class="link" href="functions.html#operator_equal"><code class="literal">=</code></a>，<a class="link" href="functions.html#operator_less-than"><code class="literal">&lt;</code></a>或 <a class="link" href="functions.html#operator_not-equal"><code class="literal">&lt;&gt;</code></a> )来测试<code class="literal">NULL</code>值。你可以使用下面的查询来验证前面的说法：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT 1 = NULL, 1 &lt;&gt; NULL, 1 &lt; NULL, 1 &gt; NULL;</code></strong>
 +----------+-----------+----------+----------+
 | 1 = NULL | 1 &lt;&gt; NULL | 1 &lt; NULL | 1 &gt; NULL |
 +----------+-----------+----------+----------+
 |     NULL |      NULL |     NULL |     NULL |
 +----------+-----------+----------+----------+
-</pre><p>
-          Because the result of any arithmetic comparison with
-          <code class="literal">NULL</code> is also <code class="literal">NULL</code>, you
-          cannot obtain any meaningful results from such comparisons.
-        </p><p>
-          In MySQL, <code class="literal">0</code> or <code class="literal">NULL</code>
-          means false and anything else means true. The default truth
-          value from a boolean operation is <code class="literal">1</code>.
-        </p><p>
-          This special treatment of <code class="literal">NULL</code> is why, in
-          the previous section, it was necessary to determine which
-          animals are no longer alive using <code class="literal">death IS NOT
-          NULL</code> instead of <code class="literal">death &lt;&gt;
-          NULL</code>.
-        </p><p>
-          Two <code class="literal">NULL</code> values are regarded as equal in a
-          <code class="literal">GROUP BY</code>.
-        </p><p>
-          When doing an <code class="literal">ORDER BY</code>,
-          <code class="literal">NULL</code> values are presented first if you do
-          <code class="literal">ORDER BY ... ASC</code> and last if you do
-          <code class="literal">ORDER BY ... DESC</code>.
-        </p><p>
-          A common error when working with <code class="literal">NULL</code> is to
-          assume that it is not possible to insert a zero or an empty
-          string into a column defined as <code class="literal">NOT NULL</code>,
-          but this is not the case. These are in fact values, whereas
-          <code class="literal">NULL</code> means <span class="quote">“<span class="quote">not having a
-          value.</span>”</span> You can test this easily enough by using
-          <code class="literal">IS [NOT] NULL</code> as shown:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT 0 IS NULL, 0 IS NOT NULL, '' IS NULL, '' IS NOT NULL;</code></strong>
+</pre>
+<p>
+          因为使用任何算术运算符和<code class="literal">NULL</code>比较产生的结果也是<code class="literal">NULL</code>，通过这样的比较你不能得到有意义的结果集。 </p>
+<p>
+          在MySQL里<code class="literal">0</code>和<code class="literal">NULL</code>表示false，其它值都表示true.T布尔运算的默认真值就是<code class="literal">1</code>。  </p>
+<p>
+          这就是 <code class="literal">NULL</code>的特殊处理方式，是在先前章节里判断宠物还活着使用<code class="literal">death IS NOT
+          NULL</code>而不是使用<code class="literal">death &lt;&gt;
+          NULL</code> 的原因。</p>
+<p>在<code class="literal">GROUP BY</code>语句中两个<code class="literal">NULL</code>值是被认为是相等的。 </p>
+<p>
+          在使用<code class="literal">ORDER BY</code>子句时，如果你使用
+          <code class="literal">ORDER BY ... ASC</code> ，<code class="literal">NULL</code>值会排在第一；使用
+          <code class="literal">ORDER BY ... DESC</code>，它会排在最后一个。</p>
+<p>
+          在使用<code class="literal">NULL</code>时有个常见错误，认为在定义为<code class="literal">NOT NULL</code>,的字段里不能插入0或者空字符，但事实上并不是这样的。0和空字符是真值，而
+          <code class="literal">NULL</code>表示<span class="quote">“<span class="quote">值不存在</span>”。</span>你可以很容易的用<code class="literal">IS [NOT] NULL</code> 语句来测试：as shown:        </p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT 0 IS NULL, 0 IS NOT NULL, '' IS NULL, '' IS NOT NULL;</code></strong>
 +-----------+---------------+------------+----------------+
 | 0 IS NULL | 0 IS NOT NULL | '' IS NULL | '' IS NOT NULL |
 +-----------+---------------+------------+----------------+
 |         0 |             1 |          0 |              1 |
 +-----------+---------------+------------+----------------+
-</pre><p>
-          Thus it is entirely possible to insert a zero or empty string
-          into a <code class="literal">NOT NULL</code> column, as these are in
-          fact <code class="literal">NOT NULL</code>. See
-          <a class="xref" href="error-handling.html#problems-with-null" title="C.5.5.3. Problems with NULL Values">Section C.5.5.3, “Problems with <code class="literal">NULL</code> Values”</a>.
-</p>
+</pre>
+<p>
+          在<code class="literal">NOT NULL</code>字段完全可以插入0或空字符，因为它们事实上是<code class="literal">NOT NULL</code>。参阅
+          <a class="xref" href="error-handling.html#problems-with-null" title="C.5.5.3. Problems with NULL Values">Section C.5.5.3, “与<code class="literal">NULL</code>值相关的问题”</a>.</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="pattern-matching"></a>3.3.4.7. Pattern Matching</h4>
+<h4 class="title"><a name="pattern-matching"></a>3.3.4.7. 模式匹配</h4>
 
 </div>
 
@@ -1260,30 +1105,30 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
           the <a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a> or
           <a class="link" href="functions.html#operator_not-like"><code class="literal">NOT LIKE</code></a> comparison operators
           instead.
-        </p><p>
-          To find names beginning with
-          <span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span>:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE 'b%';</code></strong>
+        </p>
+        <p>
+          查找开头为<span class="quote">“<span class="quote"><code class="literal">b</code></span>”的名字</span>：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE 'b%';</code></strong>
 +--------+--------+---------+------+------------+------------+
 | name   | owner  | species | sex  | birth      | death      |
 +--------+--------+---------+------+------------+------------+
 | Buffy  | Harold | dog     | f    | 1989-05-13 | NULL       |
 | Bowser | Diane  | dog     | m    | 1989-08-31 | 1995-07-29 |
 +--------+--------+---------+------+------------+------------+
-</pre><p>
-          To find names ending with
-          <span class="quote">“<span class="quote"><code class="literal">fy</code></span>”</span>:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE '%fy';</code></strong>
+</pre>
+        <p>
+          查询结尾为<span class="quote">“<span class="quote"><code class="literal">fy</code></span>”的名字：</span>        </p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE '%fy';</code></strong>
 +--------+--------+---------+------+------------+-------+
 | name   | owner  | species | sex  | birth      | death |
 +--------+--------+---------+------+------------+-------+
 | Fluffy | Harold | cat     | f    | 1993-02-04 | NULL  |
 | Buffy  | Harold | dog     | f    | 1989-05-13 | NULL  |
 +--------+--------+---------+------+------------+-------+
-</pre><p>
-          To find names containing a
-          <span class="quote">“<span class="quote"><code class="literal">w</code></span>”</span>:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE '%w%';</code></strong>
+</pre>
+        <p>
+          查询包含<span class="quote">“<span class="quote"><code class="literal">w</code></span>”的名字</span>：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE '%w%';</code></strong>
 +----------+-------+---------+------+------------+------------+
 | name     | owner | species | sex  | birth      | death      |
 +----------+-------+---------+------+------------+------------+
