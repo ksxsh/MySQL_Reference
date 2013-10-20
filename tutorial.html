@@ -75,12 +75,13 @@
 <dl>
   <dt><span class="section"><a href="tutorial.html#connecting-disconnecting">3.1. 连接和断开服务器</a></span></dt>
   <dt><span class="section"><a href="tutorial.html#entering-queries">3.2. 输入查询</a></span></dt>
-  <dt><span class="section"><a href="tutorial.html#database-use">3.3. 创建并使用数据库</a></span></dt><dd><dl><dt><span class="section"><a href="tutorial.html#creating-database">3.3.1. 创建和选中该数据库</a></span></dt><dt><span class="section"><a href="tutorial.html#creating-tables">3.3.2. 创建表</a></span></dt><dt><span class="section"><a href="tutorial.html#loading-tables">3.3.3. 将数据装入表</a></span></dt><dt><span class="section"><a href="tutorial.html#retrieving-data">3.3.4. 从表中检索信息</a></span></dt></dl></dd><dt><span class="section"><a href="tutorial.html#getting-information">3.4. 获取数据库和表的信</a></span></dt>
+  <dt><span class="section"><a href="tutorial.html#database-use">3.3. 创建并使用数据库</a></span></dt><dd><dl><dt><span class="section"><a href="tutorial.html#creating-database">3.3.1. 创建和选中该数据库</a></span></dt><dt><span class="section"><a href="tutorial.html#creating-tables">3.3.2. 创建表</a></span></dt><dt><span class="section"><a href="tutorial.html#loading-tables">3.3.3. 将数据装入表</a></span></dt><dt><span class="section"><a href="tutorial.html#retrieving-data">3.3.4. 从表中检索信息</a></span></dt></dl></dd><dt><span class="section"><a href="tutorial.html#getting-information">3.4. 获取数据库和表的信息</a></span></dt>
   <dt><span class="section"><a href="tutorial.html#batch-mode">3.5. 在批处理模式下使用<span class="command"><strong>mysql</strong></span></a></span></dt>
   <dt><span class="section"><a href="tutorial.html#examples">3.6. 常见查询示例</a></span></dt>
   <dd><dl>
     <dt><span class="section"><a href="tutorial.html#example-maximum-column">3.6.1. 列的最大值</a></span></dt>
-    <dt><span class="section"><a href="tutorial.html#example-maximum-row">3.6.2. 拥有某个列的最大值的行</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-column-group">3.6.3. 列的分组最大值</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-column-group-row">3.6.4. 拥有某列的分组最大值的行</a></span></dt>
+    <dt><span class="section"><a href="tutorial.html#example-maximum-row">3.6.2. 拥有某列最大值的行</a></span></dt>
+    <dt><span class="section"><a href="tutorial.html#example-maximum-column-group">3.6.3. 列的分组最大值</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-column-group-row">3.6.4. 拥有某列的分组最大值的行</a></span></dt>
     <dt><span class="section"><a href="tutorial.html#example-user-variables">3.6.5. 使用用户变量</a></span></dt>
     <dt><span class="section"><a href="tutorial.html#example-foreign-keys">3.6.6. 使用外键</a></span></dt>
     <dt><span class="section"><a href="tutorial.html#searching-on-two-keys">3.6.7. 根据2个键来查询</a></span></dt>
@@ -997,15 +998,8 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 <p>
           假如当前月为十二月时会有点小麻烦，你不能简单的在月份值12上加1，这样你查找的宠物出生月份值就变为13了，因为我们没有这样的月份，事实上我们使用出生月份为一月来解决这个问题。</p>
 <p>
-          You can write the query so that it works no matter what the
-          current month is, so that you do not have to use the number
-          for a particular month.
-          <a class="link" href="functions.html#function_date-add"><code class="literal">DATE_ADD()</code></a> enables you to add a
-          time interval to a given date. If you add a month to the value
-          of <a class="link" href="functions.html#function_curdate"><code class="literal">CURDATE()</code></a>, then extract the
-          month part with <a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a>, the
-          result produces the month in which to look for birthdays:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet</code></strong>
+          你也可以写查询不局限于当前月，这样就不需要使用特定月份的数字。<a class="link" href="functions.html#function_date-add"><code class="literal">DATE_ADD()</code></a>函数能够对给定的日期加上一个时间间隔。如果你对<a class="link" href="functions.html#function_curdate"><code class="literal">CURDATE()</code></a>值加上一个月，然后用<a class="link" href="functions.html#function_month"><code class="literal">MONTH()</code></a>函数提取月份值，这个结果就是你要找生日的月份：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT name, birth FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>WHERE MONTH(birth) = MONTH(DATE_ADD(CURDATE(),INTERVAL 1 MONTH));</code></strong>
 </pre>
         <p>
@@ -1088,24 +1082,12 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 </div>
 
 </div>
-<a class="indexterm" name="idp7378544"></a><a class="indexterm" name="idp7379616"></a><a class="indexterm" name="idp7381104"></a><p>
-          MySQL provides standard SQL pattern matching as well as a form
-          of pattern matching based on extended regular expressions
-          similar to those used by Unix utilities such as
-          <span class="command"><strong>vi</strong></span>, <span class="command"><strong>grep</strong></span>, and
-          <span class="command"><strong>sed</strong></span>.
-        </p><p>
-          SQL pattern matching enables you to use
-          <span class="quote">“<span class="quote"><code class="literal">_</code></span>”</span> to match any single
-          character and <span class="quote">“<span class="quote"><code class="literal">%</code></span>”</span> to match an
-          arbitrary number of characters (including zero characters). In
-          MySQL, SQL patterns are case-insensitive by default. Some
-          examples are shown here. You do not use <code class="literal">=</code>
-          or <code class="literal">&lt;&gt;</code> when you use SQL patterns; use
-          the <a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a> or
-          <a class="link" href="functions.html#operator_not-like"><code class="literal">NOT LIKE</code></a> comparison operators
-          instead.
-        </p>
+<a class="indexterm" name="idp7378544"></a><a class="indexterm" name="idp7379616"></a><a class="indexterm" name="idp7381104"></a>
+<p>
+        MySQL提供标准的SQL模式匹配，也提供了基于像<span class="command"><strong>vi</strong></span>,，<span class="command"><strong>grep</strong></span>和<span class="command"><strong>sed</strong></span>这些Unix工具类似的扩展正则表达式的匹配方式。</p>
+<p>
+          SQL模式匹配提供了
+          <span class="quote">“<span class="quote"><code class="literal">_</code></span>”来匹配单个字符，也提供</span><span class="quote">“<span class="quote"><code class="literal">%</code></span>”来匹配任意长度字符串(包括空字符)</span>。 在MySQL中， SQL模式匹配是默认不区分大小写的。 在下面提供的例子里，当你使用SQL模式匹配时不能使用 <code class="literal">=</code>或<code class="literal">&lt;&gt;</code> ,，应该使用 <a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a>或<a class="link" href="functions.html#operator_not-like"><code class="literal">NOT LIKE</code></a>。</p>
         <p>
           查找开头为<span class="quote">“<span class="quote"><code class="literal">b</code></span>”的名字</span>：</p>
         <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE 'b%';</code></strong>
@@ -1136,107 +1118,77 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Bowser   | Diane | dog     | m    | 1989-08-31 | 1995-07-29 |
 | Whistler | Gwen  | bird    | NULL | 1997-12-09 | NULL       |
 +----------+-------+---------+------+------------+------------+
-</pre><p>
-          To find names containing exactly five characters, use five
-          instances of the <span class="quote">“<span class="quote"><code class="literal">_</code></span>”</span> pattern
-          character:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE '_____';</code></strong>
+</pre>
+        <p>
+          想要查找只有5个字符的名字，可以使用5个 <span class="quote">“<span class="quote"><code class="literal">_</code></span>”</span> 来匹配字符串：        </p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name LIKE '_____';</code></strong>
 +-------+--------+---------+------+------------+-------+
 | name  | owner  | species | sex  | birth      | death |
 +-------+--------+---------+------+------------+-------+
 | Claws | Gwen   | cat     | m    | 1994-03-17 | NULL  |
 | Buffy | Harold | dog     | f    | 1989-05-13 | NULL  |
 +-------+--------+---------+------+------------+-------+
-</pre><p>
-          The other type of pattern matching provided by MySQL uses
-          extended regular expressions. When you test for a match for
-          this type of pattern, use the
-          <a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a> and <a class="link" href="functions.html#operator_not-regexp"><code class="literal">NOT
-          REGEXP</code></a> operators (or
-          <a class="link" href="functions.html#operator_regexp"><code class="literal">RLIKE</code></a> and
-          <a class="link" href="functions.html#operator_not-regexp"><code class="literal">NOT RLIKE</code></a>,
-          which are synonyms).
-        </p><p>
-          The following list describes some characteristics of extended
-          regular expressions:
-</p>
-<div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-              <span class="quote">“<span class="quote"><code class="literal">.</code></span>”</span> matches any single
-              character.
-            </p></li><li class="listitem"><p>
-              A character class <span class="quote">“<span class="quote"><code class="literal">[...]</code></span>”</span>
-              matches any character within the brackets. For example,
-              <span class="quote">“<span class="quote"><code class="literal">[abc]</code></span>”</span> matches
-              <span class="quote">“<span class="quote"><code class="literal">a</code></span>”</span>,
-              <span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span>, or
-              <span class="quote">“<span class="quote"><code class="literal">c</code></span>”</span>. To name a range of
-              characters, use a dash.
-              <span class="quote">“<span class="quote"><code class="literal">[a-z]</code></span>”</span> matches any
-              letter, whereas <span class="quote">“<span class="quote"><code class="literal">[0-9]</code></span>”</span>
-              matches any digit.
-            </p></li><li class="listitem"><p>
-              <span class="quote">“<span class="quote"><code class="literal">*</code></span>”</span> matches zero or more
-              instances of the thing preceding it. For example,
-              <span class="quote">“<span class="quote"><code class="literal">x*</code></span>”</span> matches any number of
-              <span class="quote">“<span class="quote"><code class="literal">x</code></span>”</span> characters,
-              <span class="quote">“<span class="quote"><code class="literal">[0-9]*</code></span>”</span> matches any
-              number of digits, and <span class="quote">“<span class="quote"><code class="literal">.*</code></span>”</span>
-              matches any number of anything.
-            </p></li><li class="listitem"><p>
-              A <a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a> pattern match
-              succeeds if the pattern matches anywhere in the value
-              being tested. (This differs from a
-              <a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a> pattern match, which
-              succeeds only if the pattern matches the entire value.)
-            </p></li><li class="listitem"><p>
-              To anchor a pattern so that it must match the beginning or
-              end of the value being tested, use
-              <span class="quote">“<span class="quote"><code class="literal">^</code></span>”</span> at the beginning or
-              <span class="quote">“<span class="quote"><code class="literal">$</code></span>”</span> at the end of the
-              pattern.
-</p></li></ul>
+</pre>
+        <p>
+          MySQL提供的另外一种模式匹配就是扩展的正则表达式。当你试验这种类型的模式匹配时，得使用<a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a>和<a class="link" href="functions.html#operator_not-regexp"><code class="literal">NOT
+          REGEXP</code></a>操作符(或者使用<a class="link" href="functions.html#operator_regexp"><code class="literal">RLIKE</code></a>和<a class="link" href="functions.html#operator_not-regexp"><code class="literal">NOT RLIKE</code></a>，它们是同义词)。        </p>
+        <p>
+        下面列举一些扩展正则表达式的字符：</p>
+        <div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>
+              <span class="quote">“<span class="quote"><code class="literal">.</code></span>”</span> 用于匹配任何单个字符。</p>
+</li><li class="listitem">
+  <p>
+              字符串<span class="quote">“<span class="quote"><code class="literal">[...]</code></span>”</span>
+              匹配任何在方括号里的任何字符 。例如，<span class="quote">“<span class="quote"><code class="literal">[abc]</code></span>”</span>匹配<span class="quote">“<span class="quote"><code class="literal">a</code></span>”</span>，<span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span>或者<span class="quote">“<span class="quote"><code class="literal">c</code></span>”</span>。定义字符的范围可以使用一个&quot;-&quot;，例如
+              <span class="quote">“<span class="quote"><code class="literal">[a-z]</code></span>”</span> 匹配任何字母，而 <span class="quote">“<span class="quote"><code class="literal">[0-9]</code></span>”</span>匹配任何数字。</p>
+</li><li class="listitem">
+  <p>
+              <span class="quote">“<span class="quote"><code class="literal">*</code></span>”</span> 用于匹配零个或多个前面的字符， 例如，
+              <span class="quote">“<span class="quote"><code class="literal">x*</code></span>”</span> 匹配任意长度的
+              <span class="quote">“<span class="quote"><code class="literal">x</code></span>”</span>字符,
+              <span class="quote">“<span class="quote"><code class="literal">[0-9]*</code></span>”匹配任意数量的数字，</span><span class="quote">“<span class="quote"><code class="literal">.*</code></span>”</span>
+              匹配任意数量的任意字符。</p>
+</li><li class="listitem">
+  <p><a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a> 模式匹配只要和被测试值任何地方匹配就算匹配成功。(这和<a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a> 模式匹配不同，它要整个值被匹配才算成功)。            </p>
+</li><li class="listitem">
+  <p>
+              为了定位一个模式以便它必须匹配被测试值的开始或结尾(To anchor a pattern so that it must match the beginning or
+              end of the value being tested)， 在模式开头使用
+              <span class="quote">“<span class="quote"><code class="literal">^</code></span>”，或者在模式结尾使用</span><span class="quote">“<span class="quote"><code class="literal">$</code></span>”。</span></p>
+</li></ul>
 </div>
 <p>
-          To demonstrate how extended regular expressions work, the
-          <a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a> queries shown previously are
-          rewritten here to use <a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a>.
-        </p><p>
-          To find names beginning with
-          <span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span>, use
-          <span class="quote">“<span class="quote"><code class="literal">^</code></span>”</span> to match the beginning of
-          the name:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP '^b';</code></strong>
+          为了示范扩展正则表达式是如何工作的，先前的<a class="link" href="functions.html#operator_like"><code class="literal">LIKE</code></a>查询在这里用<a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a>重写了。</p>
+<p>
+          为了找到以<span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span>开始的名字，使用<span class="quote">“<span class="quote"><code class="literal">^</code></span>”来匹配名字的开头：</span></p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP '^b';</code></strong>
 +--------+--------+---------+------+------------+------------+
 | name   | owner  | species | sex  | birth      | death      |
 +--------+--------+---------+------+------------+------------+
 | Buffy  | Harold | dog     | f    | 1989-05-13 | NULL       |
 | Bowser | Diane  | dog     | m    | 1989-08-31 | 1995-07-29 |
 +--------+--------+---------+------+------------+------------+
-</pre><p>
-          If you really want to force a
-          <a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a> comparison to be case
-          sensitive, use the <a class="link" href="functions.html#operator_binary"><code class="literal">BINARY</code></a> keyword
-          to make one of the strings a binary string. This query matches
-          only lowercase <span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span> at the
-          beginning of a name:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP BINARY '^b';</code></strong>
-</pre><p>
-          To find names ending with
-          <span class="quote">“<span class="quote"><code class="literal">fy</code></span>”</span>, use
-          <span class="quote">“<span class="quote"><code class="literal">$</code></span>”</span> to match the end of the
-          name:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP 'fy$';</code></strong>
+</pre>
+<p>
+          If如果你想让<a class="link" href="functions.html#operator_regexp"><code class="literal">REGEXP</code></a>比较区分大小写，使用 <a class="link" href="functions.html#operator_binary"><code class="literal">BINARY</code></a> 关键字来把字符串变成二进制字符串。下面的语句只匹配开头为小写 <span class="quote">“<span class="quote"><code class="literal">b</code></span>”</span> 的名字：        </p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP BINARY '^b';</code></strong>
+</pre>
+        <p>
+          为了找到以<span class="quote">“<span class="quote"><code class="literal">fy</code></span>”结尾的名字</span>，使用
+          <span class="quote">“<span class="quote"><code class="literal">$</code></span>”</span>来匹配名字的结尾：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP 'fy$';</code></strong>
 +--------+--------+---------+------+------------+-------+
 | name   | owner  | species | sex  | birth      | death |
 +--------+--------+---------+------+------------+-------+
 | Fluffy | Harold | cat     | f    | 1993-02-04 | NULL  |
 | Buffy  | Harold | dog     | f    | 1989-05-13 | NULL  |
 +--------+--------+---------+------+------------+-------+
-</pre><p>
-          To find names containing a
-          <span class="quote">“<span class="quote"><code class="literal">w</code></span>”</span>, use this query:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP 'w';</code></strong>
+</pre>
+        <p>
+          为了找到包含<span class="quote">“<span class="quote"><code class="literal">w</code></span>”字符的名字</span>，使用以下查询：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP 'w';</code></strong>
 +----------+-------+---------+------+------------+------------+
 | name     | owner | species | sex  | birth      | death      |
 +----------+-------+---------+------+------------+------------+
@@ -1244,77 +1196,58 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Bowser   | Diane | dog     | m    | 1989-08-31 | 1995-07-29 |
 | Whistler | Gwen  | bird    | NULL | 1997-12-09 | NULL       |
 +----------+-------+---------+------+------------+------------+
-</pre><p>
-          Because a regular expression pattern matches if it occurs
-          anywhere in the value, it is not necessary in the previous
-          query to put a wildcard on either side of the pattern to get
-          it to match the entire value like it would be if you used an
-          SQL pattern.
-        </p><p>
-          To find names containing exactly five characters, use
-          <span class="quote">“<span class="quote"><code class="literal">^</code></span>”</span> and
-          <span class="quote">“<span class="quote"><code class="literal">$</code></span>”</span> to match the beginning and
-          end of the name, and five instances of
-          <span class="quote">“<span class="quote"><code class="literal">.</code></span>”</span> in between:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP '^.....$';</code></strong>
+</pre>
+        <p>
+          由于正则表达式时只需要任何位置的值有出现就能匹配，这和SQL模式有区别的，它不需要像SQL模式查询那样要在模式的两边输入挺佩服。</p>
+        <p>
+          想要查找只有5个字符的名字，使用<span class="quote">“<span class="quote"><code class="literal">^</code></span>”</span>和<span class="quote">“<span class="quote"><code class="literal">$</code></span>”来匹配名字的开头和结尾，中间加5个</span><span class="quote">“<span class="quote"><code class="literal">.</code></span>”</span>：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP '^.....$';</code></strong>
 +-------+--------+---------+------+------------+-------+
 | name  | owner  | species | sex  | birth      | death |
 +-------+--------+---------+------+------------+-------+
 | Claws | Gwen   | cat     | m    | 1994-03-17 | NULL  |
 | Buffy | Harold | dog     | f    | 1989-05-13 | NULL  |
 +-------+--------+---------+------+------------+-------+
-</pre><p>
-          You could also write the previous query using the
-          <code class="literal">{<em class="replaceable"><code>n</code></em>}</code>
-          (<span class="quote">“<span class="quote">repeat-<em class="replaceable"><code>n</code></em>-times</span>”</span>)
-          operator:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP '^.{5}$';</code></strong>
+</pre>
+        <p>
+          你也可以使用<code class="literal">{<em class="replaceable"><code>n</code></em>}</code>操作符(重复n次)来书写上面的查询：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT * FROM pet WHERE name REGEXP '^.{5}$';</code></strong>
 +-------+--------+---------+------+------------+-------+
 | name  | owner  | species | sex  | birth      | death |
 +-------+--------+---------+------+------------+-------+
 | Claws | Gwen   | cat     | m    | 1994-03-17 | NULL  |
 | Buffy | Harold | dog     | f    | 1989-05-13 | NULL  |
 +-------+--------+---------+------+------------+-------+
-</pre><p>
-          <a class="xref" href="functions.html#regexp" title="12.5.2. Regular Expressions">Section 12.5.2, “Regular Expressions”</a>, provides more information about the
-          syntax for regular expressions.
-</p>
+</pre>
+        <p>
+        <a class="xref" href="functions.html#regexp" title="12.5.2. Regular Expressions">章节 12.5.2, “正则表达式”</a>,，提供了更多关于正则表达式的信息。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="counting-rows"></a>3.3.4.8. Counting Rows</h4>
+<h4 class="title"><a name="counting-rows"></a>3.3.4.8. 行计数</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7456512"></a><a class="indexterm" name="idp7458000"></a><a class="indexterm" name="idp7459488"></a><p>
-          Databases are often used to answer the question, <span class="quote">“<span class="quote">How
-          often does a certain type of data occur in a table?</span>”</span>
-          For example, you might want to know how many pets you have, or
-          how many pets each owner has, or you might want to perform
-          various kinds of census operations on your animals.
-        </p><p>
-          Counting the total number of animals you have is the same
-          question as <span class="quote">“<span class="quote">How many rows are in the
-          <code class="literal">pet</code> table?</span>”</span> because there is one
-          record per pet. <a class="link" href="functions.html#function_count"><code class="literal">COUNT(*)</code></a> counts
-          the number of rows, so the query to count your animals looks
-          like this:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT COUNT(*) FROM pet;</code></strong>
+<a class="indexterm" name="idp7456512"></a><a class="indexterm" name="idp7458000"></a><a class="indexterm" name="idp7459488"></a>
+<p>
+          数据库经常被用来回答这个问题， <span class="quote">“某种类型的数据在表里多久出现一次？”例如，你可能想知道你有了几只宠物，或者每个人拥有几只宠物，或者你可能想对你的宠物做各种类型的统计。</span></p>
+<p>
+          计算总共有多少只宠物和 <span class="quote">“<span class="quote"><code class="literal">pet</code>表有多少行？</span>”</span> 是同一个问题，因为每只宠物有一个记录。 <a class="link" href="functions.html#function_count"><code class="literal">COUNT(*)</code></a> 用来计算行数量，所以计算宠物数量的语句就像下面这样：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT COUNT(*) FROM pet;</code></strong>
 +----------+
 | COUNT(*) |
 +----------+
 |        9 |
 +----------+
-</pre><p>
-          Earlier, you retrieved the names of the people who owned pets.
-          You can use <a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a> if you want
-          to find out how many pets each owner has:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT owner, COUNT(*) FROM pet GROUP BY owner;</code></strong>
+</pre>
+<p>
+          早先，你有检索拥有宠物的人的姓名。如果你想知道每个人拥有的宠物数量<a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a>：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT owner, COUNT(*) FROM pet GROUP BY owner;</code></strong>
 +--------+----------+
 | owner  | COUNT(*) |
 +--------+----------+
@@ -1323,16 +1256,13 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | Gwen   |        3 |
 | Harold |        2 |
 +--------+----------+
-</pre><p>
-          The preceding query uses <code class="literal">GROUP BY</code> to group
-          all records for each <code class="literal">owner</code>. The use of
-          <a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a> in conjunction with
-          <code class="literal">GROUP BY</code> is useful for characterizing your
-          data under various groupings. The following examples show
-          different ways to perform animal census operations.
-        </p><p>
-          Number of animals per species:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, COUNT(*) FROM pet GROUP BY species;</code></strong>
+</pre>
+<p>
+          前面的查询使用<code class="literal">GROUP BY</code> 来对每个<code class="literal">owner</code>的记录进行聚合：。<a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a>和<code class="literal">GROUP BY</code> 一起使用可以用各种方式来分组你的数据。接下来的例子就展示了使用不同方式来进行动物普查操作：</p>
+<p>
+          每种动物的数量：
+        </p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, COUNT(*) FROM pet GROUP BY species;</code></strong>
 +---------+----------+
 | species | COUNT(*) |
 +---------+----------+
@@ -1342,9 +1272,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | hamster |        1 |
 | snake   |        1 |
 +---------+----------+
-</pre><p>
-          Number of animals per sex:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT sex, COUNT(*) FROM pet GROUP BY sex;</code></strong>
+</pre>
+        <p>每个性别的宠物有几只：
+        </p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT sex, COUNT(*) FROM pet GROUP BY sex;</code></strong>
 +------+----------+
 | sex  | COUNT(*) |
 +------+----------+
@@ -1352,12 +1283,12 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | f    |        4 |
 | m    |        4 |
 +------+----------+
-</pre><p>
-          (In this output, <code class="literal">NULL</code> indicates that the
-          sex is unknown.)
-        </p><p>
-          Number of animals per combination of species and sex:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, sex, COUNT(*) FROM pet GROUP BY species, sex;</code></strong>
+</pre>
+        <p>
+          (在上面的输出中，<code class="literal">NULL</code> 表示性别未知)        </p>
+        <p>
+        每种类别每种性别的动物数量：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, sex, COUNT(*) FROM pet GROUP BY species, sex;</code></strong>
 +---------+------+----------+
 | species | sex  | COUNT(*) |
 +---------+------+----------+
@@ -1370,12 +1301,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | hamster | f    |        1 |
 | snake   | m    |        1 |
 +---------+------+----------+
-</pre><p>
-          You need not retrieve an entire table when you use
-          <a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a>. For example, the
-          previous query, when performed just on dogs and cats, looks
-          like this:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, sex, COUNT(*) FROM pet</code></strong>
+</pre>
+        <p>
+          在使用<a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a>时不一定需要检索整个表，例如 ，在前面的查询中我们只想查询狗和猫的数量，应为：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, sex, COUNT(*) FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>WHERE species = 'dog' OR species = 'cat'</code></strong>
     -&gt; <strong class="userinput"><code>GROUP BY species, sex;</code></strong>
 +---------+------+----------+
@@ -1386,10 +1315,10 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | dog     | f    |        1 |
 | dog     | m    |        2 |
 +---------+------+----------+
-</pre><p>
-          Or, if you wanted the number of animals per sex only for
-          animals whose sex is known:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, sex, COUNT(*) FROM pet</code></strong>
+</pre>
+        <p>
+          或者，你只想知道明确性别的每种动物每个性别各有几只：</p>
+        <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT species, sex, COUNT(*) FROM pet</code></strong>
     -&gt; <strong class="userinput"><code>WHERE sex IS NOT NULL</code></strong>
     -&gt; <strong class="userinput"><code>GROUP BY species, sex;</code></strong>
 +---------+------+----------+
@@ -1403,30 +1332,24 @@ mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'pet.txt' INTO 
 | hamster | f    |        1 |
 | snake   | m    |        1 |
 +---------+------+----------+
-</pre><p>
-          If you name columns to select in addition to the
-          <a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a> value, a <code class="literal">GROUP
-          BY</code> clause should be present that names those same
-          columns. Otherwise, the following occurs:
-</p>
-<div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-              If the
-              <a class="link" href="server-administration.html#sqlmode_only_full_group_by"><code class="literal">ONLY_FULL_GROUP_BY</code></a> SQL
-              mode is enabled, an error occurs:
-            </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SET sql_mode = 'ONLY_FULL_GROUP_BY';</code></strong>
+</pre>
+        <p>
+          如果把指定的字段名添加到<a class="link" href="functions.html#function_count"><code class="literal">COUNT()</code></a> 子句里，<code class="literal">GROUP
+          BY</code> 子句中必须出现同名字段，不然将会出现以下情况：</p>
+        <div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>
+              如果<a class="link" href="server-administration.html#sqlmode_only_full_group_by"><code class="literal">ONLY_FULL_GROUP_BY</code></a> 的SQL模式被启用，则会报错：            </p>
+  <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SET sql_mode = 'ONLY_FULL_GROUP_BY';</code></strong>
 Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; <strong class="userinput"><code>SELECT owner, COUNT(*) FROM pet;</code></strong>
 ERROR 1140 (42000): Mixing of GROUP columns (MIN(),MAX(),COUNT()...)
 with no GROUP columns is illegal if there is no GROUP BY clause
-</pre></li><li class="listitem"><p>
-              If <a class="link" href="server-administration.html#sqlmode_only_full_group_by"><code class="literal">ONLY_FULL_GROUP_BY</code></a> is
-              not enabled, the query is processed by treating all rows
-              as a single group, but the value selected for each named
-              column is indeterminate. The server is free to select the
-              value from any row:
-            </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SET sql_mode = '';</code></strong>
+</pre></li><li class="listitem">
+  <p>
+              如果<a class="link" href="server-administration.html#sqlmode_only_full_group_by"><code class="literal">ONLY_FULL_GROUP_BY</code></a>模式没有被启用，这个查询将把所有行处理成一个分组，但每个指定的字段值是不确定的，服务器会随从任何行里选机去一个值：</p>
+  <pre class="programlisting">mysql&gt; <strong class="userinput"><code>SET sql_mode = '';</code></strong>
 Query OK, 0 rows affected (0.00 sec)
 
 mysql&gt; <strong class="userinput"><code>SELECT owner, COUNT(*) FROM pet;</code></strong>
@@ -1438,77 +1361,58 @@ mysql&gt; <strong class="userinput"><code>SELECT owner, COUNT(*) FROM pet;</code
 1 row in set (0.00 sec)
 </pre></li></ul>
 </div>
-<p>
-          See also <a class="xref" href="functions.html#group-by-extensions" title="12.17.3. MySQL Extensions to GROUP BY">Section 12.17.3, “MySQL Extensions to <code class="literal">GROUP BY</code>”</a>.
-</p>
+<p>参阅<a class="xref" href="functions.html#group-by-extensions" title="12.17.3. MySQL Extensions to GROUP BY">章节 12.17.3, “MySQL对<code class="literal">GROUP BY</code>的扩展”</a>。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="multiple-tables"></a>3.3.4.9. Using More Than one Table</h4>
+<h4 class="title"><a name="multiple-tables"></a>3.3.4.9. 使用多个表</h4>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7501616"></a><p>
-          The <code class="literal">pet</code> table keeps track of which pets you
-          have. If you want to record other information about them, such
-          as events in their lives like visits to the vet or when
-          litters are born, you need another table. What should this
-          table look like? It needs to contain the following
-          information:
-</p>
+<a class="indexterm" name="idp7501616"></a>
+<p>
+          <code class="literal">pet</code>表保存着你的宠物的记录。如果你想记录宠物们的其它信息，例如 ，宠物们一生中要去看几次兽医，宠物后代们何时出生，这些都需要其它表来实现。这个表是怎样的呢?它看起来要包含以下信息： </p>
 <div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-              The pet name so that you know which animal each event
-              pertains to.
-            </p></li><li class="listitem"><p>
-              A date so that you know when the event occurred.
-            </p></li><li class="listitem"><p>
-              A field to describe the event.
-            </p></li><li class="listitem"><p>
-              An event type field, if you want to be able to categorize
-              events.
-</p></li></ul>
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>
+              宠物的名字，这样你才能知道每个事件是发生在哪只动物身上的。</p>
+</li><li class="listitem">
+  <p>
+              日期，这样你才能知道事件是何时发生的。</p>
+</li><li class="listitem">
+  <p>
+              描述事件的字段。</p>
+</li><li class="listitem">
+  <p>
+              如果你想对事件分类，还需要事件类型字段。</p>
+</li></ul>
 </div>
 <p>
-          Given these considerations, the <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE
-          TABLE</code></a> statement for the <code class="literal">event</code>
-          table might look like this:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>CREATE TABLE event (name VARCHAR(20), date DATE,</code></strong>
+          综上所述， <code class="literal">event</code>的<a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE
+          TABLE</code></a> 语句应该像如下所示：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>CREATE TABLE event (name VARCHAR(20), date DATE,</code></strong>
     -&gt; <strong class="userinput"><code>type VARCHAR(15), remark VARCHAR(255));</code></strong>
-</pre><p>
-          As with the <code class="literal">pet</code> table, it is easiest to
-          load the initial records by creating a tab-delimited text file
-          containing the following information.
-</p>
+</pre>
+<p>和<code class="literal">pet</code>表类似，最容易的载入初始化数据的方式是创建一个tab符号分隔的包含下面信息的文本文件，然后载入到数据表中。</p>
 <div class="informaltable">
 <table summary="This table represents pet record data
             that will appear in a tab delimited text file, as described
 in the preceding text." border="1"><colgroup><col><col><col><col></colgroup><thead><tr><th scope="col">name</th><th scope="col">date</th><th scope="col">type</th><th scope="col">remark</th></tr></thead><tbody><tr><td scope="row">Fluffy</td><td>1995-05-15</td><td>litter</td><td>4 kittens, 3 female, 1 male</td></tr><tr><td scope="row">Buffy</td><td>1993-06-23</td><td>litter</td><td>5 puppies, 2 female, 3 male</td></tr><tr><td scope="row">Buffy</td><td>1994-06-19</td><td>litter</td><td>3 puppies, 3 female</td></tr><tr><td scope="row">Chirpy</td><td>1999-03-21</td><td>vet</td><td>needed beak straightened</td></tr><tr><td scope="row">Slim</td><td>1997-08-03</td><td>vet</td><td>broken rib</td></tr><tr><td scope="row">Bowser</td><td>1991-10-12</td><td>kennel</td><td> </td></tr><tr><td scope="row">Fang</td><td>1991-10-12</td><td>kennel</td><td> </td></tr><tr><td scope="row">Fang</td><td>1998-08-28</td><td>birthday</td><td>Gave him a new chew toy</td></tr><tr><td scope="row">Claws</td><td>1998-03-17</td><td>birthday</td><td>Gave him a new flea collar</td></tr><tr><td scope="row">Whistler</td><td>1998-12-09</td><td>birthday</td><td>First birthday</td></tr></tbody></table>
 </div>
 <p>
-          Load the records like this:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'event.txt' INTO TABLE event;</code></strong>
-</pre><p>
-          Based on what you have learned from the queries that you have
-          run on the <code class="literal">pet</code> table, you should be able to
-          perform retrievals on the records in the
-          <code class="literal">event</code> table; the principles are the same.
-          But when is the <code class="literal">event</code> table by itself
-          insufficient to answer questions you might ask?
-        </p><p>
-          Suppose that you want to find out the ages at which each pet
-          had its litters. We saw earlier how to calculate ages from two
-          dates. The litter date of the mother is in the
-          <code class="literal">event</code> table, but to calculate her age on
-          that date you need her birth date, which is stored in the
-          <code class="literal">pet</code> table. This means the query requires
-          both tables:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT pet.name,</code></strong>
+          给event表载入数据：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>LOAD DATA LOCAL INFILE 'event.txt' INTO TABLE event;</code></strong>
+</pre>
+<p>
+          根据你先前学习的运行在<code class="literal">pet</code>表的那些查询，你应该可以对<code class="literal">event</code>表进行检索，它们的操作方式是一样的。但什么情况下<code class="literal">event</code>表内容不足以来回答你的问题呢?          </p>
+<p>
+          假如你想知道每只宠物的生育年龄。我们前面讲到如何通过2个日期来计算年龄。母亲生育日期记录在<code class="literal">event</code>表中，但是计算她的年龄需要另外一个日期即她的出生日期，这个数据保存在<code class="literal">pet</code>表中。这意味着这个查询同时需要两个表：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT pet.name,</code></strong>
     -&gt; <strong class="userinput"><code>(YEAR(date)-YEAR(birth)) - (RIGHT(date,5)&lt;RIGHT(birth,5)) AS age,</code></strong>
     -&gt; <strong class="userinput"><code>remark</code></strong>
     -&gt; <strong class="userinput"><code>FROM pet INNER JOIN event</code></strong>
@@ -1521,50 +1425,25 @@ in the preceding text." border="1"><colgroup><col><col><col><col></colgroup><the
 | Buffy  |    4 | 5 puppies, 2 female, 3 male |
 | Buffy  |    5 | 3 puppies, 3 female         |
 +--------+------+-----------------------------+
-</pre><p>
-          There are several things to note about this query:
-</p>
+</pre>
+<p>
+        在这个查询里我们注意以下内容：</p>
 <div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-              The <code class="literal">FROM</code> clause joins two tables
-              because the query needs to pull information from both of
-              them.
-            </p></li><li class="listitem"><p>
-              When combining (joining) information from multiple tables,
-              you need to specify how records in one table can be
-              matched to records in the other. This is easy because they
-              both have a <code class="literal">name</code> column. The query uses
-              an <code class="literal">ON</code> clause to match up records in the
-              two tables based on the <code class="literal">name</code> values.
-            </p><p>
-              The query uses an <code class="literal">INNER JOIN</code> to combine
-              the tables. An <code class="literal">INNER JOIN</code> permits rows
-              from either table to appear in the result if and only if
-              both tables meet the conditions specified in the
-              <code class="option">ON</code> clause. In this example, the
-              <code class="literal">ON</code> clause specifies that the
-              <code class="literal">name</code> column in the
-              <code class="literal">pet</code> table must match the
-              <code class="literal">name</code> column in the
-              <code class="literal">event</code> table. If a name appears in one
-              table but not the other, the row will not appear in the
-              result because the condition in the <code class="literal">ON</code>
-              clause fails.
-            </p></li><li class="listitem"><p>
-              Because the <code class="literal">name</code> column occurs in both
-              tables, you must be specific about which table you mean
-              when referring to the column. This is done by prepending
-              the table name to the column name.
-</p></li></ul>
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p><code class="literal">FROM</code>子句联结了2个表，因为这个查询需要从2个表中检索信息。</p>
+</li><li class="listitem">
+  <p>
+              当你联结多个表时，你需要明确指出一个表中的记录怎样才能能与另外表中的记录匹配。这里很简单，因为它们都有<code class="literal">name</code>字段。查询使用一个<code class="literal">ON</code>子句来通过<code class="literal">name</code>值来匹配两个表中记录。</p>
+<p>
+              这个查询使用<code class="literal">INNER JOIN</code>来联结2个表，<code class="literal">INNER JOIN</code>当仅当两个表都满足<code class="option">ON</code> 子句指定的条件时，允许任意一个表中的行出现在结果集中。 在这个例子里，<code class="literal">ON</code>子句指定了<code class="literal">pet</code>表中的<code class="literal">name</code>字段必须与<code class="literal">event</code>表中的<code class="literal">name</code>字段匹配。如果一个名字只出现在一个表中，这行将不会出现在结果集中，因为这个<code class="literal">ON</code>子句的条件不满足了。</p>
+</li><li class="listitem">
+              <p>
+              由于<code class="literal">name</code>字段在两个表中都存在，当引用到这个字段时，你需要明确指定字段属于哪个表，把表名写在字段前就可以实现了。</p>
+            </li></ul>
 </div>
 <p>
-          You need not have two different tables to perform a join.
-          Sometimes it is useful to join a table to itself, if you want
-          to compare records in a table to other records in that same
-          table. For example, to find breeding pairs among your pets,
-          you can join the <code class="literal">pet</code> table with itself to
-          produce candidate pairs of males and females of like species:
-        </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT p1.name, p1.sex, p2.name, p2.sex, p1.species</code></strong>
+          你不一定得用不同表来进行联结操作。有时表联结它自身也很有用，比如你想比较同一表中的记录。例如，想给你的宠物们寻找配偶，你可以对<code class="literal">pet</code>表与它自身联结，来进行同一种类的雄雌配对：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT p1.name, p1.sex, p2.name, p2.sex, p1.species</code></strong>
     -&gt; <strong class="userinput"><code>FROM pet AS p1 INNER JOIN pet AS p2</code></strong>
     -&gt; <strong class="userinput"><code>  ON p1.species = p2.species AND p1.sex = 'f' AND p2.sex = 'm';</code></strong>
 +--------+------+--------+------+---------+
@@ -1574,11 +1453,9 @@ in the preceding text." border="1"><colgroup><col><col><col><col></colgroup><the
 | Buffy  | f    | Fang   | m    | dog     |
 | Buffy  | f    | Bowser | m    | dog     |
 +--------+------+--------+------+---------+
-</pre><p>
-          In this query, we specify aliases for the table name to refer
-          to the columns and keep straight which instance of the table
-          each column reference is associated with.
-</p>
+</pre>
+<p>
+        在这个查询里，我们给表起了别名以便直观的看出每个引用列是属于哪个表实例的。</p>
 </div>
 
 </div>
@@ -1588,55 +1465,45 @@ in the preceding text." border="1"><colgroup><col><col><col><col></colgroup><the
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="getting-information"></a>3.4. Getting Information About Databases and Tables</h2>
+<h2 class="title" style="clear: both"><a name="getting-information"></a>3.4. 获取数据库和表的信息</h2>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7574560"></a><a class="indexterm" name="idp7576048"></a><a class="indexterm" name="idp7577536"></a><p>
-      What if you forget the name of a database or table, or what the
-      structure of a given table is (for example, what its columns are
-      called)? MySQL addresses this problem through several statements
-      that provide information about the databases and tables it
-      supports.
-    </p><p>
-      You have previously seen <a class="link" href="sql-syntax.html#show-databases" title="13.7.5.15. SHOW DATABASES Syntax"><code class="literal">SHOW
-      DATABASES</code></a>, which lists the databases managed by the
-      server. To find out which database is currently selected, use the
-      <a class="link" href="functions.html#function_database"><code class="literal">DATABASE()</code></a> function:
-    </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT DATABASE();</code></strong>
+<a class="indexterm" name="idp7574560"></a><a class="indexterm" name="idp7576048"></a><a class="indexterm" name="idp7577536"></a>
+<p>
+      假如你忘记了数据库或表的名字，或者忘记了一个指定表的结构(比如这些字段的名字是什么)？ MySQL通过一些提供数据库和表信息的命令解决了这个问题。</p>
+<p>
+      先前学习过<a class="link" href="sql-syntax.html#show-databases" title="13.7.5.15. SHOW DATABASES Syntax"><code class="literal">SHOW
+      DATABASES</code></a>，这个命令可以罗列出服务器中管理的所有数据库。想知道当前选择的是哪个数据库，可以使用
+      <a class="link" href="functions.html#function_database"><code class="literal">DATABASE()</code></a>函数：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT DATABASE();</code></strong>
 +------------+
 | DATABASE() |
 +------------+
 | menagerie  |
 +------------+
-</pre><p>
-      If you have not yet selected any database, the result is
-      <code class="literal">NULL</code>.
-    </p><p>
-      To find out what tables the default database contains (for
-      example, when you are not sure about the name of a table), use
-      this command:
-    </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SHOW TABLES;</code></strong>
+</pre>
+<p>
+      如果你当前没有选择任何数据库，返回结果就是<code class="literal">NULL</code>值。</p>
+<p>
+    使用下面命令可以找出默认数据库包含哪些表(例如，当你不确定一个表的名字的时候)：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SHOW TABLES;</code></strong>
 +---------------------+
 | Tables_in_menagerie |
 +---------------------+
 | event               |
 | pet                 |
 +---------------------+
-</pre><p>
-      The name of the column in the output produced by this statement is
-      always
-      <code class="literal">Tables_in_<em class="replaceable"><code>db_name</code></em></code>,
-      where <em class="replaceable"><code>db_name</code></em> is the name of the
-      database. See <a class="xref" href="sql-syntax.html#show-tables" title="13.7.5.38. SHOW TABLES Syntax">Section 13.7.5.38, “<code class="literal">SHOW TABLES</code> Syntax”</a>, for more information.
-    </p><p>
-      If you want to find out about the structure of a table, the
-      <a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a> statement is useful; it
-      displays information about each of a table's columns:
-    </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>DESCRIBE pet;</code></strong>
+</pre>
+<p>
+      这个语句产生的输出字段的名字格式为<code class="literal">Tables_in_<em class="replaceable"><code>db_name</code></em></code>,
+    这个<em class="replaceable"><code>db_name</code></em>就是数据库的名字。 参阅<a class="xref" href="sql-syntax.html#show-tables" title="13.7.5.38. SHOW TABLES Syntax">章节 13.7.5.38, “<code class="literal">SHOW TABLES</code> 语法”</a>可以获取更多相关信息。</p>
+<p>
+    如果你想知道一个表的结构，可以使用<a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a>语句，它会显示出这个表的每个字段的信息：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>DESCRIBE pet;</code></strong>
 +---------+-------------+------+-----+---------+-------+
 | Field   | Type        | Null | Key | Default | Extra |
 +---------+-------------+------+-----+---------+-------+
@@ -1647,108 +1514,81 @@ in the preceding text." border="1"><colgroup><col><col><col><col></colgroup><the
 | birth   | date        | YES  |     | NULL    |       |
 | death   | date        | YES  |     | NULL    |       |
 +---------+-------------+------+-----+---------+-------+
-</pre><p>
-      <code class="literal">Field</code> indicates the column name,
-      <code class="literal">Type</code> is the data type for the column,
-      <code class="literal">NULL</code> indicates whether the column can contain
-      <code class="literal">NULL</code> values, <code class="literal">Key</code> indicates
-      whether the column is indexed, and <code class="literal">Default</code>
-      specifies the column's default value. <code class="literal">Extra</code>
-      displays special information about columns: If a column was
-      created with the <code class="literal">AUTO_INCREMENT</code> option, the
-      value will be <code class="literal">auto_increment</code> rather than empty.
-    </p><p>
-      <code class="literal">DESC</code> is a short form of
-      <a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a>. See
-      <a class="xref" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax">Section 13.8.1, “<code class="literal">DESCRIBE</code> Syntax”</a>, for more information.
-    </p><p>
-      You can obtain the <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE TABLE</code></a>
-      statement necessary to create an existing table using the
-      <a class="link" href="sql-syntax.html#show-create-table" title="13.7.5.12. SHOW CREATE TABLE Syntax"><code class="literal">SHOW CREATE TABLE</code></a> statement. See
-      <a class="xref" href="sql-syntax.html#show-create-table" title="13.7.5.12. SHOW CREATE TABLE Syntax">Section 13.7.5.12, “<code class="literal">SHOW CREATE TABLE</code> Syntax”</a>.
-    </p><p>
-      If you have indexes on a table, <code class="literal">SHOW INDEX FROM
-      <em class="replaceable"><code>tbl_name</code></em></code> produces information
-      about them. See <a class="xref" href="sql-syntax.html#show-index" title="13.7.5.23. SHOW INDEX Syntax">Section 13.7.5.23, “<code class="literal">SHOW INDEX</code> Syntax”</a>, for more about this
-      statement.
-</p>
+</pre>
+<p>
+      <code class="literal">Field</code> 显示字段名字，
+      <code class="literal">Type</code> 表示字段的数据类型，
+      <code class="literal">NULL</code>表示字段是否允许<code class="literal">NULL</code>值, <code class="literal">Key</code>表示字段是否有索引，<code class="literal">Default</code>指定了该字段的默认值。 <code class="literal">Extra</code>显示了字段的特殊信息：一个字段有<code class="literal">AUTO_INCREMENT</code> 选项，字段值会自增而不为空。</p>
+<p>
+      <code class="literal">DESC</code>是<a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a>命令的缩写形式。参阅<a class="xref" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax">章节 13.8.1, “<code class="literal">DESCRIBE</code>语法”</a>，可以获取更多相关信息。</p>
+<p>
+      你可以使用<a class="link" href="sql-syntax.html#show-create-table" title="13.7.5.12. SHOW CREATE TABLE Syntax"><code class="literal">SHOW CREATE TABLE</code></a>命令来获取一个已存在表的<a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE TABLE</code></a>语句。 参阅
+      <a class="xref" href="sql-syntax.html#show-create-table" title="13.7.5.12. SHOW CREATE TABLE Syntax">Section 13.7.5.12, “<code class="literal">SHOW CREATE TABLE</code>语法”</a>.    </p>
+<p>
+      如果表中有索引， <code class="literal">SHOW INDEX FROM
+      <em class="replaceable"><code>tbl_name</code></em></code> 会输出索引的相关信息。参阅<a class="xref" href="sql-syntax.html#show-index" title="13.7.5.23. SHOW INDEX Syntax">章节 13.7.5.23, “<code class="literal">SHOW INDEX</code>语法”</a>，可以获取更多相关信息。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="batch-mode"></a>3.5. Using <span class="command"><strong>mysql</strong></span> in Batch Mode</h2>
+<h2 class="title" style="clear: both"><a name="batch-mode"></a>3.5. 在批处理模式下使用mysql</h2>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7608464"></a><a class="indexterm" name="idp7609952"></a><a class="indexterm" name="idp7611024"></a><a class="indexterm" name="idp7612512"></a><a class="indexterm" name="idp7613584"></a><a class="indexterm" name="idp7615072"></a><p>
-      In the previous sections, you used <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>
-      interactively to enter queries and view the results. You can also
-      run <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> in batch mode. To do this, put the
-      commands you want to run in a file, then tell
-      <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> to read its input from the file:
-    </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql &lt; <em class="replaceable"><code>batch-file</code></em></code></strong>
-</pre><p>
-      If you are running <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> under Windows and have
-      some special characters in the file that cause problems, you can
-      do this:
-    </p><pre class="programlisting">C:\&gt; <strong class="userinput"><code>mysql -e "source <em class="replaceable"><code>batch-file</code></em>"</code></strong>
-</pre><p>
-      If you need to specify connection parameters on the command line,
-      the command might look like this:
-    </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql -h <em class="replaceable"><code>host</code></em> -u <em class="replaceable"><code>user</code></em> -p &lt; <em class="replaceable"><code>batch-file</code></em></code></strong>
+<a class="indexterm" name="idp7608464"></a><a class="indexterm" name="idp7609952"></a><a class="indexterm" name="idp7611024"></a><a class="indexterm" name="idp7612512"></a><a class="indexterm" name="idp7613584"></a><a class="indexterm" name="idp7615072"></a>
+<p>
+      在先前的章节，你使用<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>交互式的输入查询和查看结果。你也可以在批处理模式下使用<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>。要做到这点，只要把你要操作的命令保存在一个文件里，然后告诉<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> 来读这个文件中的输入：</p>
+<pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql &lt; <em class="replaceable"><code>batch-file</code></em></code></strong>
+</pre>
+<p>
+    如果你在Windows平台下运行<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>，文件中一些特殊字符可能会让上面的做法产生问题，你可以使用下面语句来避免：</p>
+<pre class="programlisting">C:\&gt; <strong class="userinput"><code>mysql -e "source <em class="replaceable"><code>batch-file</code></em>"</code></strong>
+</pre>
+<p>
+      如果你要在命令行中指定连接参数，命令行应为：</p>
+<pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql -h <em class="replaceable"><code>host</code></em> -u <em class="replaceable"><code>user</code></em> -p &lt; <em class="replaceable"><code>batch-file</code></em></code></strong>
 Enter password: <strong class="userinput"><code>********</code></strong>
-</pre><p>
-      When you use <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> this way, you are creating a
-      script file, then executing the script.
-    </p><p>
-      If you want the script to continue even if some of the statements
-      in it produce errors, you should use the
-      <a class="link" href="programs.html#option_mysql_force"><code class="option">--force</code></a> command-line option.
-    </p><p>
-      Why use a script? Here are a few reasons:
-</p>
+</pre>
+<p>
+    当你在批处理模式下使用<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>时，你需要创建一个脚本文件，然后执行这个脚本。</p>
+<p>
+      如果你想让脚本中语句执行出错时仍继续执行的话，你需要使用<a class="link" href="programs.html#option_mysql_force"><code class="option">--force</code></a>命令行选项。</p>
+<p>
+    为什么要使用脚本？有以下原因：</p>
 <div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-          If you run a query repeatedly (say, every day or every week),
-          making it a script enables you to avoid retyping it each time
-          you execute it.
-        </p></li><li class="listitem"><p>
-          You can generate new queries from existing ones that are
-          similar by copying and editing script files.
-        </p></li><li class="listitem"><p>
-          Batch mode can also be useful while you're developing a query,
-          particularly for multiple-line commands or multiple-statement
-          sequences of commands. If you make a mistake, you don't have
-          to retype everything. Just edit your script to correct the
-          error, then tell <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> to execute it again.
-        </p></li><li class="listitem"><p>
-          If you have a query that produces a lot of output, you can run
-          the output through a pager rather than watching it scroll off
-          the top of your screen:
-        </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql &lt; <em class="replaceable"><code>batch-file</code></em> | more</code></strong>
-</pre></li><li class="listitem"><p>
-          You can catch the output in a file for further processing:
-        </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql &lt; <em class="replaceable"><code>batch-file</code></em> &gt; mysql.out</code></strong>
-</pre></li><li class="listitem"><p>
-          You can distribute your script to other people so that they
-          can also run the commands.
-        </p></li><li class="listitem"><p>
-          Some situations do not allow for interactive use, for example,
-          when you run a query from a <span class="command"><strong>cron</strong></span> job. In
-          this case, you must use batch mode.
-</p></li></ul>
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>
+          如果你要重复执行一个查询(比如每天或者每星期)，把查询编辑成脚本可以避免每次执行时重复输入。</p>
+</li><li class="listitem">
+  <p>
+          你可以通过拷贝或者编辑已存在类似的脚本文件来生成新查询。</p>
+</li><li class="listitem">
+  <p>
+          批处理模式也很适合用来开发查询，特别是多行命令或者多语句顺序命令。如果出现错误，你不需要重新输入所有内容，只需编辑脚本来更正错误，然后告诉<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><strong>mysql</strong></a>重新执行脚本。</p>
+</li><li class="listitem">
+          <p>
+          如果你的查询产生了很多输出，你可以把输出内容分页显示而不用翻屏到最上面来查看输出：</p>
+          <pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql &lt; <em class="replaceable"><code>batch-file</code></em> | more</code></strong>
+</pre></li><li class="listitem">
+  <p>
+          你可以保存输出到文件中来进一步处理：</p>
+  <pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql &lt; <em class="replaceable"><code>batch-file</code></em> &gt; mysql.out</code></strong>
+</pre></li><li class="listitem">
+  <p>
+          你可以把脚本分发给其它人，这样他们也可以来执行这些命令。</p>
+</li><li class="listitem">
+  <p>
+          某些场景下不允许使用交互式模式，比如，当你使用<strong>cron</strong>任务来执行脚本，这是必须使用批处理模式。</p>
+</li></ul>
 </div>
 <p>
-      The default output format is different (more concise) when you run
-      <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> in batch mode than when you use it
-      interactively. For example, the output of <code class="literal">SELECT DISTINCT
-      species FROM pet</code> looks like this when
-      <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> is run interactively:
-    </p><pre class="programlisting">+---------+
+      批处理方式运行<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>和交互式运行的默认输出格式是不一样的，前者更简洁。例如，交互式下运行 <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>来查询<code class="literal">SELECT DISTINCT
+      species FROM pet</code> ，输出结果如下： </p>
+<pre class="programlisting">+---------+
 | species |
 +---------+
 | bird    |
@@ -1756,32 +1596,31 @@ Enter password: <strong class="userinput"><code>********</code></strong>
 | dog     |
 | hamster |
 | snake   |
-+---------+</pre><p>
-      In batch mode, the output looks like this instead:
-    </p><pre class="programlisting">species
++---------+</pre>
+    <p>
+    在批处理模式下，输出会变成下面这样：,</p>
+    <pre class="programlisting">species
 bird
 cat
 dog
 hamster
-snake</pre><p>
-      If you want to get the interactive output format in batch mode,
-      use <code class="literal">mysql -t</code>. To echo to the output the
-      commands that are executed, use <code class="literal">mysql -vvv</code>.
-    </p><a class="indexterm" name="idp7650336"></a><a class="indexterm" name="idp7651424"></a><a class="indexterm" name="idp7652512"></a><a class="indexterm" name="idp7653616"></a><p>
-      You can also use scripts from the <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> prompt
-      by using the <code class="literal">source</code> command or
-      <code class="literal">\.</code> command:
-    </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>source <em class="replaceable"><code>filename</code></em>;</code></strong>
+snake</pre>
+    <p>
+      在批处理模式下如果想获取交互式输出格式，使用<code class="literal">mysql -t</code>。使用 <code class="literal">mysql -vvv</code>可以返回输出当前执行的命令。 </p>
+    <a class="indexterm" name="idp7650336"></a><a class="indexterm" name="idp7651424"></a><a class="indexterm" name="idp7652512"></a><a class="indexterm" name="idp7653616"></a>
+    <p>
+      你也可以在<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a>提示符下使用<code class="literal">source</code>或<code class="literal">\.</code>命令来执行脚本：</p>
+    <pre class="programlisting">mysql&gt; <strong class="userinput"><code>source <em class="replaceable"><code>filename</code></em>;</code></strong>
 mysql&gt; <strong class="userinput"><code>\. <em class="replaceable"><code>filename</code></em></code></strong>
-</pre><p>
-      See <a class="xref" href="programs.html#mysql-batch-commands" title="4.5.1.5. Executing SQL Statements from a Text File">Section 4.5.1.5, “Executing SQL Statements from a Text File”</a>, for more information.
-</p>
+</pre>
+    <p>
+    参阅<a class="xref" href="programs.html#mysql-batch-commands" title="4.5.1.5. Executing SQL Statements from a Text File">参阅 4.5.1.5, “从文本文件中来执行SQL语句”</a>，可以获取更多相关信息。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="examples"></a>3.6. Examples of Common Queries</h2>
+<h2 class="title" style="clear: both"><a name="examples"></a>3.6.常见查询示例</h2>
 
 </div>
 
@@ -1789,37 +1628,37 @@ mysql&gt; <strong class="userinput"><code>\. <em class="replaceable"><code>filen
 
 </div>
 <div class="toc">
-<dl><dt><span class="section"><a href="tutorial.html#example-maximum-column">3.6.1. The Maximum Value for a Column</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-row">3.6.2. The Row Holding the Maximum of a Certain Column</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-column-group">3.6.3. Maximum of Column per Group</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-column-group-row">3.6.4. The Rows Holding the Group-wise Maximum of a Certain Column</a></span></dt><dt><span class="section"><a href="tutorial.html#example-user-variables">3.6.5. Using User-Defined Variables</a></span></dt><dt><span class="section"><a href="tutorial.html#example-foreign-keys">3.6.6. Using Foreign Keys</a></span></dt><dt><span class="section"><a href="tutorial.html#searching-on-two-keys">3.6.7. Searching on Two Keys</a></span></dt><dt><span class="section"><a href="tutorial.html#calculating-days">3.6.8. Calculating Visits Per Day</a></span></dt><dt><span class="section"><a href="tutorial.html#example-auto-increment">3.6.9. Using <code class="literal">AUTO_INCREMENT</code></a></span></dt></dl>
+<dl><dt><span class="section"><a href="tutorial.html#example-maximum-column">3.6.1. 列的最大值</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#example-maximum-row">3.6.2. 拥有某列最大值的行</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#example-maximum-column-group">3.6.3. 列的分组最大值</a></span></dt><dt><span class="section"><a href="tutorial.html#example-maximum-column-group-row">3.6.4. 拥有某列的分组最大值的行</a></span></dt><dt><span class="section"><a href="tutorial.html#example-user-variables">3.6.5. 使用用户变量</a></span></dt><dt><span class="section"><a href="tutorial.html#example-foreign-keys">3.6.6. 使用外键</a></span></dt><dt><span class="section"><a href="tutorial.html#searching-on-two-keys">3.6.7. 根据2个键来查询</a></span></dt>
+<dt><span class="section"><a href="tutorial.html#calculating-days">3.6.8. 计算每天的访问量</a></span></dt><dt><span class="section"><a href="tutorial.html#example-auto-increment">3.6.9. 使用<code class="literal">AUTO_INCREMENT</code></a></span></dt></dl>
 </div>
-<a class="indexterm" name="idp7662384"></a><a class="indexterm" name="idp7663872"></a><p>
-      Here are examples of how to solve some common problems with MySQL.
-    </p><p>
-      Some of the examples use the table <code class="literal">shop</code> to hold
-      the price of each article (item number) for certain traders
-      (dealers). Supposing that each trader has a single fixed price per
-      article, then (<code class="literal">article</code>,
-      <code class="literal">dealer</code>) is a primary key for the records.
-    </p><p>
-      Start the command-line tool <a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> and select a
-      database:
-    </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql <em class="replaceable"><code>your-database-name</code></em></code></strong>
-</pre><p>
-      (In most MySQL installations, you can use the database named
-      <code class="literal">test</code>).
-    </p><p>
-      You can create and populate the example table with these
-      statements:
-    </p><pre class="programlisting">CREATE TABLE shop (
+<a class="indexterm" name="idp7662384"></a><a class="indexterm" name="idp7663872"></a>
+<p>
+    这里有些使用MySQL来解决常见问题的例子。</p>
+<p>
+      在一些例子里，使用<code class="literal">shop</code>表来记录某个商人(经销商)的每个物品(物品编号)的价格。假设每个供应商对每个商品有一个固定价格，那么(<code class="literal">article</code>,
+      <code class="literal">dealer</code>) 就是该记录的主。   </p>
+<p>
+    启动命令行工具<a class="link" href="programs.html#mysql" title="4.5.1. mysql — The MySQL Command-Line Tool"><span class="command"><strong>mysql</strong></span></a> 并选择一个数据库：</p>
+<pre class="programlisting">shell&gt; <strong class="userinput"><code>mysql <em class="replaceable"><code>your-database-name</code></em></code></strong>
+</pre>
+<p>
+      (在大部分MySQL安装中，你可以使用<code class="literal">test</code>数据库)。    </p>
+<p>
+    用下面的语句可以创建示例表并填充数据：</p>
+<pre class="programlisting">CREATE TABLE shop (
     article INT(4) UNSIGNED ZEROFILL DEFAULT '0000' NOT NULL,
     dealer  CHAR(20)                 DEFAULT ''     NOT NULL,
     price   DOUBLE(16,2)             DEFAULT '0.00' NOT NULL,
     PRIMARY KEY(article, dealer));
 INSERT INTO shop VALUES
     (1,'A',3.45),(1,'B',3.99),(2,'A',10.99),(3,'B',1.45),
-    (3,'C',1.69),(3,'D',1.25),(4,'D',19.95);</pre><p>
-      After issuing the statements, the table should have the following
-      contents:
-    </p><pre class="programlisting">SELECT * FROM shop;
+    (3,'C',1.69),(3,'D',1.25),(4,'D',19.95);</pre>
+<p>
+      执行上面语句后，这个表将包含以下内容：
+    </p>
+<pre class="programlisting">SELECT * FROM shop;
 
 +---------+--------+-------+
 | article | dealer | price |
@@ -1837,13 +1676,13 @@ INSERT INTO shop VALUES
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-maximum-column"></a>3.6.1. The Maximum Value for a Column</h3>
+<h3 class="title"><a name="example-maximum-column"></a>3.6.1. 列的最大值</h3>
 </div>
 </div>
 </div>
 <p>
-        <span class="quote">“<span class="quote">What is the highest item number?</span>”</span>
-      </p><pre class="programlisting">SELECT MAX(article) AS article FROM shop;
+        <span class="quote">“<span class="quote">最大的物品编号是什么？</span>”</span>      </p>
+<pre class="programlisting">SELECT MAX(article) AS article FROM shop;
 
 +---------+
 | article |
@@ -1855,7 +1694,7 @@ INSERT INTO shop VALUES
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-maximum-row"></a>3.6.2. The Row Holding the Maximum of a Certain Column</h3>
+<h3 class="title"><a name="example-maximum-row"></a>3.6.2. 拥有某列最大值的行</h3>
 
 </div>
 
@@ -1863,11 +1702,10 @@ INSERT INTO shop VALUES
 
 </div>
 <p>
-        <span class="emphasis"><em>Task: Find the number, dealer, and price of the most
-        expensive article.</em></span>
-      </p><p>
-        This is easily done with a subquery:
-      </p><pre class="programlisting">SELECT article, dealer, price
+        <span class="emphasis"><em>任务：找出最贵的商品的编号，供应商和价格。</em></span>      </p>
+<p>
+      用子查询来实现很简单：</p>
+<pre class="programlisting">SELECT article, dealer, price
 FROM   shop
 WHERE  price=(SELECT MAX(price) FROM shop);
 
@@ -1875,11 +1713,10 @@ WHERE  price=(SELECT MAX(price) FROM shop);
 | article | dealer | price |
 +---------+--------+-------+
 |    0004 | D      | 19.95 |
-+---------+--------+-------+</pre><p>
-        Other solutions are to use a <code class="literal">LEFT JOIN</code> or to
-        sort all rows descending by price and get only the first row
-        using the MySQL-specific <code class="literal">LIMIT</code> clause:
-      </p><pre class="programlisting">SELECT s1.article, s1.dealer, s1.price
++---------+--------+-------+</pre>
+<p>
+        使用<code class="literal">LEFT JOIN</code>或对所有行按价格逆序排序后使用MySQL特有的<code class="literal">LIMIT</code>子句来取第一行也可以实现该任务：</p>
+<pre class="programlisting">SELECT s1.article, s1.dealer, s1.price
 FROM shop s1
 LEFT JOIN shop s2 ON s1.price &lt; s2.price
 WHERE s2.article IS NULL;
@@ -1890,14 +1727,9 @@ ORDER BY price DESC
 LIMIT 1;</pre>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
-<div class="admon-title">
-Note
-</div>
+<div class="admon-title">注意</div>
 <p xmlns="">
-          If there were several most expensive articles, each with a
-          price of 19.95, the <code class="literal">LIMIT</code> solution would
-          show only one of them.
-</p>
+          如果有多个最贵的商品，每个商品价格都是19.95，<code class="literal">LIMIT</code>方案只会去其中的一个商品。 </p>
 </div>
 
 </div>
@@ -1905,7 +1737,7 @@ Note
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-maximum-column-group"></a>3.6.3. Maximum of Column per Group</h3>
+<h3 class="title"><a name="example-maximum-column-group"></a>3.6.3. 列的分组最大值</h3>
 
 </div>
 
@@ -1913,8 +1745,8 @@ Note
 
 </div>
 <p>
-        <span class="emphasis"><em>Task: Find the highest price per article.</em></span>
-      </p><pre class="programlisting">SELECT article, MAX(price) AS price
+        <span class="emphasis"><em>任务: 找出每个物品的最高价。</em></span>      </p>
+<pre class="programlisting">SELECT article, MAX(price) AS price
 FROM   shop
 GROUP BY article;
 
@@ -1931,7 +1763,7 @@ GROUP BY article;
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-maximum-column-group-row"></a>3.6.4. The Rows Holding the Group-wise Maximum of a Certain Column</h3>
+<h3 class="title"><a name="example-maximum-column-group-row"></a>3.6.4. 拥有某列的分组最大值的行</h3>
 
 </div>
 
@@ -1939,11 +1771,10 @@ GROUP BY article;
 
 </div>
 <p>
-        <span class="emphasis"><em>Task: For each article, find the dealer or dealers
-        with the most expensive price.</em></span>
-      </p><p>
-        This problem can be solved with a subquery like this one:
-      </p><pre class="programlisting">SELECT article, dealer, price
+        <span class="emphasis"><em>任务: 对每个商品，找出其最高价格的供应商。</em></span>      </p>
+<p>
+      这个问题可以用类似于下面的子查询来解决：</p>
+<pre class="programlisting">SELECT article, dealer, price
 FROM   shop s1
 WHERE  price=(SELECT MAX(s2.price)
               FROM shop s2
@@ -1956,15 +1787,13 @@ WHERE  price=(SELECT MAX(s2.price)
 |    0002 | A      | 10.99 |
 |    0003 | C      |  1.69 |
 |    0004 | D      | 19.95 |
-+---------+--------+-------+</pre><p>
-        The preceding example uses a correlated subquery, which can be
-        inefficient (see <a class="xref" href="sql-syntax.html#correlated-subqueries" title="13.2.10.7. Correlated Subqueries">Section 13.2.10.7, “Correlated Subqueries”</a>). Other
-        possibilities for solving the problem are to use an uncorrelated
-        subquery in the <code class="literal">FROM</code> clause or a
-        <code class="literal">LEFT JOIN</code>.
-      </p><p>
-        Uncorrelated subquery:
-      </p><pre class="programlisting">SELECT s1.article, dealer, s1.price
++---------+--------+-------+</pre>
+<p>
+        上面的例子使用了关联子查询，它性能可能比较低下(参阅<a class="xref" href="sql-syntax.html#correlated-subqueries" title="13.2.10.7. Correlated Subqueries">章节 13.2.10.7, “关联子查询”</a>)。 其他解决方式有：在<code class="literal">FROM</code>子句中使用非关联子查询或者使用<code class="literal">LEFT JOIN</code>。</p>
+<p>
+        非关联子查询：
+      </p>
+<pre class="programlisting">SELECT s1.article, dealer, s1.price
 FROM shop s1
 JOIN (
   SELECT article, MAX(price) AS price
@@ -1975,19 +1804,14 @@ JOIN (
       </p><pre class="programlisting">SELECT s1.article, s1.dealer, s1.price
 FROM shop s1
 LEFT JOIN shop s2 ON s1.article = s2.article AND s1.price &lt; s2.price
-WHERE s2.article IS NULL;</pre><p>
-        The <code class="literal">LEFT JOIN</code> works on the basis that when
-        <code class="literal">s1.price</code> is at its maximum value, there is no
-        <code class="literal">s2.price</code> with a greater value and the
-        <code class="literal">s2</code> rows values will be
-        <code class="literal">NULL</code>. See <a class="xref" href="sql-syntax.html#join" title="13.2.9.2. JOIN Syntax">Section 13.2.9.2, “<code class="literal">JOIN</code> Syntax”</a>.
-</p>
+WHERE s2.article IS NULL;</pre>
+      <p><code class="literal">LEFT JOIN</code>实现这个的原理是：当<code class="literal">s1.price</code>是最大值时，没有一个<code class="literal">s2.price</code>值会比它大，这样<code class="literal">s2</code>所在行值都为<code class="literal">NULL</code>。 参阅 <a class="xref" href="sql-syntax.html#join" title="13.2.9.2. JOIN Syntax">&quot;章节 13.2.9.2, “<code class="literal">JOIN</code>语法”</a>。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-user-variables"></a>3.6.5. Using User-Defined Variables</h3>
+<h3 class="title"><a name="example-user-variables"></a>3.6.5. 使用用户变量</h3>
 
 </div>
 
@@ -1995,13 +1819,10 @@ WHERE s2.article IS NULL;</pre><p>
 
 </div>
 <p>
-        You can employ MySQL user variables to remember results without
-        having to store them in temporary variables in the client. (See
-        <a class="xref" href="language-structure.html#user-variables" title="9.4. User-Defined Variables">Section 9.4, “User-Defined Variables”</a>.)
-      </p><p>
-        For example, to find the articles with the highest and lowest
-        price you can do this:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT @min_price:=MIN(price),@max_price:=MAX(price) FROM shop;</code></strong>
+        你可以使用MySQL的用户变量来存储结果，而无需把它们存在客户端的临时变量里。 (参阅<a class="xref" href="language-structure.html#user-variables" title="9.4. User-Defined Variables">章节9.4, “用户变量”</a>.)      </p>
+<p>
+      例如，可以用下面语句找出最高和最低价格：</p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>SELECT @min_price:=MIN(price),@max_price:=MAX(price) FROM shop;</code></strong>
 mysql&gt; <strong class="userinput"><code>SELECT * FROM shop WHERE price=@min_price OR price=@max_price;</code></strong>
 +---------+--------+-------+
 | article | dealer | price |
@@ -2013,16 +1834,10 @@ mysql&gt; <strong class="userinput"><code>SELECT * FROM shop WHERE price=@min_pr
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
-</div>
+注意</div>
 <p xmlns="">
-          It is also possible to store the name of a database object
-          such as a table or a column in a user variable and then to use
-          this variable in an SQL statement; however, this requires the
-          use of a prepared statement. See
-          <a class="xref" href="sql-syntax.html#sql-syntax-prepared-statements" title="13.5. SQL Syntax for Prepared Statements">Section 13.5, “SQL Syntax for Prepared Statements”</a>, for more
-          information.
-</p>
+          让用户变量用来存储数据库对象名，例如表名或字段名，然后在SQL语句中使用这些变量也是可以的，但是得使用预处理语句。参阅<a class="xref" href="sql-syntax.html#sql-syntax-prepared-statements" title="13.5. SQL Syntax for Prepared Statements">章节 13.5, “预处理语句的SQL语法
+”</a>,，来获取更多相关信息。</p>
 </div>
 
 </div>
@@ -2030,56 +1845,36 @@ Note
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-foreign-keys"></a>3.6.6. Using Foreign Keys</h3>
+<h3 class="title"><a name="example-foreign-keys"></a>3.6.6. 使用外键</h3>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7711248"></a><a class="indexterm" name="idp7712320"></a><p>
-        In MySQL, <code class="literal">InnoDB</code> tables support checking of
-        foreign key constraints. See
-        <a class="xref" href="storage-engines.html#innodb-storage-engine" title="14.2. The InnoDB Storage Engine">Section 14.2, “The <code class="literal">InnoDB</code> Storage Engine”</a>, and
-        <a class="xref" href="introduction.html#ansi-diff-foreign-keys" title="1.8.5.4. Foreign Key Differences">Section 1.8.5.4, “Foreign Key Differences”</a>.
-      </p><p>
-        A foreign key constraint is not required merely to join two
-        tables. For storage engines other than
-        <code class="literal">InnoDB</code>, it is possible when defining a column
-        to use a <code class="literal">REFERENCES
-        <em class="replaceable"><code>tbl_name</code></em>(<em class="replaceable"><code>col_name</code></em>)</code>
-        clause, which has no actual effect, and <span class="emphasis"><em>serves only as
-        a memo or comment to you that the column which you are currently
-        defining is intended to refer to a column in another
-        table</em></span>. It is extremely important to realize when
-        using this syntax that:
-</p>
+<a class="indexterm" name="idp7711248"></a><a class="indexterm" name="idp7712320"></a>
+<p>
+        在MySQL中， <code class="literal">InnoDB</code>表支持外键约束检查。参阅<a class="xref" href="storage-engines.html#innodb-storage-engine" title="14.2. The InnoDB Storage Engine">章节 14.2, “<code class="literal">InnoDB</code>存储引擎</a>,，和<a class="xref" href="introduction.html#ansi-diff-foreign-keys" title="1.8.5.4. Foreign Key Differences">章节 1.8.5.4, “外键”</a>.      </p>
+<p>
+        外键约束在两表联结时无需外部关键字。除了<code class="literal">InnoDB</code>以外的其他存储引擎，在定义字段时使用<code class="literal">REFERENCES
+        <em class="replaceable"><code>tbl_name</code></em>(<em class="replaceable"><code>col_name</code></em>)</code>子句是不生效的，  <span class="emphasis"><em>只把它当作备注或者注释：你当前定义的列引用其它表的一个列。</em></span>在使用该语法时得注意以下内容：</p>
 <div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-            MySQL does not perform any sort of <code class="literal">CHECK</code>
-            to make sure that <em class="replaceable"><code>col_name</code></em>
-            actually exists in <em class="replaceable"><code>tbl_name</code></em> (or
-            even that <em class="replaceable"><code>tbl_name</code></em> itself
-            exists).
-          </p></li><li class="listitem"><p>
-            MySQL does not perform any sort of action on
-            <em class="replaceable"><code>tbl_name</code></em> such as deleting rows in
-            response to actions taken on rows in the table which you are
-            defining; in other words, this syntax induces no <code class="literal">ON
-            DELETE</code> or <code class="literal">ON UPDATE</code> behavior
-            whatsoever. (Although you can write an <code class="literal">ON
-            DELETE</code> or <code class="literal">ON UPDATE</code> clause as
-            part of the <code class="literal">REFERENCES</code> clause, it is also
-            ignored.)
-          </p></li><li class="listitem"><p>
-            This syntax creates a <span class="emphasis"><em>column</em></span>; it does
-            <span class="bold"><strong>not</strong></span> create any sort of
-            index or key.
-</p></li></ul>
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>
+            MySQL不会做任何类型的检查来确保<em class="replaceable"><code>col_name字段</code></em>在<em class="replaceable"><code>tbl_name</code></em>表中(甚至也不检查<em class="replaceable"><code>tbl_name</code></em>是否存在)。</p>
+</li><li class="listitem">
+  <p>
+            MySQL不执行<em class="replaceable"><code>tbl_name</code></em>上的操作，换句话说， 该句法不会致使<code class="literal">ON
+            DELETE</code>和<code class="literal">ON UPDATE</code>行为发生(即使你在<code class="literal">REFERENCES</code>子句中写了<code class="literal">ON
+            DELETE</code>或<code class="literal">ON UPDATE</code>子句，也会被忽略掉)。          </p>
+</li><li class="listitem">
+            <p>
+            使用这个句法建立的字段，不会这个字段上建立任何类型的索引。</p>
+          </li></ul>
 </div>
 <p>
-        You can use a column so created as a join column, as shown here:
-      </p><pre class="programlisting">CREATE TABLE person (
+      你可以使用作为联接列创建的列，如下所示：</p>
+<pre class="programlisting">CREATE TABLE person (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     name CHAR(60) NOT NULL,
     PRIMARY KEY (id)
@@ -2145,12 +1940,10 @@ SELECT s.* FROM person p INNER JOIN shirt s
 |  4 | dress | orange |     2 |
 |  5 | polo  | red    |     2 |
 |  6 | dress | blue   |     2 |
-+----+-------+--------+-------+</pre><p>
-        When used in this fashion, the <code class="literal">REFERENCES</code>
-        clause is not displayed in the output of
-        <a class="link" href="sql-syntax.html#show-create-table" title="13.7.5.12. SHOW CREATE TABLE Syntax"><code class="literal">SHOW CREATE TABLE</code></a> or
-        <a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a>:
-      </p><pre class="programlisting">SHOW CREATE TABLE shirt\G
++----+-------+--------+-------+</pre>
+<p>
+        在下面情况下，<a class="link" href="sql-syntax.html#show-create-table" title="13.7.5.12. SHOW CREATE TABLE Syntax"><code class="literal">SHOW CREATE TABLE</code></a>或<a class="link" href="sql-syntax.html#describe" title="13.8.1. DESCRIBE Syntax"><code class="literal">DESCRIBE</code></a>输出结果不会显示<code class="literal">REFERENCES</code>子句：</p>
+<pre class="programlisting">SHOW CREATE TABLE shirt\G
 *************************** 1. row ***************************
 Table: shirt
 Create Table: CREATE TABLE `shirt` (
@@ -2159,43 +1952,34 @@ Create Table: CREATE TABLE `shirt` (
 `color` enum('red','blue','orange','white','black') NOT NULL,
 `owner` smallint(5) unsigned NOT NULL,
 PRIMARY KEY  (`id`)
-) ENGINE=MyISAM DEFAULT CHARSET=latin1</pre><p>
-        The use of <code class="literal">REFERENCES</code> in this way as a
-        comment or <span class="quote">“<span class="quote">reminder</span>”</span> in a column definition works
-        with <code class="literal">MyISAM</code> tables.
-</p>
+) ENGINE=MyISAM DEFAULT CHARSET=latin1</pre>
+      <p>
+        在<code class="literal">MyISAM</code>表的列定义里，<code class="literal">REFERENCES</code>只是用作备注或注释。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="searching-on-two-keys"></a>3.6.7. Searching on Two Keys</h3>
+<h3 class="title"><a name="searching-on-two-keys"></a>3.6.7. 根据2个键来查询</h3>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7741840"></a><a class="indexterm" name="idp7742880"></a><a class="indexterm" name="idp7743952"></a><a class="indexterm" name="idp7745440"></a><p>
-        An <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a> using a single key is well
-        optimized, as is the handling of
-        <a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a>.
-      </p><p>
-        The one tricky case is that of searching on two different keys
-        combined with <a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a>:
-      </p><pre class="programlisting">SELECT field1_index, field2_index FROM test_table
-WHERE field1_index = '1' OR  field2_index = '1'</pre><p>
-        This case is optimized. See
-        <a class="xref" href="optimization.html#index-merge-optimization" title="8.2.1.4. Index Merge Optimization">Section 8.2.1.4, “Index Merge Optimization”</a>.
-      </p><p>
-        You can also solve the problem efficiently by using a
-        <a class="link" href="sql-syntax.html#union" title="13.2.9.4. UNION Syntax"><code class="literal">UNION</code></a> that combines the output of
-        two separate <a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> statements.
-        See <a class="xref" href="sql-syntax.html#union" title="13.2.9.4. UNION Syntax">Section 13.2.9.4, “<code class="literal">UNION</code> Syntax”</a>.
-      </p><p>
-        Each <a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> searches only one key
-        and can be optimized:
-      </p><pre class="programlisting">SELECT field1_index, field2_index
+<a class="indexterm" name="idp7741840"></a><a class="indexterm" name="idp7742880"></a><a class="indexterm" name="idp7743952"></a><a class="indexterm" name="idp7745440"></a>
+<p>
+        如同<a class="link" href="functions.html#operator_and"><code class="literal">AND</code></a>那样处理方式，<a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a> 使用一个键是可以很好的被优化。</p>
+<p>
+        一个比较灵活的例子是寻找两个通过<a class="link" href="functions.html#operator_or"><code class="literal">OR</code></a>组合到一起的键：</p>
+      <pre class="programlisting">SELECT field1_index, field2_index FROM test_table
+WHERE field1_index = '1' OR  field2_index = '1'</pre>
+      <p>
+        该情形是被优化过的。参阅<a class="xref" href="optimization.html#index-merge-optimization" title="8.2.1.4. Index Merge Optimization">章节 8.2.1.4, “索引合并优化”</a>.      </p>
+      <p>
+        你可以使用<a class="link" href="sql-syntax.html#union" title="13.2.9.4. UNION Syntax"><code class="literal">UNION</code></a> 来合并两个单独的<a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a>语句来更好的解决这个问题。        参阅<a class="xref" href="sql-syntax.html#union" title="13.2.9.4. UNION Syntax">章节13.2.9.4, “<code class="literal">UNION</code> 语法”</a>.      </p>
+      <p>每个<a class="link" href="sql-syntax.html#select" title="13.2.9. SELECT Syntax"><code class="literal">SELECT</code></a> 查询只使用一个键，可以很好的优化：</p>
+      <pre class="programlisting">SELECT field1_index, field2_index
     FROM test_table WHERE field1_index = '1'
 UNION
 SELECT field1_index, field2_index
@@ -2205,53 +1989,47 @@ FROM test_table WHERE field2_index = '1';</pre>
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="calculating-days"></a>3.6.8. Calculating Visits Per Day</h3>
+<h3 class="title"><a name="calculating-days"></a>3.6.8. 计算每天的访问量</h3>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7758144"></a><a class="indexterm" name="idp7759216"></a><a class="indexterm" name="idp7760288"></a><a class="indexterm" name="idp7761376"></a><p>
-        The following example shows how you can use the bit group
-        functions to calculate the number of days per month a user has
-        visited a Web page.
-      </p><pre class="programlisting">CREATE TABLE t1 (year YEAR(4), month INT(2) UNSIGNED ZEROFILL,
+<a class="indexterm" name="idp7758144"></a><a class="indexterm" name="idp7759216"></a><a class="indexterm" name="idp7760288"></a><a class="indexterm" name="idp7761376"></a>
+<p>
+        下面的例子显示了如何使用bit group函数来计算用户每个月访问网页的天数。</p>
+<pre class="programlisting">CREATE TABLE t1 (year YEAR(4), month INT(2) UNSIGNED ZEROFILL,
              day INT(2) UNSIGNED ZEROFILL);
 INSERT INTO t1 VALUES(2000,1,1),(2000,1,20),(2000,1,30),(2000,2,2),
-            (2000,2,23),(2000,2,23);</pre><p>
-        The example table contains year-month-day values representing
-        visits by users to the page. To determine how many different
-        days in each month these visits occur, use this query:
-      </p><pre class="programlisting">SELECT year,month,BIT_COUNT(BIT_OR(1&lt;&lt;day)) AS days FROM t1
-       GROUP BY year,month;</pre><p>
-        Which returns:
-      </p><pre class="programlisting">+------+-------+------+
+            (2000,2,23),(2000,2,23);</pre><p>示例表中含有代表用户访问网页的年－月－日值。可以使用以下查询来确定每个月的访问天数：</p>
+            <pre class="programlisting">SELECT year,month,BIT_COUNT(BIT_OR(1&lt;&lt;day)) AS days FROM t1
+       GROUP BY year,month;</pre>
+      <p>
+        它返回：</p>
+      <pre class="programlisting">+------+-------+------+
 | year | month | days |
 +------+-------+------+
 | 2000 |    01 |    3 |
 | 2000 |    02 |    2 |
-+------+-------+------+</pre><p>
-        The query calculates how many different days appear in the table
-        for each year/month combination, with automatic removal of
-        duplicate entries.
-</p>
++------+-------+------+</pre>
+      <p>
+        这个查询计算表中有多少个每年/月的不同天的组合，并且自动去除重复项。</p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="example-auto-increment"></a>3.6.9. Using <code class="literal">AUTO_INCREMENT</code></h3>
+<h3 class="title"><a name="example-auto-increment"></a>3.6.9. 使用<code class="literal">AUTO_INCREMENT</code></h3>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7770112"></a><a class="indexterm" name="idp7771184"></a><a class="indexterm" name="idp7772256"></a><p>
-        The <code class="literal">AUTO_INCREMENT</code> attribute can be used to
-        generate a unique identity for new rows:
-      </p><pre class="programlisting">CREATE TABLE animals (
+<a class="indexterm" name="idp7770112"></a><a class="indexterm" name="idp7771184"></a><a class="indexterm" name="idp7772256"></a>
+<p><code class="literal">AUTO_INCREMENT</code> 属性可以被用来生成每行的唯一标识符： </p>
+<pre class="programlisting">CREATE TABLE animals (
      id MEDIUMINT NOT NULL AUTO_INCREMENT,
      name CHAR(30) NOT NULL,
      PRIMARY KEY (id)
@@ -2261,9 +2039,11 @@ INSERT INTO animals (name) VALUES
     ('dog'),('cat'),('penguin'),
     ('lax'),('whale'),('ostrich');
 
-SELECT * FROM animals;</pre><p>
-        Which returns:
-      </p><pre class="programlisting">+----+---------+
+SELECT * FROM animals;</pre>
+<p>
+        它返回：:
+      </p>
+<pre class="programlisting">+----+---------+
 | id | name    |
 +----+---------+
 |  1 | dog     |
@@ -2272,100 +2052,46 @@ SELECT * FROM animals;</pre><p>
 |  4 | lax     |
 |  5 | whale   |
 |  6 | ostrich |
-+----+---------+</pre><p>
-        No value was specified for the <code class="literal">AUTO_INCREMENT</code>
-        column, so MySQL assigned sequence numbers automatically. You
-        can also explicitly assign <code class="literal">NULL</code> or 0 to the
-        column to generate sequence numbers.
-      </p><p>
-        You can retrieve the most recent
-        <code class="literal">AUTO_INCREMENT</code> value with the
-        <a class="link" href="functions.html#function_last-insert-id"><code class="literal">LAST_INSERT_ID()</code></a> SQL function or
-        the <a class="link" href="connectors-apis.html#mysql-insert-id" title="22.8.7.37. mysql_insert_id()"><code class="literal">mysql_insert_id()</code></a> C API
-        function. These functions are connection-specific, so their
-        return values are not affected by another connection which is
-        also performing inserts.
-      </p><p>
-        Use the smallest integer data type for the
-        <code class="literal">AUTO_INCREMENT</code> column that is large enough to
-        hold the maximum sequence value you will need. When the column
-        reaches the upper limit of the data type, the next attempt to
-        generate a sequence number fails. Use the
-        <code class="literal">UNSIGNED</code> attribute if possible to allow a
-        greater range. For example, if you use
-        <a class="link" href="data-types.html#integer-types" title="11.2.1. Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT"><code class="literal">TINYINT</code></a>, the maximum permissible
-        sequence number is 127. For
-        <a class="link" href="data-types.html#integer-types" title="11.2.1. Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT"><code class="literal">TINYINT
-        UNSIGNED</code></a>, the maximum is 255. See
-        <a class="xref" href="data-types.html#integer-types" title="11.2.1. Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT">Section 11.2.1, “Integer Types (Exact Value) - <code class="literal">INTEGER</code>,
++----+---------+</pre>
+<p><code class="literal">AUTO_INCREMENT</code>字段没有指定值，所以MySQL自动分配序列数字。 你可以指定该列值为<code class="literal">NULL</code>或0来生成序列数字</p>
+<p>
+        你可以使用<a class="link" href="functions.html#function_last-insert-id"><code class="literal">LAST_INSERT_ID()</code></a>这个SQL函数或者 <a class="link" href="connectors-apis.html#mysql-insert-id" title="22.8.7.37. mysql_insert_id()"><code class="literal">mysql_insert_id()</code></a>这个C API函数来检索最近的<code class="literal">AUTO_INCREMENT</code>值。这两个函数是会话级的，它们返回值不受其它正在插入操作的连接的影响。 </p>
+<p>
+        对<code class="literal">AUTO_INCREMENT</code>字段选择使用足够容纳最大序列值的最小整数数据类型。当字段值达到数据类型的最大限制后，尝试生成下一个顺序数字就会出错。可以使用<code class="literal">UNSIGNED</code>属性来获取更大的取值范围。例如，如果你使用<a class="link" href="data-types.html#integer-types" title="11.2.1. Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT"><code class="literal">TINYINT</code></a>，它的最大允许值是127。对<a class="link" href="data-types.html#integer-types" title="11.2.1. Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT"><code class="literal">TINYINT
+        UNSIGNED</code></a>来说，它的最大值是255。 参阅<a class="xref" href="data-types.html#integer-types" title="11.2.1. Integer Types (Exact Value) - INTEGER, INT, SMALLINT, TINYINT, MEDIUMINT, BIGINT">章节11.2.1, “整型(精确值) - <code class="literal">INTEGER</code>,
         <code class="literal">INT</code>, <code class="literal">SMALLINT</code>,
         <code class="literal">TINYINT</code>, <code class="literal">MEDIUMINT</code>,
-        <code class="literal">BIGINT</code>”</a> for the ranges of all the
-        integer types.
-</p>
+        <code class="literal">BIGINT</code>”</a>来获取所有整型的取值范围信息。 </p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-          For a multiple-row insert,
-          <a class="link" href="functions.html#function_last-insert-id"><code class="literal">LAST_INSERT_ID()</code></a> and
-          <a class="link" href="connectors-apis.html#mysql-insert-id" title="22.8.7.37. mysql_insert_id()"><code class="literal">mysql_insert_id()</code></a> actually
-          return the <code class="literal">AUTO_INCREMENT</code> key from the
-          <span class="emphasis"><em>first</em></span> of the inserted rows. This enables
-          multiple-row inserts to be reproduced correctly on other
-          servers in a replication setup.
-</p>
+          对多行插入，<a class="link" href="functions.html#function_last-insert-id"><code class="literal">LAST_INSERT_ID()</code></a>和<a class="link" href="connectors-apis.html#mysql-insert-id" title="22.8.7.37. mysql_insert_id()"><code class="literal">mysql_insert_id()</code></a>事实上返回第一个插入行的<code class="literal">AUTO_INCREMENT</code>值。这能够保证其他做复制的服务器在重做多行插入时的正确性。</p>
 </div>
 <p>
-        If the <code class="literal">AUTO_INCREMENT</code> column is part of
-        multiple indexes, MySQL generates sequence values using the
-        index that begins with the <code class="literal">AUTO_INCREMENT</code>
-        column, if there is one. For example, if the
-        <code class="literal">animals</code> table contained indexes
-        <code class="literal">PRIMARY KEY (grp, id)</code> and <code class="literal">INDEX
-        (id)</code>, MySQL would ignore the <code class="literal">PRIMARY
-        KEY</code> for generating sequence values. As a result, the
-        table would contain a single sequence, not a sequence per
-        <code class="literal">grp</code> value.
-      </p><p>
-        To start with an <code class="literal">AUTO_INCREMENT</code> value other
-        than 1, set that value with <a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE
-        TABLE</code></a> or <a class="link" href="sql-syntax.html#alter-table" title="13.1.7. ALTER TABLE Syntax"><code class="literal">ALTER TABLE</code></a>,
-        like this:
-      </p><pre class="programlisting">mysql&gt; <strong class="userinput"><code>ALTER TABLE tbl AUTO_INCREMENT = 100;</code></strong>
+        如果<code class="literal">AUTO_INCREMENT</code>字段是复合索引的一部分，MySQL根据该索引的<code class="literal">AUTO_INCREMENT</code> 字段的开始值来生成序列值。例如，如果<code class="literal">animals</code><code class="literal"></code>表包含<code class="literal">PRIMARY KEY (grp, id)</code>和<code class="literal">INDEX
+        (id)</code>两个索引，MySQL会忽略<code class="literal">PRIMARY
+        KEY</code>来生成序列值。 结果是，这个表只包含一个序列，不会是每个<code class="literal">grp</code>值一个序列。</p>
+<p>
+        如果想让<code class="literal">AUTO_INCREMENT</code>值不为1，可以使用<a class="link" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax"><code class="literal">CREATE
+        TABLE</code></a>或<a class="link" href="sql-syntax.html#alter-table" title="13.1.7. ALTER TABLE Syntax"><code class="literal">ALTER TABLE</code></a>语句来修改，如下所示：      </p>
+<pre class="programlisting">mysql&gt; <strong class="userinput"><code>ALTER TABLE tbl AUTO_INCREMENT = 100;</code></strong>
 </pre>
 <h4><a name="idp7803424"></a>
-        InnoDB Notes
+        InnoDB 注意事项
 </h4>
 <p>
-        For <code class="literal">InnoDB</code> tables, be careful if you modify
-        the column containing the auto-increment value in the middle of
-        a sequence of <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> statements.
-        For example, if you use an <a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a>
-        statement to put a new, larger value in the auto-increment
-        column, a subsequent <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> could
-        encounter a <span class="quote">“<span class="quote">Duplicate entry</span>”</span> error. The test
-        whether an auto-increment value is already present occurs if you
-        do a <a class="link" href="sql-syntax.html#delete" title="13.2.2. DELETE Syntax"><code class="literal">DELETE</code></a> followed by more
-        <a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a> statements, or when you
-        <a class="link" href="sql-syntax.html#commit" title="13.3.1. START TRANSACTION, COMMIT, and ROLLBACK Syntax"><code class="literal">COMMIT</code></a> the transaction, but not
-        after an <a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a> statement.
-</p>
+        对<code class="literal">InnoDB</code>表来说， 在一系列<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a>插入语句当中修改包含自增长值的列要非常小心。<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"></a> .例如，如果你使用一个<a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a>
+        语句来对自增长字段输入一个新的更大的值，随后的<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a>可能出现<span class="quote">“<span class="quote">Duplicate entry</span>”</span>错误。. 测试一个自增长值是否已经存在过，你可以在多个<a class="link" href="sql-syntax.html#insert" title="13.2.5. INSERT Syntax"><code class="literal">INSERT</code></a>语句之后做个<a class="link" href="sql-syntax.html#delete" title="13.2.2. DELETE Syntax"><code class="literal">DELETE</code></a>，或者不在 <a class="link" href="sql-syntax.html#update" title="13.2.11. UPDATE Syntax"><code class="literal">UPDATE</code></a>语句之后<a class="link" href="sql-syntax.html#commit" title="13.3.1. START TRANSACTION, COMMIT, and ROLLBACK Syntax"><code class="literal">COMMIT</code></a>事务。</p>
 <h4><a name="idp7811760"></a>
-        MyISAM Notes
+        MyISAM 注意事项
 </h4>
-<p>
-        For <code class="literal">MyISAM</code> tables, you can specify
-        <code class="literal">AUTO_INCREMENT</code> on a secondary column in a
-        multiple-column index. In this case, the generated value for the
-        <code class="literal">AUTO_INCREMENT</code> column is calculated as
-        <a class="link" href="functions.html#function_max"><code class="literal">MAX(<em class="replaceable"><code>auto_increment_column</code></em>)
+<p>对<code class="literal">MyISAM</code> 表来说，你可以指定 <code class="literal">AUTO_INCREMENT</code>在复合索引的第二个字段上。在这种情况下，<code class="literal">AUTO_INCREMENT</code>字段的生成值的规则是<a class="link" href="functions.html#function_max"><code class="literal">MAX(<em class="replaceable"><code>auto_increment_column</code></em>)
         + 1 WHERE
-        prefix=<em class="replaceable"><code>given-prefix</code></em></code></a>. This
-        is useful when you want to put data into ordered groups.
-      </p><pre class="programlisting">CREATE TABLE animals (
+        prefix=<em class="replaceable"><code>given-prefix</code></em></code></a>.。当你想把数据输入成有序的组时是很有用的。</p>
+<pre class="programlisting">CREATE TABLE animals (
     grp ENUM('fish','mammal','bird') NOT NULL,
     id MEDIUMINT NOT NULL AUTO_INCREMENT,
     name CHAR(30) NOT NULL,
@@ -2377,9 +2103,10 @@ INSERT INTO animals (grp,name) VALUES
     ('bird','penguin'),('fish','lax'),('mammal','whale'),
     ('bird','ostrich');
 
-SELECT * FROM animals ORDER BY grp,id;</pre><p>
-        Which returns:
-      </p><pre class="programlisting">+--------+----+---------+
+SELECT * FROM animals ORDER BY grp,id;</pre>
+<p>
+        它返回：</p>
+<pre class="programlisting">+--------+----+---------+
 | grp    | id | name    |
 +--------+----+---------+
 | fish   |  1 | lax     |
@@ -2388,52 +2115,37 @@ SELECT * FROM animals ORDER BY grp,id;</pre><p>
 | mammal |  3 | whale   |
 | bird   |  1 | penguin |
 | bird   |  2 | ostrich |
-+--------+----+---------+</pre><p>
-        In this case (when the <code class="literal">AUTO_INCREMENT</code> column
-        is part of a multiple-column index),
-        <code class="literal">AUTO_INCREMENT</code> values are reused if you
-        delete the row with the biggest
-        <code class="literal">AUTO_INCREMENT</code> value in any group. This
-        happens even for <code class="literal">MyISAM</code> tables, for which
-        <code class="literal">AUTO_INCREMENT</code> values normally are not
-        reused.
-</p>
-<h4><a name="idp7823200"></a>
-        Further Reading
-</h4>
++--------+----+---------+</pre>
+      <p>
+        在这个情况下 (当<code class="literal">AUTO_INCREMENT</code>字段是复合索引的一部分时)，
+        <code class="literal">AUTO_INCREMENT</code> 值会被重用如果你删除了任何分组中的最大的<code class="literal">AUTO_INCREMENT</code>值所在行。 对于<code class="literal">MyISAM</code>表也一样，它的<code class="literal">AUTO_INCREMENT</code> 值一般情况下不会被复用。 </p>
+      <h4><a name="idp7823200"></a>其它阅读材料</h4>
 <p>
-        More information about <code class="literal">AUTO_INCREMENT</code> is
-        available here:
-</p>
+        下面是更多的关于<code class="literal">AUTO_INCREMENT</code>的材料：</p>
 <div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-            How to assign the <code class="literal">AUTO_INCREMENT</code>
-            attribute to a column: <a class="xref" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax">Section 13.1.17, “<code class="literal">CREATE TABLE</code> Syntax”</a>, and
-            <a class="xref" href="sql-syntax.html#alter-table" title="13.1.7. ALTER TABLE Syntax">Section 13.1.7, “<code class="literal">ALTER TABLE</code> Syntax”</a>.
-          </p></li><li class="listitem"><p>
-            How <code class="literal">AUTO_INCREMENT</code> behaves depending on
-            the <a class="link" href="server-administration.html#sqlmode_no_auto_value_on_zero"><code class="literal">NO_AUTO_VALUE_ON_ZERO</code></a>
-            SQL mode: <a class="xref" href="server-administration.html#server-sql-mode" title="5.1.7. Server SQL Modes">Section 5.1.7, “Server SQL Modes”</a>.
-          </p></li><li class="listitem"><p>
-            How to use the
-            <a class="link" href="functions.html#function_last-insert-id"><code class="literal">LAST_INSERT_ID()</code></a> function to
-            find the row that contains the most recent
-            <code class="literal">AUTO_INCREMENT</code> value:
-            <a class="xref" href="functions.html#information-functions" title="12.14. Information Functions">Section 12.14, “Information Functions”</a>.
-          </p></li><li class="listitem"><p>
-            Setting the <code class="literal">AUTO_INCREMENT</code> value to be
-            used: <a class="xref" href="server-administration.html#server-system-variables" title="5.1.4. Server System Variables">Section 5.1.4, “Server System Variables”</a>.
-          </p></li><li class="listitem"><p>
-            <code class="literal">AUTO_INCREMENT</code> and replication:
-            <a class="xref" href="replication.html#replication-features-auto-increment" title="16.4.1.1. Replication and AUTO_INCREMENT">Section 16.4.1.1, “Replication and <code class="literal">AUTO_INCREMENT</code>”</a>.
-          </p></li><li class="listitem"><p>
-            Server-system variables related to
-            <code class="literal">AUTO_INCREMENT</code>
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem">
+  <p>
+            如何给字段分配<code class="literal">AUTO_INCREMENT</code>属性： <a class="xref" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax">章节 13.1.17, “<code class="literal">CREATE TABLE</code>语法”</a>，和
+            <a class="xref" href="sql-syntax.html#alter-table" title="13.1.7. ALTER TABLE Syntax">章节 13.1.7, “<code class="literal">ALTER TABLE</code>语法”</a>.
+          </p>
+</li><li class="listitem">
+  <p><code class="literal">AUTO_INCREMENT</code>行为如何取决 <a class="link" href="server-administration.html#sqlmode_no_auto_value_on_zero"><code class="literal">NO_AUTO_VALUE_ON_ZERO</code></a>的SQL模式: <a class="xref" href="server-administration.html#server-sql-mode" title="5.1.7. Server SQL Modes">Section 5.1.7, “服务器SQL模式 ”</a>.          </p>
+</li><li class="listitem">
+            <p>
+            如何使用<a class="link" href="functions.html#function_last-insert-id"><code class="literal">LAST_INSERT_ID()</code></a> 函数来找出含有最近<code class="literal">AUTO_INCREMENT</code> 值的行：:<a class="xref" href="functions.html#information-functions" title="12.14. Information Functions">章节 12.14, “信息函数”</a>.          </p>
+          </li><li class="listitem">
+            <p>
+            设置<code class="literal">AUTO_INCREMENT</code>值将被用到：<a class="xref" href="server-administration.html#server-system-variables" title="5.1.4. Server System Variables">章节 5.1.4, “服务器系统参数 ”</a>.
+          </p>
+          </li><li class="listitem">
+            <p>
+            <code class="literal">AUTO_INCREMENT</code> 和复制：<a class="xref" href="replication.html#replication-features-auto-increment" title="16.4.1.1. Replication and AUTO_INCREMENT">章节 16.4.1.1, “复制和 <code class="literal">AUTO_INCREMENT</code>”</a>.          </p>
+          </li><li class="listitem">
+            <p>与<code class="literal">AUTO_INCREMENT</code>
             (<a class="link" href="replication.html#sysvar_auto_increment_increment"><code class="literal">auto_increment_increment</code></a>
-            and <a class="link" href="replication.html#sysvar_auto_increment_offset"><code class="literal">auto_increment_offset</code></a>)
-            that can be used for replication:
-            <a class="xref" href="server-administration.html#server-system-variables" title="5.1.4. Server System Variables">Section 5.1.4, “Server System Variables”</a>.
-</p></li></ul>
+            和 <a class="link" href="replication.html#sysvar_auto_increment_offset"><code class="literal">auto_increment_offset</code></a>)
+            相关的用于复制的服务器系统参数：<a class="xref" href="server-administration.html#server-system-variables" title="5.1.4. Server System Variables">章节 5.1.4, “服务器系统参数”</a>.</p>
+          </li></ul>
 </div>
 
 </div>
@@ -2443,32 +2155,27 @@ SELECT * FROM animals ORDER BY grp,id;</pre><p>
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="apache"></a>3.7. Using MySQL with Apache</h2>
+<h2 class="title" style="clear: both"><a name="apache"></a>3.7. 和Apache一起使用MySQL</h2>
 
 </div>
 
 </div>
 
 </div>
-<a class="indexterm" name="idp7843152"></a><p>
-      There are programs that let you authenticate your users from a
-      MySQL database and also let you write your log files into a MySQL
-      table.
-    </p><p>
-      You can change the Apache logging format to be easily readable by
-      MySQL by putting the following into the Apache configuration file:
-    </p><pre class="programlisting">LogFormat \
+<a class="indexterm" name="idp7843152"></a>
+<p>还有一些项目，你可以从MySQL数据库鉴别用户，并且你还可以将日志文件写入MySQL数据库表。</p>
+<p>
+    以把通过下面内容保存到Apache配置文件里，来更改改Apache日志记录格式，让MySQL容易读取：</p>
+<pre class="programlisting">LogFormat \
         "\"%h\",%{%Y%m%d%H%M%S}t,%&gt;s,\"%b\",\"%{Content-Type}o\",  \
-        \"%U\",\"%{Referer}i\",\"%{User-Agent}i\""</pre><p>
-      To load a log file in that format into MySQL, you can use a
-      statement something like this:
-    </p><pre class="programlisting">LOAD DATA INFILE '<em class="replaceable"><code>/local/access_log</code></em>' INTO TABLE <em class="replaceable"><code>tbl_name</code></em>
+        \"%U\",\"%{Referer}i\",\"%{User-Agent}i\""</pre>
+    <p>
+      把日志文件载入到MySQL，你可以使用类似于下面的语句：
+    </p>
+    <pre class="programlisting">LOAD DATA INFILE '<em class="replaceable"><code>/local/access_log</code></em>' INTO TABLE <em class="replaceable"><code>tbl_name</code></em>
 FIELDS TERMINATED BY ',' OPTIONALLY ENCLOSED BY '"' ESCAPED BY '\\'
-</pre><p>
-      The named table should be created to have columns that correspond
-      to those that the <code class="literal">LogFormat</code> line writes to the
-      log file.
-</p>
+</pre>
+    <p>所创建的表中的列应与写入日志文件的<code class="literal">LogFormat</code>行锁对应</p>
 </div>
 
 </div>
