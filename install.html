@@ -634,34 +634,20 @@ Primary key fingerprint: A4A9 4068 76FC BD3C 4567  70C8 8C71 8D3B 5072 E1F5
 
 </div>
 <br class="figure-break"><p>
-        Next, verify the downloaded MySQL package file. This requires
-        files for both the packaged file, and the signature. The
-        signature file must have the same name as the packaged file but
-        with an appended <code class="filename">.asc</code> extension, as shown
-        by the example in the following table. The signature is linked
-        to on the downloads page for each MySQL product. You must create
-        the <code class="literal">.asc</code> file with this signature.
-</p>
+        接下来，验证已下载的MySQL安装包文件。这同时需要安装包文件和签名文件。签名文件必须与安装包文件同名，并增加<code class="filename">.asc</code>扩展名，认同下表展现的示例。签名文件与下载页的每个MySQL产品相关，你必须用这个签名来创建<code class="literal">.asc</code>文件。</p>
 <div class="table">
-<a name="idp2239184"></a><p class="title"><b>Table 2.2. MySQL Package and Signature Files for MySQL Installer for Microsoft
-Windows</b></p>
+<a name="idp2239184"></a><p class="title"><b>表 2.2. Microsoft Windows平台的MySQL安装包和签名文件</b></p>
 <div class="table-contents">
 <table summary="MySQL Package and Signature Files for MySQL Installer for Microsoft
-Windows" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">File Type</th><th scope="col">File Name</th></tr></thead><tbody><tr><td scope="row">Distribution file</td><td><code class="literal">mysql-installer-community-5.6.15.msi</code></td></tr><tr><td scope="row">Signature file</td><td><code class="literal">mysql-installer-community-5.6.15.msi.asc</code></td></tr></tbody></table>
+Windows" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">文件类型</th><th scope="col">文件名称</th></tr></thead><tbody><tr><td scope="row">分发包文件</td><td><code class="literal">mysql-installer-community-5.6.15.msi</code></td></tr><tr><td scope="row">签名文件</td><td><code class="literal">mysql-installer-community-5.6.15.msi.asc</code></td></tr></tbody></table>
 </div>
 
 </div>
 <br class="table-break"><p>
-        Make sure that both files are stored in the same directory and
-        then run the following command to verify the signature for the
-        distribution file. Either drag and drop the signature
-        (<code class="filename">.asc</code>) file into Kleopatra, or load the
-        dialog from <span class="guimenu">File</span>, <span class="guimenuitem">Decrypt/Verify
-        Files...</span>, and then choose either the
-        <code class="filename">.msi</code> or <code class="filename">.asc</code> file.
+       确保两个文件都保存在同一个文件夹下，然后运行下面的命令来验证分发版文件的签名。可以拖拽签名文件(<code class="filename">.asc</code>)到Kleopatra软件里，也可以点击<span class="guimenu">File</span>菜单中 <span class="guimenuitem">Decrypt/Verify Files...</span>项来弹出对话框后，选择<code class="filename">.msi</code>或者<code class="filename">.asc</code>文件。 
 </p>
 <div class="figure">
-<a name="gnupg-kleopatra-decrypt-load"></a><p class="title"><b>Figure 2.4. The Decrypt/Verify Files dialog</b></p>
+<a name="gnupg-kleopatra-decrypt-load"></a><p class="title"><b>图 2.4. 解密/验证文件的对话框</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -672,14 +658,9 @@ Windows" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">Fi
 
 </div>
 <br class="figure-break"><p>
-        Click <span class="guibutton">Decrypt/Verify</span> to check the file.
-        The two most common results will look like the following, and
-        although the yellow warning looks problematic, the following
-        means that the file check passed with success. You may now run
-        this installer.
-</p>
+        按下<span class="guibutton">Decrypt/Verify</span>按钮来验证文件。接下来会出现两种常见输出结果，接下来那个结果虽然显示结果是黄色的，看起来像是有问题产生，但它意思是文件检查成功，你可以运行这个安装文件。      </p>
 <div class="figure">
-<a name="gnupg-kleopatra-decrypt-okay-sig"></a><p class="title"><b>Figure 2.5. The Decrypt/Verify Results: Good</b></p>
+<a name="gnupg-kleopatra-decrypt-okay-sig"></a><p class="title"><b>图 2.5. 解密/验证的结果：Good</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -690,11 +671,9 @@ Windows" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">Fi
 
 </div>
 <br class="figure-break"><p>
-        Seeing a red "The signature is bad" error means the file is
-        invalid. Do not execute the MSI file if you see this error.
-</p>
+        看到红色"The signature is bad"的错误意味着这个文件是非法的，如果看到这个错误不要运行这个MSI文件。</p>
 <div class="figure">
-<a name="gnupg-kleopatra-decrypt-invalid-sig"></a><p class="title"><b>Figure 2.6. The Decrypt/Verify Results: Bad</b></p>
+<a name="gnupg-kleopatra-decrypt-invalid-sig"></a><p class="title"><b>图 2.6. 解密/验证的结果：Bad</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -705,16 +684,14 @@ Windows" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">Fi
 
 </div>
 <br class="figure-break"><p>
-        The <a class="xref" href="installing.html#checking-gpg-signature" title="2.1.4.2. Signature Checking Using GnuPG">Section 2.1.4.2, “Signature Checking Using <code class="literal">GnuPG</code>”</a> section explains
-        why you probably don't see a green <code class="literal">Good
-        signature</code> result.
+        <a class="xref" href="installing.html#checking-gpg-signature" title="2.1.4.2. Signature Checking Using GnuPG">Section 2.1.4.2, “使用<code class="literal">GnuPG</code>来验证签名”</a> 这个章节解释了为什么你不能看的绿色的<code class="literal">Good signature</code> 输出结果的原因。
 </p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h4 class="title"><a name="checking-rpm-signature"></a>2.1.4.4. Signature Checking Using <code class="literal">RPM</code></h4>
+<h4 class="title"><a name="checking-rpm-signature"></a>2.1.4.4. 使用<code class="literal">RPM</code>来验证签名</h4>
 
 </div>
 
@@ -722,42 +699,25 @@ Windows" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">Fi
 
 </div>
 <p>
-        For RPM packages, there is no separate signature. RPM packages
-        have a built-in GPG signature and MD5 checksum. You can verify a
-        package by running the following command:
-      </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>rpm --checksig <em class="replaceable"><code>package_name</code></em>.rpm</code></strong>
+        对RPM包来说，它们没有单独的签名文件。RPM包有内建的GPG签名和MD5校验和。可以直接使用以下命令来验证安装包：</p><pre class="programlisting">shell&gt; <strong class="userinput"><code>rpm --checksig <em class="replaceable"><code>package_name</code></em>.rpm</code></strong>
 </pre><p>
-        Example:
+        例如：
       </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>rpm --checksig MySQL-server-5.6.15-0.glibc23.i386.rpm</code></strong>
 MySQL-server-5.6.15-0.glibc23.i386.rpm: md5 gpg OK
 </pre>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-          If you are using RPM 4.1 and it complains about <code class="literal">(GPG)
-          NOT OK (MISSING KEYS: GPG#5072e1f5)</code>, even though you
-          have imported the MySQL public build key into your own GPG
-          keyring, you need to import the key into the RPM keyring
-          first. RPM 4.1 no longer uses your personal GPG keyring (or
-          GPG itself). Rather, RPM maintains a separate keyring because
-          it is a system-wide application and a user's GPG public
-          keyring is a user-specific file. To import the MySQL public
-          key into the RPM keyring, first obtain the key, then use
-          <span class="command"><strong>rpm --import</strong></span> to import the key. For
-          example:
-</p>
+          如果使用RPM 4.1并且输出结果为<code class="literal">(GPG) NOT OK (MISSING KEYS: GPG#5072e1f5)</code>，即使你已经把密钥导入到你的GPG库中，你还是需要把密钥导入到RPM的GPG库中。RPM 4.1及以上版本不再使用用户的GPG库。RPM维护着一个独立的GPG密钥库，因为它是个系统级别的软件，而用户的公钥GPG库只是个用户级别文件。要把MySQL公钥导入到RPM密钥库，首先得获取这个密钥，然后使用<span class="command"><strong>rpm --import</strong></span>来导入密钥. 例如：</p>
 </div>
 <pre class="programlisting">shell&gt; gpg --export -a 5072e1f5 &gt; 5072e1f5.asc
 shell&gt; rpm --import 5072e1f5.asc</pre><p>
-        Alternatively, <span class="command"><strong>rpm</strong></span> also supports loading the
-        key directly from a URL, and you can use this manual page:
-      </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>rpm --import http://dev.mysql.com/doc/refman/5.6/en/checking-gpg-signature.html</code></strong>
+        或者，<span class="command"><strong>rpm</strong></span>也支持直接从URL来导入密钥，例如：</p><pre class="programlisting">shell&gt; <strong class="userinput"><code>rpm --import http://dev.mysql.com/doc/refman/5.6/en/checking-gpg-signature.html</code></strong>
 </pre><p>
-        If you need to obtain the MySQL public key, see
-        <a class="xref" href="installing.html#checking-gpg-signature" title="2.1.4.2. Signature Checking Using GnuPG">Section 2.1.4.2, “Signature Checking Using <code class="literal">GnuPG</code>”</a>.
+        如果想获取MySQL的公钥，请参阅<a class="xref" href="installing.html#checking-gpg-signature" title="2.1.4.2. Signature Checking Using GnuPG">章节 2.1.4.2, “使用<code class="literal">GnuPG</code>来验证签名”</a>。
 </p>
 </div>
 
@@ -766,7 +726,7 @@ shell&gt; rpm --import 5072e1f5.asc</pre><p>
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="installation-layouts"></a>2.1.5. Installation Layouts</h3>
+<h3 class="title"><a name="installation-layouts"></a>2.1.5. 安装布局</h3>
 
 </div>
 
@@ -774,26 +734,18 @@ shell&gt; rpm --import 5072e1f5.asc</pre><p>
 
 </div>
 <a class="indexterm" name="idp2289296"></a><a class="indexterm" name="idp2290368"></a><a class="indexterm" name="idp2291440"></a><a class="indexterm" name="idp2292928"></a><p>
-      The installation layout differs for different installation types
-      (for example, native packages, binary tarballs, and source
-      tarballs), which can lead to confusion when managing different
-      systems or using different installation sources. The individual
-      layouts are given in the corresponding installation type or
-      platform chapter, as described following. Note that the layout of
-      installations from vendors other than Oracle may differ from these
-      layouts.
-</p>
+      <span lang="zh-cn">不同的</span>安装文件类型(例如，本地安装包、二进制tar包和源代码tar包)<span lang="zh-cn">的安装布局各不相同</span>，当处理多个操作系统和多个安装文件类型是会带来混淆。下面章节讲述了不同安装文件类型和不同操作系统的的安装布局。注意第三方供应商提供的安装布局可能与Oracle的不相同。</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-          <a class="xref" href="installing.html#windows-installation-layout" title="2.3.1. MySQL Installation Layout on Microsoft Windows">Section 2.3.1, “MySQL Installation Layout on Microsoft Windows”</a>
+          <a class="xref" href="installing.html#windows-installation-layout" title="2.3.1. MySQL Installation Layout on Microsoft Windows">章节 2.3.1, “在Microsoft Windows上的MySQL安装布局”</a>
         </p></li><li class="listitem"><p>
-          <a class="xref" href="installing.html#source-installation-layout" title="2.9.1. MySQL Layout for Source Installation">Section 2.9.1, “MySQL Layout for Source Installation”</a>
+          <a class="xref" href="installing.html#source-installation-layout" title="2.9.1. MySQL Layout for Source Installation">章节 2.9.1, “MySQL源码安装布局”</a>
         </p></li><li class="listitem"><p>
-          <a class="xref" href="installing.html#binary-installation-layout" title="Table 2.3. MySQL Installation Layout for Generic Unix/Linux Binary Package">Table 2.3, “MySQL Installation Layout for Generic Unix/Linux Binary Package”</a>
+          <a class="xref" href="installing.html#binary-installation-layout" title="Table 2.3. MySQL Installation Layout for Generic Unix/Linux Binary Package">表 2.3, “通用Unix/Linux二进制包的MySQL安装布局”</a>
         </p></li><li class="listitem"><p>
-          <a class="xref" href="installing.html#mysql-installation-layout-linuxrpm" title="Table 2.9. MySQL Installation Layout for Linux RPM Packages">Table 2.9, “MySQL Installation Layout for Linux RPM Packages”</a>
+          <a class="xref" href="installing.html#mysql-installation-layout-linuxrpm" title="Table 2.9. MySQL Installation Layout for Linux RPM Packages">表 2.9, “Linux的RPM包的MySQL安装布局”</a>
         </p></li><li class="listitem"><p>
-          <a class="xref" href="installing.html#mysql-installation-layout-macosx" title="Table 2.6. MySQL Installation Layout on Mac OS X">Table 2.6, “MySQL Installation Layout on Mac OS X”</a>
+          <a class="xref" href="installing.html#mysql-installation-layout-macosx" title="Table 2.6. MySQL Installation Layout on Mac OS X">表 2.6, “在Mac OS X的MySQL安装布局”</a>
 </p></li></ul>
 </div>
 
@@ -802,7 +754,7 @@ shell&gt; rpm --import 5072e1f5.asc</pre><p>
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="compiler-characteristics"></a>2.1.6. Compiler-Specific Build Characteristics</h3>
+<h3 class="title"><a name="compiler-characteristics"></a>2.1.6. 特定编译器来构建特性 </h3>
 
 </div>
 
@@ -810,21 +762,14 @@ shell&gt; rpm --import 5072e1f5.asc</pre><p>
 
 </div>
 <a class="indexterm" name="idp2302976"></a><p>
-      In some cases, the compiler used to build MySQL affects the
-      features available for use. The notes in this section apply for
-      binary distributions provided by Oracle Corporation or that you
-      compile yourself from source.
-    </p><p>
+      在某些情况下，需要特定编译器来构建一些特性来使用。本章节提到的二进制分发版可以由Oracle官方提供，也可以你自己使用源代码来编译。 </p><p>
       <span class="bold"><strong><span class="command"><strong>icc</strong></span> (Intel C++ Compiler)
       Builds</strong></span>
     </p><p>
-      A server built with <span class="command"><strong>icc</strong></span> has these
-      characteristics:
-</p>
+      使用<span class="command"><strong>icc</strong></span>编译的服务器程序有以下特性：</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-          SSL support is not included.
-</p></li></ul>
+          SSL支持</p></li></ul>
 </div>
 
 </div>
@@ -834,7 +779,7 @@ shell&gt; rpm --import 5072e1f5.asc</pre><p>
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="binary-installation"></a>2.2. Installing MySQL on Unix/Linux Using Generic Binaries</h2>
+<h2 class="title" style="clear: both"><a name="binary-installation"></a>2.2. 在Unix/Linux上使用通用二进制文件来安装MySQL</h2>
 
 </div>
 
@@ -842,94 +787,50 @@ shell&gt; rpm --import 5072e1f5.asc</pre><p>
 
 </div>
 <a class="indexterm" name="idp2310320"></a><a class="indexterm" name="idp2311808"></a><p>
-    Oracle provides a set of binary distributions of MySQL. These
+    Oracle公司提供一系列的MySQL二进制发布版。These
     include binary distributions in the form of compressed
     <span class="command"><strong>tar</strong></span> files (files with a
     <code class="filename">.tar.gz</code> extension) for a number of platforms,
     as well as binaries in platform-specific package formats for
     selected platforms.
   </p><p>
-    This section covers the installation of MySQL from a compressed
-    <span class="command"><strong>tar</strong></span> file binary distribution. For other
-    platform-specific package formats, see the other platform-specific
-    sections. For example, for Windows distributions, see
-    <a class="xref" href="installing.html#windows-installation" title="2.3. Installing MySQL on Microsoft Windows">Section 2.3, “Installing MySQL on Microsoft Windows”</a>.
+    本章讲述了使用了压缩<span class="command"><strong>tar</strong></span>包的二进制发布版来安装MySQL。其他特定平台的安装包格式，请参阅其他特定平台章节。例如，Windows平台的发布版，可以参阅<a class="xref" href="installing.html#windows-installation" title="2.3. Installing MySQL on Microsoft Windows">章节 2.3, “在Microsoft Windows上安装MySQL”</a>.
   </p><p>
-    To obtain MySQL, see <a class="xref" href="installing.html#getting-mysql" title="2.1.3. How to Get MySQL">Section 2.1.3, “How to Get MySQL”</a>.
+    如果获取MySQL，请参阅<a class="xref" href="installing.html#getting-mysql" title="2.1.3. How to Get MySQL">章节 2.1.3, “何获取MySQL”</a>.
   </p><p>
-    MySQL compressed <span class="command"><strong>tar</strong></span> file binary distributions
-    have names of the form
-    <code class="filename">mysql-<em class="replaceable"><code>VERSION</code></em>-<em class="replaceable"><code>OS</code></em>.tar.gz</code>,
-    where <code class="literal"><em class="replaceable"><code>VERSION</code></em></code> is a
-    number (for example, <code class="literal">5.6.15</code>), and
-    <em class="replaceable"><code>OS</code></em> indicates the type of operating system
-    for which the distribution is intended (for example,
-    <code class="literal">pc-linux-i686</code> or <code class="literal">winx64</code>).
+    MySQL的压缩<span class="command"><strong>tar</strong></span>文件方式的二进制分发版的命名格式为：<code class="filename">mysql-<em class="replaceable"><code>VERSION</code></em>-<em class="replaceable"><code>OS</code></em>.tar.gz</code>，
+    这里的<code class="literal"><em class="replaceable"><code>VERSION</code></em></code>是数字版本号(例如， <code class="literal">5.6.15</code>)，
+    <em class="replaceable"><code>OS</code></em>表明是分发版适用的操作系统类型(例如，<code class="literal">pc-linux-i686</code> or <code class="literal">winx64</code>)。
   </p><p>
-    To install MySQL from a compressed <span class="command"><strong>tar</strong></span> file
-    binary distribution, your system must have GNU
-    <code class="literal">gunzip</code> to uncompress the distribution and a
-    reasonable <span class="command"><strong>tar</strong></span> to unpack it. If your
-    <span class="command"><strong>tar</strong></span> program supports the <code class="literal">z</code>
-    option, it can both uncompress and unpack the file.
-  </p><p>
-    GNU <span class="command"><strong>tar</strong></span> is known to work. The standard
-    <span class="command"><strong>tar</strong></span> provided with some operating systems is not
-    able to unpack the long file names in the MySQL distribution. You
-    should download and install GNU <span class="command"><strong>tar</strong></span>, or if
-    available, use a preinstalled version of GNU tar. Usually this is
-    available as <span class="command"><strong>gnutar</strong></span>, <span class="command"><strong>gtar</strong></span>, or
-    as <span class="command"><strong>tar</strong></span> within a GNU or Free Software directory,
-    such as <code class="filename">/usr/sfw/bin</code> or
-    <code class="filename">/usr/local/bin</code>. GNU <span class="command"><strong>tar</strong></span> is
-    available from <a class="ulink" href="http://www.gnu.org/software/tar/" target="_top">http://www.gnu.org/software/tar/</a>.
+    想要使用压缩<span class="command"><strong>tar</strong></span>文件方式的二进制分发版来安装MySQL，操作系统中必须有GNU
+    <code class="literal">gunzip</code>软件来解压缩分发版并使用<span class="command"><strong>tar</strong></span>来解包。如果<span class="command"><strong>tar</strong></span>软件支持<code class="literal">z</code>选项，则这个软件可以解压缩并解包分发版文件。</p><p>
+    GNU <span class="command"><strong>tar</strong></span>可以完成该项工作。 有些操作系统的提供的标准<span class="command"><strong>tar</strong></span>程序不能解包MySQL分发版中的长文件名。所以建议去下载和安装GNU <span class="command"><strong>tar</strong></span>程序，如果操作系统中含有GNU Tar程序，可使用预装版的GNU Tar。GNU Tar程序放在GNU或者自由软件文件夹下，例如<code class="filename">/usr/sfw/bin</code>或
+    <code class="filename">/usr/local/bin</code>，程序以<span class="command"><strong>gnutar</strong></span>， <span class="command"><strong>gtar</strong></span>和<span class="command"><strong>tar</strong></span>的方式来提供。GNU <span class="command"><strong>tar</strong></span>程序可以在<a class="ulink" href="http://www.gnu.org/software/tar/" target="_top">http://www.gnu.org/software/tar/</a>页面上找到。
 </p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Warning
+警告
 </div>
 <p xmlns="">
-      If you have previously installed MySQL using your operating system
-      native package management system, such as <code class="literal">yum</code>
-      or <code class="literal">apt-get</code>, you may experience problems
-      installing using a native binary. Make sure your previous MySQL
-      previous installation has been removed entirely (using your
-      package management system), and that any additional files, such as
-      old versions of your data files, have also been removed. You
-      should also check the existence of configuration files such as
-      <code class="filename">/etc/my.cnf</code> or the
-      <code class="filename">/etc/mysql</code> directory have been deleted.
-</p>
+      如果先前使用操作系统的本地安装包管理系统安装过MySQL，例如使用了<code class="literal">yum</code>或<code class="literal">apt-get</code>，很可能在使用本地二进制包安装MySQL时遇到问题。确保先前安装的MySQL要被卸载干净(使用安装包管理系统来卸载)，其他额外文件包括旧版系统的数据文件也需要删除。还需检查配置文件例如<code class="filename">/etc/my.cnf</code>或<code class="filename">/etc/mysql</code>文件夹也要被删除。 </p>
 </div>
 <p>
-    If you run into problems and need to file a bug report, please use
-    the instructions in <a class="xref" href="introduction.html#bug-reports" title="1.7. How to Report Bugs or Problems">Section 1.7, “How to Report Bugs or Problems”</a>.
-  </p><p>
-    On Unix, to install a compressed <span class="command"><strong>tar</strong></span> file binary
-    distribution, unpack it at the installation location you choose
-    (typically <code class="filename">/usr/local/mysql</code>). This creates the
-    directories shown in the following table.
-</p>
+    如果安装遇到问题并且你想提出一个缺陷报告，请阅读<a class="xref" href="introduction.html#bug-reports" title="1.7. How to Report Bugs or Problems">章节 1.7, “如何提交bug和问题”</a>.
+  </p><p> 在Unix平台上，要安装一个压缩 <span class="command"><strong>tar</strong></span>文件的二进制分发版，先把它解包到你选中的安装路径下(通常是<code class="filename">/usr/local/mysql</code>)。那么会创建下表所示的文件夹。</p>
 <div class="table">
-<a name="binary-installation-layout"></a><p class="title"><b>Table 2.3. MySQL Installation Layout for Generic Unix/Linux Binary Package</b></p>
+<a name="binary-installation-layout"></a><p class="title"><b><span lang="zh-cn">
+表</span> 2.3. 通用Unix/Linux二进制包的MySQL安装布局</b></p>
 <div class="table-contents">
-<table summary="MySQL Installation Layout for Generic Unix/Linux Binary Package" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">Directory</th><th scope="col">Contents of Directory</th></tr></thead><tbody><tr><td scope="row"><code class="filename">bin</code></td><td>Client programs and the <a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a> server</td></tr><tr><td scope="row"><code class="filename">data</code></td><td>Log files, databases</td></tr><tr><td scope="row"><code class="filename">docs</code></td><td>Manual in Info format</td></tr><tr><td scope="row"><code class="filename">man</code></td><td>Unix manual pages</td></tr><tr><td scope="row"><code class="filename">include</code></td><td>Include (header) files</td></tr><tr><td scope="row"><code class="filename">lib</code></td><td>Libraries</td></tr><tr><td scope="row"><code class="filename">scripts</code></td><td><a class="link" href="programs.html#mysql-install-db" title="4.4.3. mysql_install_db — Initialize MySQL Data Directory"><span class="command"><strong>mysql_install_db</strong></span></a></td></tr><tr><td scope="row"><code class="filename">share</code></td><td>Miscellaneous support files, including error messages, sample
-configuration files, SQL for database installation</td></tr><tr><td scope="row"><code class="filename">sql-bench</code></td><td>Benchmarks</td></tr></tbody></table>
+<table summary="MySQL Installation Layout for Generic Unix/Linux Binary Package" border="1"><colgroup><col><col></colgroup><thead><tr><th scope="col">
+	<span lang="zh-cn">文件夹</span></th><th scope="col">文件夹内容</th></tr></thead><tbody><tr><td scope="row"><code class="filename">bin</code></td><td>客户端程序和<a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a>服务器程序</td></tr><tr><td scope="row"><code class="filename">data</code></td><td>日志文件，数据库文件</td></tr><tr><td scope="row"><code class="filename">docs</code></td><td>Info格式的用户手册t</td></tr><tr><td scope="row"><code class="filename">man</code></td><td>Unix平台用户手册页面</td></tr><tr><td scope="row"><code class="filename">include</code></td><td>头文件</td></tr><tr><td scope="row"><code class="filename">lib</code></td><td>运行库</td></tr><tr><td scope="row"><code class="filename">scripts</code></td><td><a class="link" href="programs.html#mysql-install-db" title="4.4.3. mysql_install_db — Initialize MySQL Data Directory"><span class="command"><strong>mysql_install_db</strong></span></a></td></tr><tr><td scope="row"><code class="filename">share</code></td><td>各种支持文件，包括错误信息、配置文件样例、数据库安装的SQL脚本</td></tr><tr><td scope="row"><code class="filename">sql-bench</code></td><td>基准测试</td></tr></tbody></table>
 </div>
 
 </div>
 <br class="table-break"><p>
-    Debug versions of the <a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a> binary are available
-    as <a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld-debug</strong></span></a>. To compile your own debug
-    version of MySQL from a source distribution, use the appropriate
-    configuration options to enable debugging support. For more
-    information on compiling from source, see
-    <a class="xref" href="installing.html#source-installation" title="2.9. Installing MySQL from Source">Section 2.9, “Installing MySQL from Source”</a>.
+    调试版的<a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a>二进制程序命名为<a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld-debug</strong></span></a>。 使用源代码分发版就可以编译出你自己的MySQL调试版本，只要对配置属性适当配置就可以开启调试支持。 获取更多关于编译源代码的信息，请参阅<a class="xref" href="installing.html#source-installation" title="2.9. Installing MySQL from Source">章节 2.9, “使用源码安装MySQL”</a>.
   </p><a class="indexterm" name="idp2366864"></a><p>
-    To install and use a MySQL binary distribution, the basic command
-    sequence looks like this:
-  </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>groupadd mysql</code></strong>
+    使用MySQL二进制分发版来安装MySQL，基本操作命令步骤如下： </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>groupadd mysql</code></strong>
 shell&gt; <strong class="userinput"><code>useradd -r -g mysql mysql</code></strong>
 shell&gt; <strong class="userinput"><code>cd /usr/local</code></strong>
 shell&gt; <strong class="userinput"><code>tar zxvf <em class="replaceable"><code>/path/to/mysql-VERSION-OS</code></em>.tar.gz</code></strong>
@@ -944,66 +845,39 @@ shell&gt; <strong class="userinput"><code>bin/mysqld_safe --user=mysql &amp;</co
 # Next command is optional
 shell&gt; <strong class="userinput"><code>cp support-files/mysql.server /etc/init.d/mysql.server</code></strong>
 </pre><p>
-    <a class="link" href="programs.html#mysql-install-db" title="4.4.3. mysql_install_db — Initialize MySQL Data Directory"><span class="command"><strong>mysql_install_db</strong></span></a> creates a default option file
-    named <code class="filename">my.cnf</code> in the base installation
-    directory. This file is created from a template included in the
-    distribution package named <code class="filename">my-default.cnf</code>. For
-    more information, see
-    <a class="xref" href="server-administration.html#server-default-configuration-file" title="5.1.2.2. Using a Sample Default Server Configuration File">Section 5.1.2.2, “Using a Sample Default Server Configuration File”</a>.
+    <a class="link" href="programs.html#mysql-install-db" title="4.4.3. mysql_install_db — Initialize MySQL Data Directory"><span class="command"><strong>mysql_install_db</strong></span></a> 创建了一个名为 <code class="filename">my.cnf</code>的默认设置文件到基本安装目录里。这个设置文件是通过包含在分发版安装中名为<code class="filename">my-default.cnf</code>的模板来创建的。更多相关信息请参阅<a class="xref" href="server-administration.html#server-default-configuration-file" title="5.1.2.2. Using a Sample Default Server Configuration File">章节 5.1.2.2, “使用示例默认服务器配置文件”</a>.
   </p><p>
-    A more detailed version of the preceding description for installing
-    a binary distribution follows.
-</p>
+    下文提供了先前讲述的安装二进制分发版的更详细的安装步骤。</p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      This procedure assumes that you have <code class="literal">root</code>
-      (administrator) access to your system. Alternatively, you can
-      prefix each command using the <span class="command"><strong>sudo</strong></span> (Linux) or
-      <span class="command"><strong>pfexec</strong></span> (OpenSolaris) command.
-    </p><p xmlns="">
-      The procedure does not set up any passwords for MySQL accounts.
-      After following the procedure, proceed to
-      <a class="xref" href="installing.html#default-privileges" title="2.10.2. Securing the Initial MySQL Accounts">Section 2.10.2, “Securing the Initial MySQL Accounts”</a>.
+      这个操作过程是假定你有系统<code class="literal">root</code>(管理员)权限，或者你可以在每条命令前面使用<span class="command"><strong>sudo</strong></span> (Linux)或<span class="command"><strong>pfexec</strong></span> (OpenSolaris)命令。</p><p xmlns="">
+      这个操作过程并没有设置MySQL账户的密码，完成上面操作过程后，继续<a class="xref" href="installing.html#default-privileges" title="2.10.2. Securing the Initial MySQL Accounts">章节 2.10.2, “保护MySQL初始账号”</a>的操作。
 </p>
 </div>
 <h3><a name="binary-installation-createsysuser"></a>
-    Create a <code class="literal">mysql</code> User and Group
+    创建<code class="literal">mysql</code>用户和用户组
 </h3>
 <p>
-    If your system does not already have a user and group for
-    <a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a> to run as, you may need to create one. The
-    following commands add the <code class="literal">mysql</code> group and the
-    <code class="literal">mysql</code> user. You might want to call the user and
-    group something else instead of <code class="literal">mysql</code>. If so,
-    substitute the appropriate name in the following instructions. The
-    syntax for <span class="command"><strong>useradd</strong></span> and
-    <span class="command"><strong>groupadd</strong></span> may differ slightly on different
-    versions of Unix, or they may have different names such as
-    <span class="command"><strong>adduser</strong></span> and <span class="command"><strong>addgroup</strong></span>.
+    如果你的系统还没运行<a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a>的用户和用户组，你就得建立它们。下面的命令可以来添加<code class="literal">mysql</code>用户组和<code class="literal">mysql</code>用户。你可以不用<code class="literal">mysql</code>而用其他名字来命名分组和用户，如果这样，在下面的说明文档中得做相应替换。不同版本的Unix的<span class="command"><strong>useradd</strong></span>和
+    <span class="command"><strong>groupadd</strong></span>命令语法可能有略微区别，也许这两个命令以其他名字来命名，如<span class="command"><strong>adduser</strong></span>和<span class="command"><strong>addgroup</strong></span>。
   </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>groupadd mysql</code></strong>
 shell&gt; <strong class="userinput"><code>useradd -r -g mysql mysql</code></strong>
 </pre>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      Because the user is required only for ownership purposes, not
-      login purposes, the <span class="command"><strong>useradd</strong></span> command uses the
-      <code class="option">-r</code> option to create a user that does not have
-      login permissions to your server host. Omit this option to permit
-      logins for the user (or if your <span class="command"><strong>useradd</strong></span> does
-      not support the option).
+      由于这个用户只用于所有者权限目的而无需登录，<span class="command"><strong>useradd</strong></span>命令使用<code class="option">-r</code>选项就可以在服务器上创建无登录权限的用户，省略这个选项就允许创建的用户可以登录(也许你的<span class="command"><strong>useradd</strong></span>不支持这个选项)。
 </p>
 </div>
 <h3><a name="binary-installation-unpack"></a>
-    Obtain and Unpack the Distribution
-</h3>
+    获取并解压分发版文件</h3>
 <p>
     Pick the directory under which you want to unpack the distribution
     and change location into it. The example here unpacks the
