@@ -879,59 +879,30 @@ shell&gt; <strong class="userinput"><code>useradd -r -g mysql mysql</code></stro
 <h3><a name="binary-installation-unpack"></a>
     获取并解压分发版文件</h3>
 <p>
-    Pick the directory under which you want to unpack the distribution
-    and change location into it. The example here unpacks the
-    distribution under <code class="filename">/usr/local</code>. The
-    instructions, therefore, assume that you have permission to create
-    files and directories in <code class="filename">/usr/local</code>. If that
-    directory is protected, you must perform the installation as
-    <code class="literal">root</code>.
+    选择一个目录然后把分发版解包到该目录下。下面的例子是把分发版解包到<code class="filename">/usr/local</code>目录下。这个操作假设你在<code class="filename">/usr/local</code>文件夹有创建文件和文件夹的权限。如果这个文件夹是受保护的，你必须使用<code class="literal">root</code>权限来进行安装。    .
   </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>cd /usr/local</code></strong>
 </pre><p>
-    Obtain a distribution file using the instructions in
-    <a class="xref" href="installing.html#getting-mysql" title="2.1.3. How to Get MySQL">Section 2.1.3, “How to Get MySQL”</a>. For a given release, binary
-    distributions for all platforms are built from the same MySQL source
-    distribution.
-  </p><p>
-    Unpack the distribution, which creates the installation directory.
-    Then create a symbolic link to that directory.
-    <span class="command"><strong>tar</strong></span> can uncompress and unpack the distribution if
-    it has <code class="literal">z</code> option support:
-  </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>tar zxvf <em class="replaceable"><code>/path/to/mysql-VERSION-OS</code></em>.tar.gz</code></strong>
+    如何获取分发版文件请参阅<a class="xref" href="installing.html#getting-mysql" title="2.1.3. How to Get MySQL">章节 2.1.3, “如何获取MySQL”</a>。对给定的发布版，其所有平台的二进制分发包都是从同一份源代码分发版构建出来的。 </p><p>
+    对分发版解包，会创建安装文件夹，然后对这个文件夹创建一个符号链接，如果<span class="command"><strong>tar</strong>命令支持<code class="literal">z</code>选项那都不需要对分发版解压缩和解包</span>： </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>tar zxvf <em class="replaceable"><code>/path/to/mysql-VERSION-OS</code></em>.tar.gz</code></strong>
 shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>full-path-to-mysql-VERSION-OS</code></em> mysql</code></strong>
 </pre><p>
-    The <span class="command"><strong>tar</strong></span> command creates a directory named
-    <code class="filename">mysql-<em class="replaceable"><code>VERSION</code></em>-<em class="replaceable"><code>OS</code></em></code>.
-    The <code class="literal">ln</code> command makes a symbolic link to that
-    directory. This enables you to refer more easily to the installation
-    directory as <code class="filename">/usr/local/mysql</code>.
+    <span class="command"><strong>tar</strong></span>命令创建了名为<code class="filename">mysql-<em class="replaceable"><code>VERSION</code></em>-<em class="replaceable"><code>OS</code></em></code>的文件夹，<code class="literal">ln</code>命令对那个文件夹创建了一个符号链接。这样操作比安装文件夹设为<code class="filename">/usr/local/mysql</code>来的简单。
   </p><p>
-    If your <span class="command"><strong>tar</strong></span> does not have <code class="literal">z</code>
-    option support, use <span class="command"><strong>gunzip</strong></span> to unpack the
-    distribution and <span class="command"><strong>tar</strong></span> to unpack it. Replace the
-    preceding <span class="command"><strong>tar</strong></span> command with the following
-    alternative command to uncompress and extract the distribution:
-  </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>gunzip &lt; <em class="replaceable"><code>/path/to/mysql-VERSION-OS</code></em>.tar.gz | tar xvf -</code></strong>
+    如果<span class="command"><strong>tar</strong></span>不支持<code class="literal">z</code>选项，就使用<span class="command"><strong>gunzip</strong></span>来解压缩分发版接着使用<span class="command"><strong>tar</strong></span>命令来解包。使用下面的命令来替换先前<span class="command"><strong>tar</strong></span>命令对分发版进行解压缩和提取：  </p><pre class="programlisting">shell&gt; <strong class="userinput"><code>gunzip &lt; <em class="replaceable"><code>/path/to/mysql-VERSION-OS</code></em>.tar.gz | tar xvf -</code></strong>
 </pre>
 <h3><a name="binary-installation-postinstall"></a>
-    Perform Postinstallation Setup
+    进行安装后的设置
 </h3>
 <p>
-    The remainder of the installation process involves setting up the
-    configuration file, creating the core databases, and starting the
-    MySQL server. For next steps, see
-    <a class="xref" href="installing.html#postinstallation" title="2.10. Postinstallation Setup and Testing">Section 2.10, “Postinstallation Setup and Testing”</a>.
+    剩余的安装步骤包括设置配置文件、创建核心数据库和启动MySQL服务器。下面的步骤内容请参阅 <a class="xref" href="installing.html#postinstallation" title="2.10. Postinstallation Setup and Testing">章节 2.10, “安装完成后的设置和测试”</a>.
 </p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      The accounts that are listed in the MySQL grant tables initially
-      have no passwords. After starting the server, you should set up
-      passwords for them using the instructions in
-      <a class="xref" href="installing.html#default-privileges" title="2.10.2. Securing the Initial MySQL Accounts">Section 2.10.2, “Securing the Initial MySQL Accounts”</a>.
+      MySQL授权表的帐户在起初并没有密码，在启动数据库服务器后，你得查阅<a class="xref" href="installing.html#default-privileges" title="2.10.2. Securing the Initial MySQL Accounts">章节 2.10.2, “保护MySQL初始账号”</a>来设置密码。
 </p>
 </div>
 
@@ -940,7 +911,7 @@ Note
 <div class="titlepage">
 <div>
 <div>
-<h2 class="title" style="clear: both"><a name="windows-installation"></a>2.3. Installing MySQL on Microsoft Windows</h2>
+<h2 class="title" style="clear: both"><a name="windows-installation"></a>2.3. 在Microsoft Windows上安装MySQL</h2>
 
 </div>
 
@@ -948,108 +919,52 @@ Note
 
 </div>
 <div class="toc">
-<dl><dt><span class="section"><a href="installing.html#windows-installation-layout">2.3.1. MySQL Installation Layout on Microsoft Windows</a></span></dt><dt><span class="section"><a href="installing.html#windows-choosing-package">2.3.2. Choosing An Installation Package</a></span></dt><dt><span class="section"><a href="installing.html#mysql-installer">2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer</a></span></dt><dt><span class="section"><a href="installing.html#windows-notifier">2.3.4. MySQL Notifier for Microsoft Windows</a></span></dt><dt><span class="section"><a href="installing.html#windows-install-archive">2.3.5. Installing MySQL on Microsoft Windows Using a
-<code class="literal">noinstall</code> Zip Archive</a></span></dt><dt><span class="section"><a href="installing.html#windows-troubleshooting">2.3.6. Troubleshooting a Microsoft Windows MySQL Server Installation</a></span></dt><dt><span class="section"><a href="installing.html#windows-upgrading">2.3.7. Upgrading MySQL on Windows</a></span></dt><dt><span class="section"><a href="installing.html#windows-postinstallation">2.3.8. Windows Postinstallation Procedures</a></span></dt></dl>
+<dl><dt><span class="section"><a href="installing.html#windows-installation-layout">2.3.1. 在Microsoft Windows上的MySQL安装布局 </a></span></dt><dt><span class="section"><a href="installing.html#windows-choosing-package">2.3.2. 选择一个安装包</a></span></dt><dt><span class="section"><a href="installing.html#mysql-installer">2.3.3. 在Microsoft Windows上使用MySQL Installer来安装MySQL</a></span></dt><dt><span class="section"><a href="installing.html#windows-notifier">2.3.4. MySQL Notifier for Microsoft Windows</a></span></dt><dt><span class="section"><a href="installing.html#windows-install-archive">2.3.5. 在Microsoft Windows上使用<code class="literal">noinstall</code> Zip压缩包来安装MySQL</a></span></dt><dt><span class="section"><a href="installing.html#windows-troubleshooting">2.3.6. Troubleshooting a Microsoft Windows MySQL Server Installation</a></span></dt><dt><span class="section"><a href="installing.html#windows-upgrading">2.3.7. Upgrading MySQL on Windows</a></span></dt><dt><span class="section"><a href="installing.html#windows-postinstallation">2.3.8. Windows Postinstallation Procedures</a></span></dt></dl>
 </div>
 <p>
-    MySQL for Microsoft Windows is available in a number of different
-    forms. A Microsoft Windows operating system such as Windows Vista,
-    Windows 7, Windows 8, Windows Server 2008, or Windows Server 2012.
-    Both 32-bit and 64-bit versions are supported. For supported
-    platform information, see <code class="uri">http://www.mysql.com/support/supportedplatforms/database.html</code>.
+    Microsoft Windows平台上MySQL有很多版本。Microsoft Windows操作系统例如Windows Vista、
+    Windows 7、 Windows 8、 Windows Server 2008、or Windows Server 2012，这些操作系统的32位和64位版本都被MySQL所支持。MySQL所支持的平台信息，可以访问<code class="uri">http://www.mysql.com/support/supportedplatforms/database.html</code>。
   </p><p>
-    In addition to running MySQL as a standard application, you can also
-    run the MySQL server as a Windows service. By using a service you
-    can monitor and control the operation of the server through the
-    standard Windows service management tools. For more information, see
-    <a class="xref" href="installing.html#windows-start-service" title="2.3.5.7. Starting MySQL as a Windows Service">Section 2.3.5.7, “Starting MySQL as a Windows Service”</a>.
+    MySQL除了可以作为标准应用程序运行外，还可以把MySQL服务器程序作为Windows的服务来运行。当作为服务运行时，就可以使用Windows服务管理工具来监控和控制MySQL服务器程序。想要获取更多相关信息，请参阅<a class="xref" href="installing.html#windows-start-service" title="2.3.5.7. Starting MySQL as a Windows Service">章节 2.3.5.7, “MySQL作为Windows服务来启动”</a>.
   </p><p>
-    Generally, you should install MySQL on Windows using an account that
-    has administrator rights. Otherwise, you may encounter problems with
-    certain operations such as editing the <code class="literal">PATH</code>
-    environment variable or accessing the <span class="command"><strong>Service Control
-    Manager</strong></span>. Once installed, MySQL does not need to be
-    executed using a user with Administrator privileges.
+    通常，在Windows平台上安装MySQL需要一个具有管理员权限的帐户。否则，你会在诸如编辑<code class="literal">PATH</code>环境变量或者访问服务控制管理器等操作上遇到问题。MySQL安装完成后，就不需要管理员权限来运行了。</p><p>
+    Windows平台的MySQL局限性列表可以参阅<a class="xref" href="restrictions.html#limits-windows" title="E.10.6. Windows Platform Limitations">章节 E.10.6, “Windows平台的局限性 ”</a>.
   </p><p>
-    For a list of limitations within the Windows version of MySQL, see
-    <a class="xref" href="restrictions.html#limits-windows" title="E.10.6. Windows Platform Limitations">Section E.10.6, “Windows Platform Limitations”</a>.
+    除MySQL服务器安装包外，你可能还需要其他组件来通过你的应用程序货开发环境来操作MySQL。这包括但不局限于下面的组件：</p>
+<div class="itemizedlist">
+<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
+        如果你想通过ODBC来连接MySQL服务器程序，则需要Connector/ODBC驱动。更多关于Connector/ODBC包括安装和配置说明的信息，请参阅<a class="xref" href="connectors-apis.html#connector-odbc" title="22.1. MySQL Connector/ODBC">章节 22.1, “MySQL的ODBC驱动(Connector/ODBC)”</a>。需要注意的是MySQL Installer会给你安装和配置Connector/ODBC。
+      </p></li><li class="listitem"><p>
+        如果你想通过.NET应用程序来使用MySQL服务器程序，你需要Connector/Net驱动。更多关于Connector/net包括安装和配置说明的信息，请参阅<a class="xref" href="connectors-apis.html#connector-net" title="22.2. MySQL Connector/Net">Section 22.2, “MySQL的Net驱动(Connector/Net)”</a>。需要注意的是MySQL Installer会给你安装和配置Connector/Net。</p></li></ul>
+</div>
+<p>
+    Windows平台MySQL分发版可以从<a class="ulink" href="http://dev.mysql.com/downloads/" target="_top">http://dev.mysql.com/downloads/</a>页面来下载，详情请参阅<a class="xref" href="installing.html#getting-mysql" title="2.1.3. How to Get MySQL">章节 2.1.3, “如何获取MySQL”</a>.
   </p><p>
-    In addition to the MySQL Server package, you may need or want
-    additional components to use MySQL with your application or
-    development environment. These include, but are not limited to:
+    Windows平台上提供的多种分发包格式的MySQL，下面有这些格式的详细说明。通常，你会使用MySQL Installer，它比Zip包文件安装简单，也无需另外下载其他MySQL的额外工具。MySQL Installer会字段安装MySQL服务器程序，安装额外的MySQL产品，创建配置文件，启动服务器并且会创建默认用户账户。更多关于选择安装包的信息，请参阅<a class="xref" href="installing.html#windows-choosing-package" title="2.3.2. Choosing An Installation Package">章节 2.3.2, “选择一个安装包”</a>.
 </p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        If you plan to connect to the MySQL server using ODBC, you need
-        a Connector/ODBC driver. For more information, including
-        installation and configuration instructions, see
-        <a class="xref" href="connectors-apis.html#connector-odbc" title="22.1. MySQL Connector/ODBC">Section 22.1, “MySQL Connector/ODBC”</a>. But note that MySQL Installer will
-        install and configure Connector/ODBC for you.
+        MySQL Installer：它包含了MySQL服务器程序和额外的MySQL产品，如MySQL Workbench, MySQL Notifier, and MySQL for Excel等。并且MySQL Installer将来也可以对这些产品进行升级。      </p><p>
+        使用MySQL Installer来安装MySQL的说明，可以参阅<a class="xref" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">章节 2.3.3, “在Microsoft Windows上使用MySQL Installer来安装MySQL ”</a>.
       </p></li><li class="listitem"><p>
-        If you plan to use MySQL server with .NET applications, you need
-        the Connector/Net driver. For more information, including
-        installation and configuration instructions, see
-        <a class="xref" href="connectors-apis.html#connector-net" title="22.2. MySQL Connector/Net">Section 22.2, “MySQL Connector/Net”</a>. But note that MySQL Installer will install
-        and configure Connector/NET for you.
+        标准二进制分发版格式包是以Zip文件提供，它需要把所包含的所有必需的文件解压到你选择的路径下。这个包里含有Windows MSI Installer包中所有的文件除了安装程序。     </p><p>
+        使用Zip包来安装MySQL的说明，可以参阅<a class="xref" href="installing.html#windows-install-archive" title="2.3.5. Installing MySQL on Microsoft Windows Using a noinstall Zip Archive">章节2.3.5, “在Microsoft Windows上使用<code class="literal">noinstall</code>的Zip压缩包来安装MySQL”</a>.
+      </p></li><li class="listitem"><p>
+        源代码发布版中包含了所有的代码和支持文件，可以使用Visual Studio编译器系统来构建这些可执行程序。      </p><p>
+        在Windows使用源代码来构建MySQL的说明，可以参阅<a class="xref" href="installing.html#source-installation" title="2.9. Installing MySQL from Source">Section 2.9, “使用源码安装”</a>.
 </p></li></ul>
 </div>
 <p>
-    MySQL distributions for Windows can be downloaded from
-    <a class="ulink" href="http://dev.mysql.com/downloads/" target="_top">http://dev.mysql.com/downloads/</a>. See
-    <a class="xref" href="installing.html#getting-mysql" title="2.1.3. How to Get MySQL">Section 2.1.3, “How to Get MySQL”</a>.
-  </p><p>
-    MySQL for Windows is available in several distribution formats,
-    detailed below. Generally speaking, you should use MySQL Installer. It is
-    simpler to use than the ZIP file, and you need no additional tools
-    to get MySQL up and running. MySQL Installer will automatically install MySQL
-    Server, install additional MySQL products, create an options file,
-    starts the server, and allow you to create default user accounts.
-    For more information on choosing a package, see
-    <a class="xref" href="installing.html#windows-choosing-package" title="2.3.2. Choosing An Installation Package">Section 2.3.2, “Choosing An Installation Package”</a>.
+    <span class="bold"><strong>MySQL在Windows平台上的注意事项：</strong></span>
 </p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        MySQL Installer. It includes MySQL Server and additional MySQL products
-        including MySQL Workbench, MySQL Notifier, and MySQL for Excel.
-        And MySQL Installer can also be used to upgrade these product in the
-        future.
+        <span class="bold"><strong>大表支持</strong></span>
       </p><p>
-        For instructions on installing MySQL using MySQL Installer, see
-        <a class="xref" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">Section 2.3.3, “Installing MySQL on Microsoft Windows Using MySQL Installer”</a>.
+        如果需要支持超过4GB容量的表，则需要安装MySQL在NTFS或者更新的文件系统上，并且不要忘记在创建表时设置<code class="literal">MAX_ROWS</code>和
+        <code class="literal">AVG_ROW_LENGTH</code>选项。<a class="xref" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax">章节 13.1.17, “<code class="literal">CREATE TABLE</code>语法”</a>.
       </p></li><li class="listitem"><p>
-        Standard binary distribution format packaged as a Zip file
-        containing all of the necessary files that you unpack into your
-        chosen location. This package contains all of the files in the
-        full Windows MSI Installer package, but does not include an
-        installation program.
-      </p><p>
-        For instructions on installing MySQL using the Zip file, see
-        <a class="xref" href="installing.html#windows-install-archive" title="2.3.5. Installing MySQL on Microsoft Windows Using a noinstall Zip Archive">Section 2.3.5, “Installing MySQL on Microsoft Windows Using a
-      <code class="literal">noinstall</code> Zip Archive”</a>.
-      </p></li><li class="listitem"><p>
-        The source distribution contains all the code and support files
-        for building the executables using the Visual Studio compiler
-        system.
-      </p><p>
-        For instructions on building MySQL from source on Windows, see
-        <a class="xref" href="installing.html#source-installation" title="2.9. Installing MySQL from Source">Section 2.9, “Installing MySQL from Source”</a>.
-</p></li></ul>
-</div>
-<p>
-    <span class="bold"><strong>MySQL on Windows considerations:</strong></span>
-</p>
-<div class="itemizedlist">
-<ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        <span class="bold"><strong>Large Table Support</strong></span>
-      </p><p>
-        If you need tables with a size larger than 4GB, install MySQL on
-        an NTFS or newer file system. Do not forget to use
-        <code class="literal">MAX_ROWS</code> and
-        <code class="literal">AVG_ROW_LENGTH</code> when you create tables. See
-        <a class="xref" href="sql-syntax.html#create-table" title="13.1.17. CREATE TABLE Syntax">Section 13.1.17, “<code class="literal">CREATE TABLE</code> Syntax”</a>.
-      </p></li><li class="listitem"><p>
-        <span class="bold"><strong>MySQL and Virus Checking
-        Software</strong></span>
+        <span class="bold"><strong>MySQL和杀毒软件</strong></span>
       </p><p>
         Using virus scanning software such as Norton/Symantec Anti-Virus
         on directories containing MySQL data and temporary tables can
@@ -1060,29 +975,15 @@ Note
         which MySQL rapidly updates different files, which may be
         identified as a potential security risk.
       </p><p>
-        After installing MySQL Server, it is recommended that you
-        disable virus scanning on the main directory
-        (<a class="link" href="server-administration.html#sysvar_datadir"><code class="literal">datadir</code></a>) being used to store
-        your MySQL table data. There is usually a system built into the
-        virus scanning software to permit certain directories to be
-        specifically ignored during virus scanning.
-      </p><p>
-        In addition, by default, MySQL creates temporary files in the
-        standard Windows temporary directory. To prevent the temporary
-        files also being scanned, you should configure a separate
-        temporary directory for MySQL temporary files and add this to
-        the virus scanning exclusion list. To do this, add a
-        configuration option for the
-        <a class="link" href="server-administration.html#option_mysqld_tmpdir"><code class="option">tmpdir</code></a> parameter to your
-        <code class="filename">my.ini</code> configuration file. For more
-        information, see <a class="xref" href="installing.html#windows-create-option-file" title="2.3.5.2. Creating an Option File">Section 2.3.5.2, “Creating an Option File”</a>.
+        安装完MySQL Server服务器后,建议关闭杀毒软件对主数据目录(<a class="link" href="server-administration.html#sysvar_datadir"><code class="literal">datadir</code></a>)的扫描。通常杀毒软件都有这样的系统来允许某些文件夹可以在病毒扫描时被忽略掉。</p><p>
+        另外，MySQL会默认在标准Windows临时文件夹中创建临时文件，为了复制这些临时文件被扫描到，需要配置一个单独的临时文件夹来存放MySQL的临时文件并要把这个文件夹添加到杀毒软件的排除列表中。要完成这个任务，需要在<code class="filename">my.ini</code>配置文件中添加一个<a class="link" href="server-administration.html#option_mysqld_tmpdir"><code class="option">tmpdir</code></a>的参数配置项。更多相关内容请参阅<a class="xref" href="installing.html#windows-create-option-file" title="2.3.5.2. Creating an Option File">章节 2.3.5.2, “创建一个配置文件”</a>.
 </p></li></ul>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="windows-installation-layout"></a>2.3.1. MySQL Installation Layout on Microsoft Windows</h3>
+<h3 class="title"><a name="windows-installation-layout"></a>2.3.1. 在Microsoft Windows上的MySQL安装布局</h3>
 
 </div>
 
@@ -1090,44 +991,30 @@ Note
 
 </div>
 <p>
-      For MySQL 5.6 on Windows, the default installation
-      directory is <code class="filename">C:\Program Files\MySQL\MySQL Server
-      5.6</code>. Some Windows users prefer to install
-      in <code class="filename">C:\mysql</code>, the directory that formerly was
-      used as the default. However, the layout of the subdirectories
-      remains the same.
-    </p><p>
-      All of the files are located within this parent directory, using
-      the structure shown in the following table.
+      Windows平台的MySQL 5.6默认安装路径是<code class="filename">C:\Program Files\MySQL\MySQL Server
+      5.6</code>。一些Windows的用户更喜欢安装在<code class="filename">C:\mysql</code>目录里，因为这就是以前的缺省安装目录。不过子文件夹的布局是一样的。</p><p>
+      所有的文件都放在上面的父文件夹里，它们的目录结构如下表所示。
 </p>
 <div class="table">
-<a name="idp2462320"></a><p class="title"><b>Table 2.4. Default MySQL Installation Layout for Microsoft Windows</b></p>
+<a name="idp2462320"></a><p class="title"><b>表 2.4. Microsoft Windows上的MySQL默认安装布局</b></p>
 <div class="table-contents">
-<table summary="Default MySQL Installation Layout for Microsoft Windows" border="1"><colgroup><col><col><col></colgroup><thead><tr><th scope="col">Directory</th><th scope="col">Contents of Directory</th><th scope="col">Notes</th></tr></thead><tbody><tr><td scope="row"><code class="filename">bin</code></td><td>Client programs and the <a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a> server</td><td> </td></tr><tr><td scope="row"><code class="filename">%ALLUSERSPROFILE%\MySQL\MySQL Server
-              5.6\</code></td><td>Log files, databases (Windows XP, Windows Server 2003)</td><td>The Windows system variable <code class="varname">%ALLUSERSPROFILE%</code>
-              defaults to <code class="filename">C:\Documents and Settings\All
-              Users\Application Data</code></td></tr><tr><td scope="row"><code class="filename">%PROGRAMDATA%\MySQL\MySQL Server 5.6\</code></td><td>Log files, databases (Vista, Windows 7, Windows Server 2008, and newer)</td><td>The Windows system variable <code class="varname">%PROGRAMDATA%</code> defaults to
-              <code class="filename">C:\ProgramData</code></td></tr><tr><td scope="row"><code class="filename">examples</code></td><td>Example programs and scripts</td><td> </td></tr><tr><td scope="row"><code class="filename">include</code></td><td>Include (header) files</td><td> </td></tr><tr><td scope="row"><code class="filename">lib</code></td><td>Libraries</td><td> </td></tr><tr><td scope="row"><code class="filename">scripts</code></td><td>Utility scripts</td><td> </td></tr><tr><td scope="row"><code class="filename">share</code></td><td>Miscellaneous support files, including error messages, character set
-              files, sample configuration files, SQL for database
-installation</td><td> </td></tr></tbody></table>
+<table summary="Default MySQL Installation Layout for Microsoft Windows" border="1"><colgroup><col><col><col></colgroup><thead><tr><th scope="col">
+	文件夹</th><th scope="col">文件夹内容of Directory</th><th scope="col">说明</th></tr></thead><tbody><tr><td scope="row"><code class="filename">bin</code></td><td>客户端程序和<a class="link" href="programs.html#mysqld" title="4.3.1. mysqld — The MySQL Server"><span class="command"><strong>mysqld</strong></span></a>服务器程序</td><td> </td></tr><tr><td scope="row"><code class="filename">%ALLUSERSPROFILE%\MySQL\MySQL Server
+              5.6\</code></td><td>日志文件，数据库文件(Windows XP, Windows Server 2003)</td><td>indows系统变量<code class="varname">%ALLUSERSPROFILE%</code>默认值为<code class="filename">C:\Documents and Settings\All
+              Users\Application Data</code></td></tr><tr><td scope="row"><code class="filename">%PROGRAMDATA%\MySQL\MySQL Server 5.6\</code></td><td>日志文件，数据库文件(Vista, Windows 7, Windows Server 2008, and newer)</td><td>Windows系统变量<code class="varname">%PROGRAMDATA%</code>值默认为<code class="filename">C:\ProgramData</code></td></tr><tr><td scope="row"><code class="filename">examples</code></td><td>示例程序和示例脚本</td><td> </td></tr><tr><td scope="row"><code class="filename">include</code></td><td>头文件</td><td> </td></tr><tr><td scope="row"><code class="filename">lib</code></td><td>运行库</td><td> </td></tr><tr><td scope="row"><code class="filename">scripts</code></td><td>工具脚本</td><td> </td></tr><tr><td scope="row"><code class="filename">share</code></td><td>
+		其他支持文件，包括错误信息、字符集文集，示例配置文件和数据库安装SQL脚本</td><td> </td></tr></tbody></table>
 </div>
 
 </div>
 <br class="table-break"><p>
-      If you install MySQL using the MySQL Installer, this package creates and sets
-      up the data directory that the installed server will use, and also
-      creates a pristine <span class="quote">“<span class="quote">template</span>”</span> data directory named
-      <code class="filename">data</code> under the installation directory. After
-      an installation has been performed using this package, the
-      template data directory can be copied to set up additional MySQL
-      instances. See <a class="xref" href="server-administration.html#multiple-servers" title="5.6. Running Multiple MySQL Instances on One Machine">Section 5.6, “Running Multiple MySQL Instances on One Machine”</a>.
+      如果使用了MySQL Installer来安装MySQL，这个安装包会创建和设置供服务器程序使用的数据文件夹，当然也会在MySQL安装路径下创建一个名为<code class="filename">data</code>的原始模板数据文件夹。当安装完毕后，这个模板数据文件夹可以拷贝给其他MySQL实例使用。See <a class="xref" href="server-administration.html#multiple-servers" title="5.6. Running Multiple MySQL Instances on One Machine">章节 5.6, “在一台主机上运行多个MySQL实例”</a>.
 </p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="windows-choosing-package"></a>2.3.2. Choosing An Installation Package</h3>
+<h3 class="title"><a name="windows-choosing-package"></a>2.3.2. 选择一个安装包</h3>
 
 </div>
 
@@ -1135,58 +1022,31 @@ installation</td><td> </td></tr></tbody></table>
 
 </div>
 <p>
-      For MySQL 5.6, there are installation package formats
-      to choose from when installing MySQL on Windows:
-</p>
+      针对MySQL 5.6，在Windows平台上有下面几种安装包格式可供选择：</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-          <span class="bold"><strong>MySQL Installer</strong></span>: This package has a file
-          name similar to
-          <code class="filename">mysql-installer-community-5.6.15.0.msi</code>
-          or
-          <code class="filename">mysql-installer-commercial-5.6.15.0.msi</code>,
-          and utilizes MSI's to automatically install MySQL server and
-          other products. It will download and apply updates to itself,
-          and for each of the installed products. It also configures the
-          additional non-server products.
+          <span class="bold"><strong>MySQL Installer</strong></span>: 这个安装包的名字格式类似于<code class="filename">mysql-installer-community-5.6.15.0.msi</code>
+          或          <code class="filename">mysql-installer-commercial-5.6.15.0.msi</code>
+，我们可以利用MSI安装包来自动安装MySQL服务器程序和其它产品，并且可以通过MSI安装包来下载和升级所有的已安装的产品，当然它也可以用来配置其它非服务器产品。
         </p><p>
-          The installed products are configurable, and this includes:
-          documentation with samples and examples, connectors (such as
-          C, C++, J, NET, and ODBC), MySQL Workbench, MySQL Notifier for Microsoft Windows, MySQL for Excel,
-          and the MySQL Server with its components.
-        </p><p>
+          这些已安装的产品都是可配置的，它们包括：样本文档和示例，连接驱动(例如C，C++、J、NET和ODBC等连接驱动)， MySQL Notifier for Microsoft Windows，MySQL for Excel，还有MySQL服务器程序及其相关组件。 </p><p>
           MySQL Installer will run on all Windows platforms that are supported by
-          MySQL (see <code class="uri">http://www.mysql.com/support/supportedplatforms/database.html</code>). Note:
-          because MySQL is not a native component of Windows and depends
-          on .NET, it will not work on minimal installation options like
-          the "Server Core" version of Windows Server 2008.
-        </p><p>
-          For instructions on installing MySQL using MySQL Installer, see
-          <a class="xref" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">Section 2.3.3, “Installing MySQL on Microsoft Windows Using MySQL Installer”</a>.
+          MySQL (see <code class="uri">http://www.mysql.com/support/supportedplatforms/database.html</code>). 注意:
+          由于MySQL并不是Windows原生组件，而且依赖着.Net，它不能运行在类似于Windows Server 2008的"Server Core"版本之类的Windows最小安装环境下。         </p><p>
+          使用MySQL Installe来安装MySQL的相关说明，可以参阅<a class="xref" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">章节 2.3.3, “在Microsoft Windows上使用MySQL Installer来安装MySQL”</a>.
         </p></li><li class="listitem"><p>
-          <span class="bold"><strong>The Noinstall Archive</strong></span>: This
-          package has a file name similar to
-          <code class="filename">mysql-5.6.15-win32.zip</code> or
-          <code class="filename">mysql-5.6.15-winx64.zip</code>, and
-          contains all the files found in the Complete install package,
-          with the exception of the GUI. This package does not include
-          an automated installer, and must be manually installed and
-          configured.
-</p></li></ul>
+          <span class="bold"><strong>The Noinstall Archive</strong></span>：这个安装包的名字格式类似于<code class="filename">mysql-5.6.15-win32.zip</code>或
+          <code class="filename">mysql-5.6.15-winx64.zip</code>，这个完整安装包中含有除了GUI工具以外的所有文件，它不包含自动安装程序，必须手动安装和配置。</p></li></ul>
 </div>
 <p>
-      Your choice of install package affects the installation process
-      you must follow. If you choose to use MySQL Installer, see
-      <a class="xref" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">Section 2.3.3, “Installing MySQL on Microsoft Windows Using MySQL Installer”</a>. If you choose to install a
-      Noinstall archive, see <a class="xref" href="installing.html#windows-install-archive" title="2.3.5. Installing MySQL on Microsoft Windows Using a noinstall Zip Archive">Section 2.3.5, “Installing MySQL on Microsoft Windows Using a
-      <code class="literal">noinstall</code> Zip Archive”</a>.
+      安装包的选择将会影响到后面锁遵循的安装过程。如果选择了MySQL Installer，请参阅<a class="xref" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">章节 2.3.3, “在Microsoft Windows上使用MySQL Installer来安装MySQL”</a>。如果选择了noinstall压缩包，请参阅<a class="xref" href="installing.html#windows-install-archive" title="2.3.5. Installing MySQL on Microsoft Windows Using a noinstall Zip Archive">章节 2.3.5, “在Microsoft Windows上使用<code class="literal">noinstall</code>的Zip压缩包来安装MySQL”</a>.
 </p>
 </div>
 <div class="section">
 <div class="titlepage">
 <div>
 <div>
-<h3 class="title"><a name="mysql-installer"></a>2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer</h3>
+<h3 class="title"><a name="mysql-installer"></a>2.3.3. 在Microsoft Windows上使用MySQL Installer来安装MySQL </h3>
 
 </div>
 
@@ -1197,120 +1057,56 @@ installation</td><td> </td></tr></tbody></table>
 <dl><dt><span class="section"><a href="installing.html#mysql-installer-gui">2.3.3.1. MySQL Installer GUI</a></span></dt><dt><span class="section"><a href="installing.html#MySQLInstallerConsole">2.3.3.2. MySQL Installer Console</a></span></dt></dl>
 </div>
 <a class="indexterm" name="idp2503840"></a><a class="indexterm" name="idp2504912"></a><p>
-    MySQL Installer is an application that simplifies the installation and updating
-    process for a wide range of MySQL products, including
-    <a class="link" href="installing.html#windows-notifier" title="2.3.4. MySQL Notifier for Microsoft Windows">MySQL Notifier for Microsoft Windows</a>,
-    <a class="link" href="workbench.html" title="Chapter 25. MySQL Workbench">MySQL Workbench</a>, and
-    <a class="link" href="mysql-for-excel.html" title="Chapter 26. MySQL for Excel">MySQL for Excel</a>. From this central
-    application, you can see which MySQL products are already installed,
-    configure them, and update or remove them if necessary. The
-    installer can also install plugins, documentation, tutorials, and
-    example databases. The MySQL Installer is only available for Microsoft Windows,
-    and includes both a GUI and command-line interface.
-</p>
+    MySQL Installer是一个应用程序，它简化了大部分MySQL的产品的安装和升级过程，这些产品包括<a class="link" href="installing.html#windows-notifier" title="2.3.4. MySQL Notifier for Microsoft Windows">MySQL Notifier for Microsoft Windows</a>，
+    <a class="link" href="workbench.html" title="Chapter 25. MySQL Workbench">MySQL Workbench</a>和
+    <a class="link" href="mysql-for-excel.html" title="Chapter 26. MySQL for Excel">MySQL for Excel</a>。通过这个中枢软件，你可以查看已安装了哪些MySQL产品，也可以配置这些软件，必要时还可以升级和卸载这些软件。这个安装软件也可以安装插件、文档、教程和示例数据库。 MySQL Installer程序只提供给Microsoft Windows，它有GUI和命令行两种界面。</p>
 <h4><a name="idp2509056"></a>
-    Installer package types
-</h4>
+    安装程序包类型</h4>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">Full:</code> Bundles all of the MySQL products
-        (including MySQL Server). The file is over 160MB, and have names
-        of the form
-        <code class="filename">mysql-installer-community-<em class="replaceable"><code>VERSION</code></em>.<em class="replaceable"><code>N</code></em>.msi</code>
-        where <code class="literal">VERSION</code> is the MySQL Server version
-        number such as 5.6 and <code class="literal">N</code> is the package
-        number, which begins at 0.
-      </p></li><li class="listitem"><p>
-        <code class="literal">Web:</code> Only contains the Installer and
-        configuration files, and it only downloads the MySQL products
-        you choose to install. The file is about 2MB, and have names of
-        the form
-        <code class="filename">mysql-installer-community-<code class="literal">web</code>-<em class="replaceable"><code>VERSION</code></em>.<em class="replaceable"><code>N</code></em>.msi</code>
-        where <code class="literal">VERSION</code> is the MySQL Server version
-        number such as 5.6 and <code class="literal">N</code> is the package
-        number, which begins at 0.
-</p></li></ul>
+        <code class="literal">Full:</code>捆绑了所有的MySQL产品(包括MySQL服务器软件)。这个文件超过160MB，它的命名格式为<code class="filename">mysql-installer-community-<em class="replaceable"><code>VERSION</code></em>.<em class="replaceable"><code>N</code></em>.msi</code>，这里的
+<code class="literal">VERSION</code>就是MySQL服务器软件的版本号例如5.6，这里的<code class="literal">N</code>就是包的版本号，它从0开始。</p></li><li class="listitem"><p>
+        <code class="literal">Web:</code>只包含了安装软件和配置文件，它只下载你所需的MySQL产品。这个文件大约2MB，它的命名格式为<code class="filename">mysql-installer-community-<code class="literal">web</code>-<em class="replaceable"><code>VERSION</code></em>.<em class="replaceable"><code>N</code></em>.msi</code>，这里的<code class="literal">VERSION</code>就是MySQL服务器软件的版本号例如5.6，这里的 <code class="literal">N</code>就是包的版本号，它从0开始。</p></li></ul>
 </div>
 <h4><a name="idp2520768"></a>
-    Installer editions
+    安装程序包版本
 </h4>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        <code class="literal">Community edition:</code> Downloadable at
-        <a class="ulink" href="http://dev.mysql.com/downloads/installer/" target="_top">http://dev.mysql.com/downloads/installer/</a>. It installs the
-        community edition of all MySQL products.
-      </p></li><li class="listitem"><p>
-        <code class="literal">Commercial edition:</code> Downloadable at either
-        <a class="ulink" href="https://support.oracle.com/" target="_top">My Oracle
-        Support</a> (MOS) or
-        <a class="ulink" href="https://edelivery.oracle.com/" target="_top">https://edelivery.oracle.com/</a>. It installs the
-        commercial version of all MySQL products, including Workbench
-        SE. It also integrates with your MOS account, so enter in your
-        MOS credentials to automatically receive updates for your
-        commercial MySQL products.
-</p></li></ul>
+        <code class="literal">Community edition:</code>下载于
+        <a class="ulink" href="http://dev.mysql.com/downloads/installer/" target="_top">http://dev.mysql.com/downloads/installer/</a>。它会安装所有的MySQL产品的社区版。      </p></li><li class="listitem"><p>
+        <code class="literal">Commercial edition:</code> 从<a class="ulink" href="https://support.oracle.com/" target="_top">My Oracle
+        Support</a> (MOS)或者
+        <a class="ulink" href="https://edelivery.oracle.com/" target="_top">https://edelivery.oracle.com/</a>下载。它安装所有MySQL产品的商业版，包括Workbench
+        SE。它也和MOS帐户有关联，输入MOS认证信息后可以自动接收你商业版MySQL产品的升级。</p></li></ul>
 </div>
 <p>
-    For release notes detailing the changes in each release of MySQL Installer, see
-    <a class="ulink" href="http://dev.mysql.com/doc/relnotes/mysql-installer/en/" target="_top">MySQL Installer
+    每个MySQL Installer发行版的发行说明中列举的变更内容，请参阅<a class="ulink" href="http://dev.mysql.com/doc/relnotes/mysql-installer/en/" target="_top">MySQL Installer
     Release Notes</a>.
   </p><p>
-    MySQL Installer is compatible with pre-existing installations, and adds them to
-    its list of installed components. And while the MySQL Installer is bundled with
-    a specific version of MySQL Server, a single MySQL Installer instance can
-    install and manage multiple MySQL Server versions. For example, a
-    single MySQL Installer instance can install versions 5.1, 5.5, and 5.6. It can
-    also manage either commercial or community editions of the MySQL
-    Server.
-</p>
+    MySQL Installer也适用于已安装的MySQL产品，它能把已经安装的MySQL产品添加到已安装组件列表中。虽然MySQL Installer与某个特定版本MySQL捆绑在一起，但一个MySQL Install实例可以安装和管理多个版本的MySQL服务器。例如，一个MySQL Installer实例可以安装5.1，5.5和5.6版本的软件，它既可以管理商业版的MySQL服务器软件也可以管理社区版的MySQL服务器软件。 </p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      A single host can not have both community and commercial editions
-      of MySQL Server installed. For example, if you want both MySQL
-      Server 5.5 and 5.6 installed on a single host, then both must be
-      the same commercial or community edition.
-</p>
+      一个主机上不能同时安装商业版和社区版的MySQL服务器软件。例如，如果你想在一台主机上安装MySQL5.5和MySQL5.6，它们必须同为商业版或社区版。</p>
 </div>
 <p>
-    MySQL Installer handles the initial configuration and setup of the
-    applications. For example:
-</p>
+    MySQL Installer掌控着初始化配置和应用软件的设置。例如：</p>
 <div class="orderedlist">
 <ol class="orderedlist" type="1"><li class="listitem"><p>
-        It will create MySQL Server connections in MySQL Workbench.
+        它会在MySQL Workbench里创建MySQL服务器的连接。</p></li><li class="listitem"><p>
+        它会创建配置MySQL服务器软件的配置文件(<code class="filename">my.ini</code>)。文件里所写入的值受你在安装过程中的选择影响。     </p></li><li class="listitem"><p>
+        它会导入示例数据库。      </p></li><li class="listitem"><p>
+        它创建基于一般角色的可配置权限的MySQL服务器用户账户，例如DB管理员、DB设计者、和备份管理员。它可选择性的创建名为<code class="literal">MysqlSys</code>的有限权限的Windows用户帐户，这个用户用来运行MySQL服务器软件。      </p><p>
+        这个功能值在MySQL服务器初始化安装时提供，对后期的升级不生效。用户帐号也可以通过MySQL Workbench来添加。
       </p></li><li class="listitem"><p>
-        It creates the configuration file (<code class="filename">my.ini</code>)
-        that is used to configure the MySQL Server. The values written
-        to this file are influenced by choices you make during the
-        installation process.
-      </p></li><li class="listitem"><p>
-        It imports example databases.
-      </p></li><li class="listitem"><p>
-        It creates MySQL Server user accounts with configurable
-        permissions based on general roles, such as DB Administrator, DB
-        Designer, and Backup Admin. It optionally creates a Windows user
-        named <code class="literal">MysqlSys</code> with limited privileges, which
-        would then run the MySQL Server.
-      </p><p>
-        This feature is only available during the initial installation
-        of the MySQL Server, and not during future updates. User
-        accounts may also be added with MySQL Workbench.
-      </p></li><li class="listitem"><p>
-        If the "Advanced Configuration" option is checked, then the
-        <span class="guilabel">Logging Options</span> are also configured. This
-        includes defining file paths for the error log, general log,
-        slow query log (including the configuration of seconds it
-        requires to execute a query), and the binary log.
-</p></li></ol>
+        如果"Advanced Configuration"复选框被选中，则<span class="guilabel">Logging Options</span>也会被配置。它包括定义错误日志、general日志、慢查询日志(包括语句执行秒数的配置)和二进制日志等日志的路径的定义。</p></li></ol>
 </div>
 <p>
-    MySQL Installer can optionally check for updated components and download them
-    for you automatically.
-</p>
+    MySQL Installer可以有选择性的检查组件的升级包并自动下载这些升级包。</p>
 <div class="section">
 
 <div class="titlepage">
@@ -1321,29 +1117,20 @@ Note
 </div>
 </div>
 <p>
-      After installation of the GUI version, the installer will have add
-      its own Start Menu item under MySQL.
-</p>
+      在图形化版本的安装完成后，安装程序会把它自身添加到开始菜单中MySQL子菜单里：</p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-        Files that are generated by MySQL Installer grant full permissions to the
-        user that executes MySQL Installer, including <code class="filename">my.ini</code>.
-        This does not apply to files and directories for specific
-        products such as the MySQL Server data directory in
-        <code class="filename">ProgramData</code>, that is owned by
-        <code class="literal">SYSTEM</code>.
+        MySQL Installer创建的文件都被赋予运行MySQL Installer程序的用户的所有权限，但有些特定产品创建的文件和文件夹的权限却不是这样的，例如MySQL服务器的数据文件夹在<code class="filename">ProgramData</code>里，它的所有者是<code class="literal">SYSTEM</code>用户。
 </p>
 </div>
 <p>
-      After the installer itself has been installed and started, the
-      following screen is displayed:
-</p>
+      当这个安装程序运行启动后，将会弹出下面窗体：</p>
 <div class="figure">
-<a name="mysql-installer-welcome"></a><p class="title"><b>Figure 2.7. MySQL Installer - Welcome Screen</b></p>
+<a name="mysql-installer-welcome"></a><p class="title"><b>图 2.7. MySQL Installer - 欢迎窗口</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1354,24 +1141,18 @@ Note
 
 </div>
 <br class="figure-break"><p>
-      There are three main options:
-</p>
+      这里有3个选项：</p>
 <div class="orderedlist">
 <ol class="orderedlist" type="1"><li class="listitem"><p>
-          Install MySQL Products - The Installation Wizard.
+          Install MySQL Products - <span lang="zh-cn">安装向导。</span>
         </p></li><li class="listitem"><p>
-          About MySQL - Learn about MySQL products and features.
-        </p></li><li class="listitem"><p>
-          Resources - Information to help install and configure MySQL.
-</p></li></ol>
+          About MySQL - <span lang="zh-cn">学习MySQL产品及其相关特性。</span></p></li><li class="listitem"><p>
+          Resources - <span lang="zh-cn">安装和配置MySQL的帮助信息。</span></p></li></ol>
 </div>
 <p>
-      To <span class="guilabel">Install MySQL Products</span> after executing
-      MySQL Installer for the first time, you must accept the license agreement
-      before proceeding with the installation process.
-</p>
+      在第一次运行MySQL Installer后并选择了<span class="guilabel">Install MySQL Products</span>后，你必须在安装过程中接受许可证协议后才能让安装进行下去。</p>
 <div class="figure">
-<a name="mysql-installer-license-agreement"></a><p class="title"><b>Figure 2.8. MySQL Installer - License Agreement</b></p>
+<a name="mysql-installer-license-agreement"></a><p class="title"><b>图 2.8. MySQL Installer - 许可证协议</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1382,15 +1163,11 @@ Note
 
 </div>
 <br class="figure-break"><p>
-      If you are connected to the Internet, then the Installer will
-      search for the latest MySQL components and add them to the
-      installation bundle. Click <span class="guibutton">Connect to the
-      Internet</span> to complete this step, or otherwise check
-      the <code class="literal">Skip</code> checkbox and then
-      <span class="guibutton">Continue</span>.
+      如果机器处理联网状态，安装程序会从互联网上查找最新的MySQL组件并把它们加入安装包中。要么点击<span class="guibutton">Connect to the
+      Internet</span>按钮来完成这步操作，要么选中<code class="literal">Skip</code>复选框并点击<span class="guibutton">Continue</span>按钮进行下一步。
 </p>
 <div class="figure">
-<a name="mysql-installer-find-latest-products-win"></a><p class="title"><b>Figure 2.9. MySQL Installer - Find latest products</b></p>
+<a name="mysql-installer-find-latest-products-win"></a><p class="title"><b>图 2.9. MySQL Installer - 查找最新版的产品</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1401,10 +1178,7 @@ Note
 
 </div>
 <br class="figure-break"><p><a name="mysql-installer-choose-setup-type"></a>
-      If you chose "Connect to the Internet," the next page will show
-      the progress of MySQL Installer's search for available updates. When the
-      search is complete (or if you opted to skip the search), you will
-      be taken to the <span class="guilabel">Choose Setup Type</span> page:
+      如果选择"Connect to the Internet"，下一窗体将会显示MySQL Installer查找已有的升级的进度。当查找结束后(或者你选择取消这个查找)，将会出现<span class="guilabel">Choose Setup Type</span>窗体：
 </p>
 <div class="figure">
 <a name="mysql-installer-choose-setup-page-win"></a><p class="title"><b>Figure 2.10. MySQL Installer - Choosing a Setup Type</b></p>
