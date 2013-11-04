@@ -1181,7 +1181,7 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
       如果选择"Connect to the Internet"，下一窗体将会显示MySQL Installer查找已有的升级的进度。当查找结束后(或者你选择取消这个查找)，将会出现<span class="guilabel">Choose Setup Type</span>窗体：
 </p>
 <div class="figure">
-<a name="mysql-installer-choose-setup-page-win"></a><p class="title"><b>Figure 2.10. MySQL Installer - Choosing a Setup Type</b></p>
+<a name="mysql-installer-choose-setup-page-win"></a><p class="title"><b>图 2.10. MySQL Installer - 选择安装类型</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1192,20 +1192,11 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <br class="figure-break"><p>
-      Determine the option most compatible with your preferences by
-      reading the <span class="guilabel">Setup Type Description</span>
-      descriptions.
-    </p><p>
-      The Installation and Data paths are also defined here, and a
-      caution flag will notify you if the data path you define already
-      exists.
-    </p><p>
-      After you select a setup type, the MySQL Installer will check your system for
-      the necessary external requirements and download then install
-      missing components onto your system.
-</p>
+      通过阅读<span class="guilabel">Setup Type Description</span>的描述来决定何种设定最符合你的要求。    </p><p>
+      安装软件和数据路径也是在这里定义的，如果数据路径已经存在则会有警告标志来提醒你。     </p><p>
+      在选择了安装类型后，MySQL Installer将会检查系统的所需组件，并去下载和安装系统缺失组件。</p>
 <div class="figure">
-<a name="mysql-installer-check-requirements-win"></a><p class="title"><b>Figure 2.11. MySQL Installer - Check Requirements</b></p>
+<a name="mysql-installer-check-requirements-win"></a><p class="title"><b>图 2.11. MySQL Installer - 检测环境</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1216,11 +1207,9 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <br class="figure-break"><p>
-      The next window lists the MySQL products that are scheduled to be
-      installed:
-</p>
+      下个窗体罗列了将要安装的MySQL产品：</p>
 <div class="figure">
-<a name="mysql-installer-installation-progress-win"></a><p class="title"><b>Figure 2.12. MySQL Installer - Installation Progress</b></p>
+<a name="mysql-installer-installation-progress-win"></a><p class="title"><b>图 2.12. MySQL Installer - 安装进度</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1231,11 +1220,10 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <br class="figure-break"><p>
-      As components are installed, you'll see their status change from
-      "to be installed" to "install success."
+      当一个组件安装完毕后，你将会看到它的状态从"to be installed"变成"install success"。
 </p>
 <div class="figure">
-<a name="mysql-installer-installation-progress-status-win"></a><p class="title"><b>Figure 2.13. MySQL Installer - Installation Progress status</b></p>
+<a name="mysql-installer-installation-progress-status-win"></a><p class="title"><b>图 2.13. MySQL Installer - 安装进度状态Progress status</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1246,13 +1234,10 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <br class="figure-break"><p>
-      After all components are installed, the next step involves
-      configuring the products. The <code class="literal">Configuration
-      Overview</code> window displays the progress and then loads a
-      configuration window if it is required.
-</p>
+      当一个组件安装完成后，下个步骤就涉及到配置这个产品。 <code class="literal">Configuration
+      Overview</code>窗体会显示进度并根据需求来弹出配置窗口。</p>
 <div class="figure">
-<a name="mysql-installer-initial-configuration-overview"></a><p class="title"><b>Figure 2.14. MySQL Installer - Configuration Overview</b></p>
+<a name="mysql-installer-initial-configuration-overview"></a><p class="title"><b>图 2.14. MySQL Installer - 配置概览</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1263,22 +1248,11 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <br class="figure-break"><p>
-      The ideal MySQL Server configuration depends on your intended use,
-      as explained in the next window. Choose the description that most
-      closely applies to your machine.
-    </p><p>
-      You may enable TCP/IP Networking here as otherwise only localhost
-      connections are allowed.
-    </p><p>
-      Checking the "Advanced Configuration" option provides additional
-      <span class="guilabel">Logging Options</span> to configure. This includes
-      defining file paths for the error log, general log, slow query log
-      (including the configuration of seconds it requires to execute a
-      query), and the binary log.
-</p>
+      理想的MySQL服务器配置取决于你的预期用途，在下面窗体中根据上面的描述文字选择最适合你机器的那种用途。    </p><p>
+      你要允许TCP/IP网络，否则只能本机连接。</p><p>
+      选中"Advanced Configuration"复选框将会提供额外的<span class="guilabel">Logging Options</span>配置。这包括了错误日志、general日志，慢查询日志(包括语句执行秒数的定义)和二进制日志的路径定义。</p>
 <div class="figure">
-<a name="mysql-installer-mysql-server-configuration-choice"></a><p class="title"><b>Figure 2.15. MySQL Installer - MySQL Server Configuration: Define platform, networking, and
-logging options</b></p>
+<a name="mysql-installer-mysql-server-configuration-choice"></a><p class="title"><b>图 2.15. MySQL Installer - MySQL服务器配置：定义平台、网络和日志选项</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1289,14 +1263,10 @@ logging options</b></p>
 
 </div>
 <br class="figure-break"><p>
-      Next, choose your account information. Defining a root password is
-      required, whereas it's optional to create additional users. There
-      are several different predefined user roles that each have
-      different permission levels. For example, a "DB Admin" will have
-      more privileges than a "DB Designer.".
+      接下来是设定帐户信息。根据需求来决定是否设置root密码，而创建额外的用户账户则不是必须的步骤。这里预定义了一些不同权限级别的用户角色，例如"DB Admin"角色的权限就比"DB Designer"大。
 </p>
 <div class="figure">
-<a name="mysql-installer-configuration-setup-win"></a><p class="title"><b>Figure 2.16. MySQL Installer - MySQL Server Configuration: User accounts</b></p>
+<a name="mysql-installer-configuration-setup-win"></a><p class="title"><b>图 2.16. MySQL Installer - MySQL服务器配置：用户账户</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1310,21 +1280,15 @@ logging options</b></p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-        If the MySQL Server is already installed, then the
-        <code class="literal">Current Root Password</code> will also be needed.
-</p>
+        如果MySQL Server先前已经安装了，这里所需的就是<code class="literal">Current Root Password</code>。</p>
 </div>
 <p>
-      Next, configure the <span class="guilabel">Windows Service Details</span>.
-      This includes the service name, how the MySQL Server should be
-      loaded at startup, and how the Windows Service for MySQL Server
-      will be run.
-</p>
+      接下来是配置<span class="guilabel">Windows Service Details</span>，它包括设定服务名，设定MySQL服务器在系统启动时启动，设定MySQL服务器的Windows服务以哪个帐户运行。</p>
 <div class="figure">
-<a name="mysql-installer-installation-configuration-win-service-details"></a><p class="title"><b>Figure 2.17. MySQL Installer - MySQL Server Configuration: Windows service details</b></p>
+<a name="mysql-installer-installation-configuration-win-service-details"></a><p class="title"><b>图 2.17. MySQL Installer - MySQL服务器配置：Windows服务详细设置</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1338,32 +1302,17 @@ Note
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-        When configuring <span class="guilabel">Run Windows Services as
-        ...</span> using a <span class="guilabel">Custom User</span>, the
-        custom user must have privileges to log on to Windows as a
-        service. And the <span class="guibutton">Next</span> button will be
-        disabled until this user is given these user rights.
-      </p><p xmlns="">
-        On Microsoft Windows 7, this is configured by loading the
-        <code class="literal">Start Menu</code>, <code class="literal">Control Panel</code>,
-        <code class="literal">Administrative Tools</code>, <code class="literal">Local Security
-        Policy</code>, <code class="literal">Local Policies</code>,
-        <code class="literal">User Rights Assignment</code>, then <code class="literal">Log On
-        As A Service</code>. Choose <code class="literal">Add User or
-        Group</code> here to add the custom user, and then
-        <span class="guibutton">OK</span>, <span class="guibutton">OK</span> to save.
-</p>
+        在配置<span class="guilabel">Run Windows Services as
+        ...</span>时选择<span class="guilabel">Custom User</span>，则这个自定义用户必须有登录Windows作为服务运行的权限，这个<span class="guibutton">Next</span>按钮会一直不可用直到赋予用户权限。      </p><p xmlns="">
+        在Microsoft Windows 7平台上， 在运行<code class="literal">开始菜单、控制面板、管理工具、本地安全策略、本地策略、用户权限和作为服务运行</code>时都会被配置，选中<code class="literal">Add User or Group</code>窗体里添加的自定义用户，然后按下<span class="guibutton">OK</span>后保存。</p>
 </div>
 <p>
-      The final configuration step is available if the
-      <span class="guilabel">Advanced Configuration</span> option was checked,
-      and it includes configuration options related to log file names:
-</p>
+     如果<span class="guilabel">Advanced Configuration</span>复选框被选中，则最后一个配置窗体将会出现，它包含的配置选项都与日志名称相关：</p>
 <div class="figure">
-<a name="mysql-installer-installation-configuration-log-options"></a><p class="title"><b>Figure 2.18. MySQL Installer - MySQL Server Configuration: Logging options</b></p>
+<a name="mysql-installer-installation-configuration-log-options"></a><p class="title"><b>图 2.18. MySQL Installer - MySQL服务器配置：日志选项</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1374,13 +1323,9 @@ Note
 
 </div>
 <br class="figure-break"><p>
-      After the MySQL Installer configuration process is completed, you may save
-      the installation log, and then load MySQL Workbench if the
-      <span class="guilabel">Start MySQL Workbench after Setup</span> option is
-      checked:
-</p>
+      MySQL Installer配置过程完成后，你可以保存安装日志，如果选中了<span class="guilabel">Start MySQL Workbench after Setup</span>复选框则MySQL Workbench也会被启动：</p>
 <div class="figure">
-<a name="mysql-installer-installation-complete-win"></a><p class="title"><b>Figure 2.19. MySQL Installer - Installation Complete</b></p>
+<a name="mysql-installer-installation-complete-win"></a><p class="title"><b>图 2.19. MySQL Installer - 安装完成</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1391,13 +1336,9 @@ Note
 
 </div>
 <br class="figure-break"><p>
-      You can now open MySQL Installer from the Microsoft Windows Start menu under
-      the <code class="literal">MySQL</code> group, which will load the MySQL Installer
-      <code class="literal">Maintenance Screen</code>. This is used to add,
-      update, and remove features.
-</p>
+      现在可以从Windows开始菜单中的<code class="literal">MySQL</code>组来启动MySQL Installer，这时它会启动MySQL Installer的<code class="literal">Maintenance Screen</code>，它被用来添加、升级、卸载MySQL产品。</p>
 <div class="figure">
-<a name="mysql-installer-maintenance-win"></a><p class="title"><b>Figure 2.20. MySQL Installer - Maintenance Screen</b></p>
+<a name="mysql-installer-maintenance-win"></a><p class="title"><b>图 2.20. MySQL Installer - 维护窗体</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1411,21 +1352,15 @@ Note
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-        An <code class="literal">Update Screen</code> screen is shown if MySQL Installer is
-        used on a machine with older products installed, as opposed to
-        the <code class="literal">Maintenance Screen</code> shown above. However,
-        the functionality remains the same.
-</p>
+        在使用MySQL Installer安装的老版本MySQL产品中，<code class="literal">Update Screen</code>窗体的作用是与这里的<code class="literal">Maintenance Screen</code>窗体是一致的。</p>
 </div>
 <p>
-      <span class="guilabel">Add/Modify Products and Features</span> will list
-      all installed and available MySQL products.
-</p>
+      <span class="guilabel">Add/Modify Products and Features</span>将会罗列已经安装的MySQL产品和已经可供下载的MySQL产品。</p>
 <div class="figure">
-<a name="mysql-installer-maintenance-feature-selection-win"></a><p class="title"><b>Figure 2.21. MySQL Installer - Add/Modify Products and Features</b></p>
+<a name="mysql-installer-maintenance-feature-selection-win"></a><p class="title"><b>图 2.21. MySQL Installer - "添加/修改" 产品和特性 Products and Features</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1436,11 +1371,8 @@ Note
 
 </div>
 <br class="figure-break"><p>
-      The installation is now complete. MySQL Server should be running,
-      and most MySQL products installed and available for use.
-    </p><p>
-      See also the MySQL Workbench documentation
-      (<a class="ulink" href="http://dev.mysql.com/doc/workbench/en/" target="_top">http://dev.mysql.com/doc/workbench/en/</a>).
+      这个安装过程就完成了，MySQL服务器将会运行起来，大部分MySQL产品都已安装可供使用了。    </p><p>
+      MySQL Workbench的文档请参阅(<a class="ulink" href="http://dev.mysql.com/doc/workbench/en/" target="_top">http://dev.mysql.com/doc/workbench/en/</a>)。
 </p>
 </div>
 <div class="section">
