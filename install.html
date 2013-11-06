@@ -37,8 +37,9 @@
     if (diff > 90) {
       var nodes = document.getElementsByClassName('titlepage');
       nodes[0].innerHTML = '<p style="border: 5px #ff0000 solid; padding: 5px; margin 5px">' +
-        'This copy of the manual is more than 90 days old. We encourage you to download a ' +
-        'new version from <a href="http://dev.mysql.com">dev.mysql.com/doc</a>.</p>' + nodes[0].innerHTML;
+       // 'This copy of the manual is more than 90 days old. We encourage you to download a ' +
+       // 'new version from <a href="http://dev.mysql.com">dev.mysql.com/doc</a>.</p>' + nodes[0].innerHTML;
+	   '这份手册是90天前的版本的了,我们强烈建议你你去这里下载一个最新版本<a href="http://dev.mysql.com">dev.mysql.com/doc</a>.</p>' + nodes[0].innerHTML;
     }
   });
 </script>
@@ -1387,37 +1388,22 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <a class="indexterm" name="idp2694256"></a><a class="indexterm" name="idp2695328"></a><a class="indexterm" name="idp2696400"></a><a class="indexterm" name="idp2697888"></a><p>
-      <a class="link" href="installing.html#MySQLInstallerConsole" title="2.3.3.2. MySQL Installer Console"><span class="command"><strong>MySQLInstallerConsole</strong></span></a> provides functionality
-      similar to the GUI version of MySQL Installer, but from the command-line. It
-      is installed when MySQL Installer is initially executed, and then available
-      within the <code class="filename">MySQL Installer</code> directory.
-      Typically that is in <code class="filename">C:\Program Files (x86)\MySQL\MySQL
-      Installer\</code>, and the console must be executed with
-      administrative privileges.
-    </p><p>
-      To use, invoke the Command Prompt with administrative privileges
-      by choosing <span class="guimenu">Start</span>,
-      <span class="guimenu">Accessories</span>, then right-click on
-      <span class="guimenu">Command Prompt</span> and choose <code class="literal">Run as
-      administrator</code>. And from the command-line, optionally
-      change the directory to where
-      <a class="link" href="installing.html#MySQLInstallerConsole" title="2.3.3.2. MySQL Installer Console"><span class="command"><strong>MySQLInstallerConsole</strong></span></a> is located:
+      <a class="link" href="installing.html#MySQLInstallerConsole" title="2.3.3.2. MySQL Installer Console"><span class="command"><strong>MySQLInstallerConsole</strong></span></a>提供的功能和GUI版的  MySQL Installer功能类似，但它是用命令行来完成功能。MySQLInstallerConsole在MySQL Installer第一次运行时被安装在<code class="filename">MySQL Installer</code>目录里，通常会在<code class="filename">C:\Program Files (x86)\MySQL\MySQL Installer\</code>目录里，这个命令行工具必须以管理员权限运行。 </p><p>
+      想要让命令提示符获得管理员权限，首先选中<span class="guimenu">开始菜单</span>，
+      <span class="guimenu">附件</span>，邮件<span class="guimenu">命令提示符</span>并选择<code class="literal">以管理员身份运行</code>。然后在命令行中可以更改当前目录到<a class="link" href="installing.html#MySQLInstallerConsole" title="2.3.3.2. MySQL Installer Console"><span class="command"><strong>MySQLInstallerConsole</strong></span></a>目录里：
     </p><pre class="programlisting">C:\&gt; <strong class="userinput"><code>cd "C:\Program Files (x86)\MySQL\MySQL Installer"</code></strong>
 </pre><p>
-      <a class="link" href="installing.html#MySQLInstallerConsole" title="2.3.3.2. MySQL Installer Console"><span class="command"><strong>MySQLInstallerConsole</strong></span></a> supports the following
-      options, which are specified on the command line:
-</p>
+      <a class="link" href="installing.html#MySQLInstallerConsole" title="2.3.3.2. MySQL Installer Console"><span class="command"><strong>MySQLInstallerConsole</strong></span></a>支持以下选项，这些选项都在命令行中来指定：</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p><a name="MySQLInstallerConsole-help"></a>
           <a class="indexterm" name="idp2710016"></a>
 
           <a class="indexterm" name="idp2711504"></a>
 
-          <code class="literal">--help</code>, <code class="literal">-h</code>, or
+          <code class="literal">--help</code>，<code class="literal">-h</code>，或
           <code class="literal">-?</code>
         </p><p>
-          Displays a help message with usage examples, and then exits.
-        </p><pre class="programlisting">C:\&gt; <strong class="userinput"><code>MySQLInstallerConsole <em class="replaceable"><code>--help</code></em></code></strong>
+          显示带有示例的帮助信息，然后退出。</p><pre class="programlisting">C:\&gt; <strong class="userinput"><code>MySQLInstallerConsole <em class="replaceable"><code>--help</code></em></code></strong>
 </pre></li><li class="listitem"><p><a name="MySQLInstallerConsole-updates"></a>
           <a class="indexterm" name="idp2718224"></a>
 
@@ -1425,29 +1411,22 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
           <code class="literal">--updates</code> (or <code class="literal">-u</code>)
         </p><p>
-          Checks for new products before any further action is taken.
-          Disabled by default.
-        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-nowait"></a>
+          在做其它操作前线检查产品的新版本，默认是关闭的。        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-nowait"></a>
           <a class="indexterm" name="idp2724224"></a>
 
           <a class="indexterm" name="idp2725712"></a>
 
           <code class="literal">--nowait</code>
         </p><p>
-          Skips the final pause when the program finishes. Otherwise, a
-          "<code class="literal">Press Enter to continue.</code>" dialogue is
-          generated. It is used in conjunction with other options.
-        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-catalog"></a>
+          在程序执行完毕后没有停顿，继续下一步操作。        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-catalog"></a>
           <a class="indexterm" name="idp2730240"></a>
 
           <a class="indexterm" name="idp2731728"></a>
 
-          <code class="literal">--catalog</code>=<em class="replaceable"><code>catalog_name</code></em>
-          (or <code class="literal">-c</code>)
+          <code class="literal">--catalog</code>=<em class="replaceable"><code>catalog_name</code></em> 
+	(或<code class="literal">-c</code>)
         </p><p>
-          Sets the default catalog. Use <code class="literal">--list</code> to
-          view a list of available catalogs.
-        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-type"></a>
+          设置默认目录，使用<code class="literal">--list</code>可以罗列出所有可用目录。 </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-type"></a>
           <a class="indexterm" name="idp2737312"></a>
 
           <a class="indexterm" name="idp2738800"></a>
@@ -1455,10 +1434,8 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
           <code class="literal">--type</code>=<em class="replaceable"><code>installation_type</code></em>
           (or <code class="literal">-t</code>)
         </p><p>
-          Sets the installation type.
-        </p><p>
-          The possible values for <code class="literal">installation_type</code>
-          are: developer, server, client, full, and custom.
+          设置安装类型。        </p><p>
+          这个<code class="literal">installation_type</code>允许的值为： developer, server, client, full, and custom.
         </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-action"></a>
           <a class="indexterm" name="idp2745552"></a>
 
@@ -1466,30 +1443,20 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
           <code class="literal">--action</code>=<em class="replaceable"><code>action_name</code></em>
         </p><p>
-          The action being performed.
-        </p><p>
-          The possible values are: install, remove, upgrade, list, and
+          设置要进行的操作。        </p><p>
+          这个值限定为： install, remove, upgrade, list, and
           status.
 </p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: circle; "><li class="listitem"><a class="indexterm" name="idp2751216"></a><p>
-              <span class="bold"><strong>install</strong></span>: Installs a
-              product or products, as defined by
-              <code class="literal">--products</code>
+              <span class="bold"><strong>install</strong></span>：安装一个或多个产品，默认是 <code class="literal">--products</code>(多个产品)
             </p></li><li class="listitem"><a class="indexterm" name="idp2754944"></a><p>
-              <span class="bold"><strong>upgrade</strong></span>: Upgrades a
-              product or products, as defined by
-              <code class="literal">--products</code>.
+              <span class="bold"><strong>upgrade</strong></span>：升级一个或多个产品，默认是<code class="literal">--products</code>(多个产品)。
             </p></li><li class="listitem"><a class="indexterm" name="idp2758704"></a><p>
-              <span class="bold"><strong>remove</strong></span>: Removes a product
-              or products, as defined by <code class="literal">--products</code>.
+              <span class="bold"><strong>remove</strong></span>：卸载一个或多个产品， 默认是<code class="literal">--products</code>(多个产品)。
             </p></li><li class="listitem"><a class="indexterm" name="idp2762448"></a><p>
-              <span class="bold"><strong>list</strong></span>: Lists the product
-              manifest, both installed and available products.
-            </p></li><li class="listitem"><a class="indexterm" name="idp2765504"></a><p>
-              <span class="bold"><strong>status</strong></span>: Shows the status
-              after another action is performed.
-</p></li></ul>
+              <span class="bold"><strong>list</strong></span>：罗列产品清单，包括已安装的和可供安装的产品。</p></li><li class="listitem"><a class="indexterm" name="idp2765504"></a><p>
+              <span class="bold"><strong>status</strong></span>：查看其他操作的状态。</p></li></ul>
 </div>
 </li><li class="listitem"><p><a name="MySQLInstallerConsole-product"></a>
           <a class="indexterm" name="idp2769344"></a>
@@ -1499,11 +1466,7 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
           <code class="literal">--product</code>=<em class="replaceable"><code>product_name</code></em>[<em class="replaceable"><code>:feature1</code></em>],[<em class="replaceable"><code>feature2</code></em>],
           [...] (or <code class="literal">-p</code>)
         </p><p>
-          Set the feature list of a product. Use
-          <code class="literal">--list</code> to view available products, or pass
-          in <code class="literal">--product=*</code> (an asterisk) to install all
-          available products.
-        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-config"></a>
+          设置一个产品的特性列表，可以使用<code class="literal">--list</code>来查看可供安装的产品，可以使用<code class="literal">--product=*</code>来安装所有可供安装的产品。        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-config"></a>
           <a class="indexterm" name="idp2778016"></a>
 
           <a class="indexterm" name="idp2779504"></a>
@@ -1511,9 +1474,7 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
           <code class="literal">--config</code>=<em class="replaceable"><code>product_name</code></em>:passwd=<em class="replaceable"><code>root_password</code></em>[<em class="replaceable"><code>;parameter1=value</code></em>],[;<em class="replaceable"><code>parameter2=value</code></em>],
           ...
         </p><p>
-          The configuration parameters for the most recently listed
-          products.
-        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-user"></a>
+          这些配置参数对大多数罗列的产品都适用。        </p></li><li class="listitem"><p><a name="MySQLInstallerConsole-user"></a>
           <a class="indexterm" name="idp2785008"></a>
 
           <a class="indexterm" name="idp2786496"></a>
@@ -1522,11 +1483,8 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
           or
           <code class="literal">--user</code>=<em class="replaceable"><code>product_name</code></em>:name=<em class="replaceable"><code>username</code></em>,host:<em class="replaceable"><code>hostname</code></em>,role=<em class="replaceable"><code>rolename</code></em>,tokens=<em class="replaceable"><code>tokens</code></em>
         </p><p>
-          Creates a new user.
-        </p><p>
-          Requires: name, host, role, and the password or tokens. Tokens
-          are separated by pipe ("|") characters.
-</p></li></ul>
+          创建新用户。        </p><p>
+          需要：用户名、主机名、角色、密码和Token，Tokens用"|"来分隔。</p></li></ul>
 </div>
 
 </div>
@@ -1544,114 +1502,69 @@ shell&gt; <strong class="userinput"><code>ln -s <em class="replaceable"><code>fu
 
 </div>
 <div class="toc">
-<dl><dt><span class="section"><a href="installing.html#windows-notifier-installation">2.3.4.1. Remote monitoring set up and installation instructions</a></span></dt></dl>
+<dl><dt><span class="section"><a href="installing.html#windows-notifier-installation">2.3.4.1. 远程监控的设置和安装说明</a></span></dt></dl>
 </div>
 <a class="indexterm" name="idp2796672"></a><a class="indexterm" name="idp2797744"></a><p>
-    The MySQL Notifier for Microsoft Windows is a tool that enables you to monitor and adjust the
-    status of your local and remote MySQL Server instances through an
-    indicator that resides in the system tray. The MySQL Notifier for Microsoft Windows also
-    gives quick access to several MySQL GUI tools (such as MySQL Workbench)
-    through its context menu.
-  </p><p>
-    The MySQL Notifier for Microsoft Windows is installed by MySQL Installer, and (by default) will start-up
-    when Microsoft Windows is started.
-</p>
+    The MySQL Notifier for Microsoft Windows是用来启动监控和调整本地或远程MySQL服务器实例的工具，它启动后附在系统托盘上。 The MySQL Notifier for Microsoft Windows也可以使用右键菜单来快速启动MySQL GUI工具(例如MySQL Workbench)。  </p><p>
+    The MySQL Notifier for Microsoft Windows是由MySQL Installer安装的，它默认在Windows启动时启动。</p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      To install, download and execute the
-      <a class="ulink" href="http://dev.mysql.com/downloads/installer/" target="_top">MySQL Installer</a>, be sure
-      the MySQL Notifier for Microsoft Windows product is selected, then proceed with the
-      installation. See the <a class="link" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">MySQL Installer
-      manual</a> for additional details.
+      下载，安装和运行<a class="ulink" href="http://dev.mysql.com/downloads/installer/" target="_top">MySQL Installer</a>后，确保MySQL Notifier for Microsoft Windows这个产品被选中，然后继续进行安装过程，更多信息请参阅 <a class="link" href="installing.html#mysql-installer" title="2.3.3. Installing MySQL on Microsoft Windows Using MySQL Installer">MySQL Installer手册</a>
     </p><p xmlns="">
       For release notes detailing the changes in each release of
-      MySQL Notifier for Microsoft Windows, see the
-      <a class="ulink" href="http://dev.mysql.com/doc/relnotes/mysql-notifier/en/" target="_top">MySQL Notifier
-      Release Notes</a>.
+      MySQL Notifier for Microsoft Windows的各个发布版的变更信息，请查看<a class="ulink" href="http://dev.mysql.com/doc/relnotes/mysql-notifier/en/" target="_top">MySQL Notifier
+      Release Notes</a>。
     </p><p xmlns="">
-      Visit the <a class="ulink" href="http://forums.mysql.com/list.php?173" target="_top">MySQL
-      Notifier forum</a> for additional MySQL Notifier for Microsoft Windows help and
-      support.
-</p>
+      访问<a class="ulink" href="http://forums.mysql.com/list.php?173" target="_top">MySQL
+      Notifier forum</a>网站可以获取更多关于MySQL Notifier for Microsoft Windows的帮助和支持信息。</p>
 </div>
 <p>
-    Features include:
+    产品功能包括：
 </p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        Start, Stop, and Restart instances of the MySQL Server.
-      </p></li><li class="listitem"><p>
-        Automatically detects (and adds) new MySQL Server services.
-        These are listed under <span class="guimenu">Manage Monitored
-        Items</span>, and may also be configured.
-      </p></li><li class="listitem"><p>
-        The Tray icon changes, depending on the status. It's green if
-        all monitored MySQL Server instances are running, or red if at
-        least one service is stopped. The <span class="guilabel">Update MySQL
-        Notifier tray icon based on service status</span> option,
-        which dictates this behavior, is enabled by default for each
-        service.
-      </p></li><li class="listitem"><p>
-        Links to other applications like MySQL Workbench, MySQL Installer, and the
-        MySQL Utilities. For example, choosing <span class="guimenu">Configure
-        Instance</span> will load the MySQL Workbench Server
-        Administration window for that particular instance.
-      </p></li><li class="listitem"><p>
-        If MySQL Workbench is also installed, then the <span class="guimenu">Configure
-        Instance</span> and <span class="guimenu">SQL Editor</span> options are
-        available for local (but not remote) MySQL instances.
-      </p></li><li class="listitem"><p>
-        Monitoring of both local and remote MySQL instances.
-</p></li></ul>
+        启动，关闭和重启MySQL服务器实例。 </p></li><li class="listitem"><p>
+        自动侦测(添加)新的MySQL服务器服务。这些服务器罗列在<span class="guimenu">Manage Monitored Items</span>菜单下，它们都是可配置。      </p></li><li class="listitem"><p>
+        系统托盘图标会根据服务器状态而变化，如果所有被监控的MySQL服务器实例都在运行则图标是绿色的，如果其中一个实例停止了则图标是红色的。 <span class="guilabel">Update MySQL
+        Notifier tray icon based on service status</span>选项是用来规定图标的行为，默认是对所有实例生效的。</p></li><li class="listitem"><p>
+        与MySQL Workbench，MySQL Installer和MySQL Utilities等及其他应用相集成，例如，选中<span class="guimenu">Configure
+        Instance</span>将会弹出MySQL Workbench的对指定实例的服务器管理窗体。      </p></li><li class="listitem"><p>
+        如果安装了MySQL Workbench，<span class="guimenu">Configure
+        Instance</span>和<span class="guimenu">SQL Editor</span>选项将对本地实例生效(远程实例不起作用)。      </p></li><li class="listitem"><p>
+        监控本地和远程的MySQL实例。</p></li></ul>
 </div>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      Remote monitoring is available since MySQL Notifier for Microsoft Windows 1.1.0.
+      远程实例的监控从MySQL Notifier for Microsoft Windows 1.1.0版就开始提供了。
 </p>
 </div>
 <p>
-    The MySQL Notifier for Microsoft Windows resides in the system tray and provides visual
-    status information for your MySQL Server instances. A green icon is
-    displayed at the top left corner of the tray icon if the current
-    MySQL Server is running, or a red icon if the service is stopped.
-  </p><p>
-    The MySQL Notifier for Microsoft Windows automatically adds discovered MySQL Services on the
-    local machine, and each service is saved and configurable. By
-    default, the <span class="guilabel">Automatically add new services whose name
-    contains</span> option is enabled and set to
-    <code class="literal">mysql</code>. Related <span class="guilabel">Notifications
-    Options</span> include being notified when new services are
-    either discovered or experience status changes, and are also enabled
-    by default. And uninstalling a service will also remove the service
-    from the MySQL Notifier for Microsoft Windows.
+    MySQL Notifier for Microsoft Windows显示在系统托盘中并提供了MySQL服务器实例的视觉状态。如果当前MySQL服务器在运行中则系统托盘的左上角会显示一个绿色图标，或者服务停止了则显示红色图标。  </p><p>
+    MySQL Notifier for Microsoft Windows会自动添加已发现的本机MySQL服务，而且每个服务都被保存和可配置的。<span class="guilabel">Automatically add new services whose name
+    contains</span>选项默认是开启并设置为<code class="literal">mysql</code>。<span class="guilabel">Notifications
+    Options</span>选项内容包括当一个新服务被发现或发生状态变化时进行通知。当一个服务被卸载，MySQL Notifier for Microsoft Windows中的相关服务也会被移除。
 </p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      The <span class="guilabel">Automatically add new services whose name
-      contains</span> option default changed from ".*mysqld.*" to
-      "mysql" in Notifier 1.1.0.
-</p>
+      <span class="guilabel">Automatically add new services whose name
+      contains</span>选项在Notifier 1.1.0中默认值从".*mysqld.*"变为"mysql"</p>
 </div>
 <p>
-    Clicking the system tray icon will reveal several options, as seen
-    in the screenshots below:
-  </p><p>
-    The Service Instance menu is the main MySQL Notifier for Microsoft Windows window, and
-    enables you to Stop, Start, and Restart the MySQL Server.
-</p>
+    点击系统托盘图标将会弹出如图所示的菜单：  </p><p>
+    服务实例菜单是MySQL Notifier for Microsoft Windows的主窗体，它可以用来启动，关闭和重启MySQL服务器。</p>
 <div class="figure">
-<a name="windows-notifier-server-instance"></a><p class="title"><b>Figure 2.22. MySQL Notifier for Microsoft Windows Service Instance menu</b></p>
+<a name="windows-notifier-server-instance"></a><p class="title"><b>图 2.22. MySQL Notifier for Microsoft Windows的服务实例菜单 Service Instance menu</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1662,34 +1575,26 @@ Note
 
 </div>
 <br class="figure-break"><p>
-    The <span class="guimenu">Actions</span> menu includes several links to
-    external applications (if they are installed), and a a
-    <span class="guilabel">Refresh Status</span> option to manually refresh the
-    status of all monitored services (in both local and remote
-    computers) and MySQL instances.
-</p>
+    <span class="guimenu">Actions</span>菜单包含了一些外部应用的快捷方式(如果它们已经安装了)，还有个<span class="guilabel">Refresh Status</span>选项来手动刷新所有被监控服务(包括本地和远程机器)和MySQL实例的状态。</p>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      The main menu will not show the <span class="guimenu">Actions</span> menu
-      when there are no services being monitored by MySQL Notifier for Microsoft Windows.
-</p>
+      如果MySQL Notifier for Microsoft Windows没有监控的服务，则主菜单上不会显示<span class="guimenu">Actions</span>菜单。</p>
 </div>
 <div xmlns="http://www.w3.org/1999/xhtml" class="note" style="margin-left: 0.5in; margin-right: 0.5in;">
 <div class="admon-title">
-Note
+注意
 </div>
 <p xmlns="">
-      The <span class="guilabel">Refresh Status</span> feature is available since
-      MySQL Notifier for Microsoft Windows 1.1.0.
+      <span class="guilabel">Refresh Status</span>功能从MySQL Notifier for Microsoft Windows 1.1.0版开始提供。
 </p>
 </div>
 
 <div class="figure">
-<a name="windows-notifier-actions"></a><p class="title"><b>Figure 2.23. MySQL Notifier for Microsoft Windows Actions menu</b></p>
+<a name="windows-notifier-actions"></a><p class="title"><b>图 2.23. MySQL Notifier for Microsoft Windows的Actions菜单</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1700,45 +1605,25 @@ Note
 
 </div>
 <br class="figure-break"><p>
-    The <span class="guimenu">Actions</span>, <span class="guimenu">Options</span> menu
-    configures MySQL Notifier for Microsoft Windows and includes options to:
-</p>
+    <span class="guimenu">Actions</span>菜单的<span class="guimenu">Options</span>菜单项用于配置MySQL Notifier for Microsoft Windows，它包含以下配置选项：</p>
 <div class="itemizedlist">
 <ul class="itemizedlist" style="list-style-type: disc; "><li class="listitem"><p>
-        <span class="guilabel">Use colorful status icons</span>: Enables a
-        colorful style of icons for the tray of the MySQL Notifier for Microsoft Windows.
+        <span class="guilabel">Use colorful status icons</span>：在MySQL Notifier for Microsoft Windows的托盘中使用彩色图标。
       </p></li><li class="listitem"><p>
-        <span class="guilabel">Run at Windows Startup</span>: Allows the
-        application to be loaded when Microsoft Windows starts.
-      </p></li><li class="listitem"><p>
+        <span class="guilabel">Run at Windows Startup</span>：允许该应用程序跟随Windows启动：      </p></li><li class="listitem"><p>
         <span class="guilabel">Automatically Check For Updates Every</span> #
-        Weeks: Checks for a new version of MySQL Notifier for Microsoft Windows, and runs this
-        check every # weeks.
-      </p></li><li class="listitem"><p>
-        <span class="guilabel">Automatically add new services whose name
-        contains</span>: The text used to filter services and add
-        them automatically to the monitored list of the local computer
-        running MySQL Notifier, and on remote computers already
-        monitoring Windows services. monitored services, and also
-        filters the list of the Microsoft Windows services for the
-        <span class="guilabel">Add New Service</span> dialog.
+        Weeks：自动检测MySQL Notifier for Microsoft Windows的新版本，每#周运行一次。 </p></li><li class="listitem"><p>
+        <span class="guilabel">Automatically add new services whose name contains</span>：这个文本被用来过滤所有可以添加到MySQL Notifier的监控列表中的本机服务和远程机器中已被监控的Windows服务。已被监控的服务还可以过滤Windows服务的<span class="guilabel">Add New Service</span>对话框来。
       </p><p>
-        Prior to version 1.1.0, this option was named "Automatically add
-        new services that match this pattern."
+        在1.1.0版之前，这个选项名为"Automatically add new services that match this pattern."
       </p></li><li class="listitem"><p>
         <span class="guilabel">Notify me when a service is automatically
-        added</span>: Will display a balloon notification from the
-        taskbar when a newly discovered service is added to the
-        monitored services list.
-      </p></li><li class="listitem"><p>
-        <span class="guilabel">Notify me when a service changes status</span>:
-        Will display a balloon notification from the taskbar when a
-        monitored service changes its status.
-</p></li></ul>
+        added</span>：当侦测到的新服务添加到监控服务列表时在任务栏弹出气泡通知。 </p></li><li class="listitem"><p>
+        <span class="guilabel">Notify me when a service changes status</span>：当监控的服务状态发生变化时在任务栏弹出气泡通知。</p></li></ul>
 </div>
 
 <div class="figure">
-<a name="windows-notifier-options"></a><p class="title"><b>Figure 2.24. MySQL Notifier for Microsoft Windows Options menu</b></p>
+<a name="windows-notifier-options"></a><p class="title"><b>图 2.24. MySQL Notifier for Microsoft Windows的选项菜单</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1749,13 +1634,10 @@ Note
 
 </div>
 <br class="figure-break"><p>
-    The <span class="guimenu">Actions</span>, <span class="guimenu">Manage Monitored
-    Items</span> menu enables you to configure the monitored services
-    and MySQL instances. First, with the <span class="guilabel">Services</span>
-    tab open:
+    <span class="guimenu">Actions</span>菜单的<span class="guimenu">Manage Monitored Items</span>子菜单可以让你哦诶只被监控的服务和MySQL实例。首先打开<span class="guilabel">Services</span>页：
 </p>
 <div class="figure">
-<a name="windows-notifier-manage-services"></a><p class="title"><b>Figure 2.25. MySQL Notifier for Microsoft Windows Manage Services menu</b></p>
+<a name="windows-notifier-manage-services"></a><p class="title"><b>图 2.25. MySQL Notifier for Microsoft Windows的服务管理菜单</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1766,10 +1648,9 @@ Note
 
 </div>
 <br class="figure-break"><p>
-    The <span class="guilabel">Instances</span> tab is similar:
-</p>
+    <span class="guilabel">Instances</span>页也和这个类似：</p>
 <div class="figure">
-<a name="windows-notifier-manage-instances"></a><p class="title"><b>Figure 2.26. MySQL Notifier for Microsoft Windows Manage Instances menu</b></p>
+<a name="windows-notifier-manage-instances"></a><p class="title"><b>图 2.26. MySQL Notifier for Microsoft Windows的实例管理菜单</b></p>
 <div class="figure-contents">
 
 <div class="mediaobject">
@@ -1780,14 +1661,7 @@ Note
 
 </div>
 <br class="figure-break"><p>
-    Adding a service or instance (after clicking
-    <span class="guibutton">Add</span> in the <span class="guimenu">Manage Monitored
-    Items</span> window) enables you to select a running Microsoft
-    Windows service or instance connection, and configure MySQL Notifier for Microsoft Windows to
-    monitor it. Add a new service or instance by clicking service name
-    from the list, then <span class="guibutton">OK</span> to accept. Multiple
-    services and instances may be selected.
-</p>
+    添加一个服务或者实例(在<span class="guimenu">Manage Monitored Items</span>窗体上点击<span class="guibutton">Add</span>按钮后)窗体允许你选择一个运行中的Windows服务或实例连接并配置MySQL Notifier for Microsoft Windows来监控它。 添加一个服务或者实例需要从列表中选择服务名并点击<span class="guibutton">OK</span>来保存(可以同时选择多个服务或实例)。</p>
 <div class="figure">
 <a name="windows-notifier-add-services"></a><p class="title"><b>Figure 2.27. MySQL Notifier for Microsoft Windows Adding new services</b></p>
 <div class="figure-contents">
